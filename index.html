@@ -605,77 +605,95 @@
     .color-pot:hover { transform: scale(1.12); }
     .color-pot:active { cursor: grabbing; transform: scale(1.22); }
 
-    /* LEVEL 3: COLOR MIXER STYLES */
-    .mix-disco-badge {
-      font-size: 0.68rem;
-      font-weight: 800;
-      padding: 3px 7px;
-      border-radius: 9999px;
-      background: #f1f5f9;
-      color: #64748b;
-      border: 1.5px solid #cbd5e1;
-      display: inline-flex;
+    /* LEVEL 3: COLOR MIXING PLAYGROUND (WHITE SPACE & BAMMM SPLASH) */
+    .color-playground-canvas {
+      flex: 1;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 28px;
+      border: 3px solid #f1f5f9;
+      box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 2px;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .mix-disco-badge.discovered {
-      background: #fdf4ff;
-      color: #86198f;
-      border-color: #d946ef;
-      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.25);
-      transform: scale(1.06);
+      justify-content: space-between;
+      padding: 16px 10px;
+      margin: 8px 0 4px;
+      touch-action: none;
     }
 
-    .mix-slot {
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
-      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .mix-slot:hover {
-      transform: scale(1.05);
-      border-color: #a855f7;
-    }
-    .mix-slot.filled {
-      border-style: solid;
-    }
-
-    .mix-cauldron {
-      user-select: none;
-      -webkit-user-select: none;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .mix-cauldron:hover {
-      transform: scale(1.06);
-    }
-    .mix-cauldron.bubbling {
-      animation: cauldronSwirl 0.6s ease-in-out;
-    }
-    @keyframes cauldronSwirl {
-      0% { transform: scale(1) rotate(0deg); }
-      25% { transform: scale(1.1) rotate(-6deg); }
-      50% { transform: scale(1.15) rotate(6deg); }
-      75% { transform: scale(1.08) rotate(-3deg); }
-      100% { transform: scale(1) rotate(0deg); }
-    }
-
-    .mixer-pot {
+    .canvas-paint-blob {
       cursor: grab;
       touch-action: none;
       user-select: none;
       -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      flex: 1 1 50px;
-      max-width: 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 10;
     }
-    .mixer-pot:hover { transform: scale(1.12); }
-    .mixer-pot:active { cursor: grabbing; transform: scale(1.22); }
+    .canvas-paint-blob:hover {
+      transform: scale(1.1);
+    }
+    .canvas-paint-blob.dragging {
+      cursor: grabbing;
+      transform: scale(1.28) !important;
+      z-index: 99 !important;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.25)) !important;
+    }
+    .canvas-paint-blob.pulse-target {
+      animation: blobTargetPulse 0.4s infinite alternate ease-in-out;
+      transform: scale(1.22);
+    }
+    @keyframes blobTargetPulse {
+      0% { transform: scale(1.12); }
+      100% { transform: scale(1.28); filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.7)); }
+    }
+    .canvas-paint-blob.selected-tap {
+      animation: blobSelected 0.7s infinite alternate ease-in-out;
+      filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.75));
+    }
+    @keyframes blobSelected {
+      0% { transform: scale(1.1) translateY(0); }
+      100% { transform: scale(1.2) translateY(-6px); }
+    }
+
+    /* BAMMM! COLOR SPLASH OVERLAY */
+    .color-splash-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.2);
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 120;
+    }
+    .color-splash-overlay.active {
+      opacity: 1;
+      transform: scale(1);
+      animation: splashBoom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    .color-splash-overlay.fade-out {
+      opacity: 0;
+      transform: scale(1.2);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    @keyframes splashBoom {
+      0% { transform: scale(0.2) rotate(-15deg); opacity: 0; }
+      50% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+      75% { transform: scale(0.96) rotate(-2deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
 
     /* FANCY X & YES CELEBRATION FEEDBACK */
     .fancy-feedback-overlay {
@@ -950,18 +968,16 @@
             <button class="widget-play-btn" style="padding:10px 18px; font-size:0.85rem;">Play ➔</button>
           </div>
 
-          <!-- Level 3 Widget Card -->
+          <!-- Level 3 Widget Card (Practice & Exploration Lab) -->
           <div class="color-level-widget" onclick="switchGame('color-mixer')">
             <div class="level-left-content">
               <div class="level-avatar-box" style="background:#f3e8ff; border:2px solid #d8b4fe;">🧪</div>
               <div class="level-details">
-                <span class="level-pill-badge" style="background:#e9d5ff; color:#6b21a8;">LEVEL 3</span>
-                <h4>Color Mixing Magic</h4>
-                <p>Mix colors to make secondary & tertiary magic!</p>
-                <div class="level-stars" id="stars-color-mixer">
-                  <span class="star-slot star-grey">★</span>
-                  <span class="star-slot star-grey">★</span>
-                  <span class="star-slot star-grey">★</span>
+                <span class="level-pill-badge" style="background:#e0e7ff; color:#3730a3;">PRACTICE LAB</span>
+                <h4>Color Mixing Lab</h4>
+                <p>Drag any color into another to mix magic!</p>
+                <div style="font-size:0.8rem; font-weight:800; color:#7e22ce; margin-top:3px;">
+                  ✨ Free Practice • No Stars
                 </div>
               </div>
             </div>
@@ -1219,15 +1235,15 @@
         </div>
       </section>
 
-      <!-- GAME 1C: COLOR MIXING MAGIC (COLORS LEVEL 3) -->
+      <!-- GAME 1C: COLOR MIXING MAGIC (COLORS LEVEL 3 - PRACTICE LAB) -->
       <section id="view-color-mixer" class="game-view">
-        <!-- Top Game Header -->
+        <!-- Top Game Header (No Pill Bar) -->
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:10px;">
             <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
             <div>
-              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Color Mixing Magic 🧪</h3>
-              <p style="font-size:0.85rem; color:#92400e;">Level 3 • Mix colors to make new magic!</p>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Color Mixing Lab 🧪</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Free Practice • Drag colors into each other!</p>
             </div>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
@@ -1236,159 +1252,115 @@
           </div>
         </div>
 
-        <!-- Level Switcher -->
-        <div class="level-pill-bar">
-          <button onclick="switchGame('color-levels')" class="level-pill" style="border:1.5px dashed #f59e0b; background:#fffbeb;">☰ All Levels</button>
-          <button onclick="switchGame('milo')" class="level-pill">🌸 Level 1: Flowers</button>
-          <button onclick="switchGame('color-fruits')" class="level-pill">🍎 Level 2: Fruits & Veggies</button>
-          <button class="level-pill active">🧪 Level 3: Color Mixing</button>
-        </div>
-
-        <!-- Discovery Badge Tracker -->
-        <div style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 4px; margin-top:2px;">
-          <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; max-width:78%;">
-            <span id="badge-orange" class="mix-disco-badge" title="Orange (Red + Yellow)">🍊 Orange</span>
-            <span id="badge-green" class="mix-disco-badge" title="Green (Yellow + Blue)">🍏 Green</span>
-            <span id="badge-purple" class="mix-disco-badge" title="Purple (Blue + Red)">🍇 Purple</span>
-            <span id="badge-vermilion" class="mix-disco-badge" title="Red-Orange (Red + Orange)">🟠 Vermilion</span>
-            <span id="badge-amber" class="mix-disco-badge" title="Yellow-Orange (Yellow + Orange)">🟡 Amber</span>
-            <span id="badge-chartreuse" class="mix-disco-badge" title="Yellow-Green (Yellow + Green)">🌱 Chartreuse</span>
-            <span id="badge-teal" class="mix-disco-badge" title="Blue-Green (Blue + Green)">🦚 Teal</span>
-            <span id="badge-violet" class="mix-disco-badge" title="Blue-Purple (Blue + Purple)">🔮 Violet</span>
-            <span id="badge-magenta" class="mix-disco-badge" title="Red-Purple (Red + Purple)">🌸 Magenta</span>
-          </div>
-          <div style="background:#fef3c7; border:1.5px solid #fde68a; padding:4px 10px; border-radius:9999px; font-size:0.75rem; font-weight:900; color:#92400e; white-space:nowrap;">
-            <span id="mixer-progress-count">0</span>/9 Discovered
-          </div>
-        </div>
-
-        <!-- The Magic Mixing Cauldron Stage -->
-        <div id="mixer-stage" style="flex:1; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:space-between; background:linear-gradient(180deg, #fdf4ff 0%, #fae8ff 100%); border-radius:28px; border:3px dashed #d8b4fe; margin:6px 0; padding:10px; position:relative; overflow:hidden;">
-
-          <!-- Prompt Banner -->
-          <div style="background:rgba(255,255,255,0.95); padding:5px 16px; border-radius:9999px; border:2px solid #f0abfc; box-shadow:0 2px 8px rgba(192,38,211,0.08); z-index:10;">
-            <span id="mixer-prompt-text" style="font-size:0.9rem; font-weight:900; color:#86198f;">Tap or drag 2 colors below to mix! ✨</span>
+        <!-- Blank White Playground Canvas with Paint Blobs & Splash -->
+        <div id="color-playground" class="color-playground-canvas">
+          
+          <!-- Top Friendly Hint -->
+          <div style="background:#f8fafc; border:1.5px solid #e2e8f0; padding:6px 18px; border-radius:9999px; font-size:0.88rem; font-weight:800; color:#475569; box-shadow:0 2px 6px rgba(0,0,0,0.04); z-index:10;">
+            👉 Drag any color onto another color to mix!
           </div>
 
-          <!-- Color Mixing Slots: [Slot 1] + [Slot 2] = [Result] -->
-          <div style="display:flex; align-items:center; justify-content:center; gap:8px; width:100%; margin:4px 0;">
-            
-            <!-- Slot 1 -->
-            <div id="mix-slot-1" onclick="clearMixerSlot(1)" class="mix-slot" style="width:74px; height:74px; border-radius:20px; border:3px dashed #c084fc; background:#ffffff; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 4px 10px rgba(192,38,211,0.08); transition:all 0.3s ease;">
-              <span class="slot-placeholder" style="font-size:0.75rem; font-weight:800; color:#a855f7;">Color 1</span>
-              <span class="slot-bubble" style="display:none; width:40px; height:40px; border-radius:50%; box-shadow:0 3px 8px rgba(0,0,0,0.18);"></span>
-              <span class="slot-label" style="font-size:0.75rem; font-weight:800; margin-top:2px; display:none;"></span>
-            </div>
-
-            <!-- Plus Sign -->
-            <div style="font-size:1.6rem; font-weight:900; color:#a855f7; line-height:1;">+</div>
-
-            <!-- Slot 2 -->
-            <div id="mix-slot-2" onclick="clearMixerSlot(2)" class="mix-slot" style="width:74px; height:74px; border-radius:20px; border:3px dashed #c084fc; background:#ffffff; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 4px 10px rgba(192,38,211,0.08); transition:all 0.3s ease;">
-              <span class="slot-placeholder" style="font-size:0.75rem; font-weight:800; color:#a855f7;">Color 2</span>
-              <span class="slot-bubble" style="display:none; width:40px; height:40px; border-radius:50%; box-shadow:0 3px 8px rgba(0,0,0,0.18);"></span>
-              <span class="slot-label" style="font-size:0.75rem; font-weight:800; margin-top:2px; display:none;"></span>
-            </div>
-
-            <!-- Equals Sign -->
-            <div style="font-size:1.6rem; font-weight:900; color:#a855f7; line-height:1;">=</div>
-
-            <!-- Magic Resulting Cauldron / Bowl -->
-            <div id="mix-cauldron" class="mix-cauldron" style="width:92px; height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; cursor:pointer;" onclick="playMixSound()">
-              <svg viewBox="0 0 100 90" style="width:88px; height:78px; filter:drop-shadow(0 6px 14px rgba(192,38,211,0.2));">
-                <!-- Cauldron Outer Rim & Handles -->
-                <ellipse cx="50" cy="24" rx="36" ry="10" fill="#475569" stroke="#1e293b" stroke-width="2.5"/>
-                <!-- Cauldron Body -->
-                <path d="M16 26 C12 58 26 82 50 82 C74 82 88 58 84 26 Z" fill="#334155" stroke="#1e293b" stroke-width="3"/>
-                <!-- Cauldron Legs -->
-                <circle cx="28" cy="81" r="5" fill="#1e293b"/><circle cx="72" cy="81" r="5" fill="#1e293b"/>
-                <!-- Cauldron Liquid (Dynamic Color Fill) -->
-                <ellipse id="cauldron-liquid-top" cx="50" cy="24" rx="32" ry="8" fill="#e2e8f0" style="transition:fill 0.5s ease;"/>
-                <path id="cauldron-liquid-body" d="M20 28 C22 52 32 74 50 74 C68 74 78 52 80 28 Z" fill="#e2e8f0" opacity="0.9" style="transition:fill 0.5s ease;"/>
-                <!-- Cute Face on Cauldron -->
-                <circle cx="43" cy="50" r="3" fill="#ffffff"/><circle cx="57" cy="50" r="3" fill="#ffffff"/>
-                <path d="M44 58 Q50 64 56 58" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                <!-- Sparkles -->
-                <text id="cauldron-sparkle" x="50" y="18" font-size="16" text-anchor="middle" style="display:none;">✨</text>
+          <!-- BAMMM! Splash Overlay -->
+          <div id="color-splash-overlay" class="color-splash-overlay">
+            <div style="position:relative; width:280px; height:280px; display:flex; align-items:center; justify-content:center;">
+              <svg id="splash-svg" viewBox="0 0 200 200" style="width:100%; height:100%; filter:drop-shadow(0 12px 28px rgba(0,0,0,0.22));">
+                <path id="splash-svg-path" d="M100 20 C125 15 140 40 160 35 C175 45 165 70 185 85 C190 105 170 125 180 145 C165 160 145 155 130 175 C105 185 95 165 70 180 C50 170 60 145 40 135 C20 120 35 95 20 75 C35 55 55 65 70 40 C85 25 85 20 100 20 Z" fill="#f97316"/>
+                <circle id="splash-drop-1" cx="178" cy="28" r="7" fill="#f97316"/>
+                <circle id="splash-drop-2" cx="190" cy="115" r="5" fill="#f97316"/>
+                <circle id="splash-drop-3" cx="145" cy="188" r="8" fill="#f97316"/>
+                <circle id="splash-drop-4" cx="28" cy="155" r="6" fill="#f97316"/>
+                <circle id="splash-drop-5" cx="16" cy="62" r="7" fill="#f97316"/>
+                <circle id="splash-drop-6" cx="85" cy="12" r="5" fill="#f97316"/>
               </svg>
+              <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; z-index:10;">
+                <span style="font-size:0.95rem; font-weight:900; color:#ffffff; text-shadow:0 2px 4px rgba(0,0,0,0.35); letter-spacing:1px;">💥 BAMMM! 💥</span>
+                <h2 id="splash-color-name" style="font-size:1.9rem; font-weight:900; color:#ffffff; text-shadow:0 3px 8px rgba(0,0,0,0.4); margin:2px 0; line-height:1.1;">ORANGE! 🍊</h2>
+                <div id="splash-formula" style="font-size:0.92rem; font-weight:800; color:#ffffff; text-shadow:0 2px 5px rgba(0,0,0,0.4); background:rgba(0,0,0,0.22); padding:3px 12px; border-radius:9999px; margin-top:4px;">
+                  Red + Yellow = Orange
+                </div>
+                <span id="splash-category" style="font-size:0.75rem; font-weight:800; color:rgba(255,255,255,0.95); text-shadow:0 1px 3px rgba(0,0,0,0.3); margin-top:4px;">
+                  Secondary Color
+                </span>
+              </div>
             </div>
-
           </div>
 
-          <!-- Result Display Banner -->
-          <div id="mix-result-banner" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:48px; width:100%; text-align:center;">
-            <div id="mix-result-name" style="font-size:1.25rem; font-weight:900; color:#581c87; line-height:1.2;">
-              Select 2 colors! 🎨
+          <!-- The 6 Colors spread in the white space -->
+          <div id="canvas-blobs-container" style="width:100%; flex:1; display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(2, 1fr); align-items:center; justify-items:center; gap:16px; padding:10px 4px;">
+            <!-- Red -->
+            <div id="blob-red" data-color="red" class="canvas-paint-blob">
+              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(239,68,68,0.3));">
+                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#ef4444"/>
+                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
+                <circle cx="35" cy="54" r="3" fill="#7f1d1d"/><circle cx="45" cy="54" r="3" fill="#7f1d1d"/>
+                <path d="M37 60 Q40 64 43 60" stroke="#7f1d1d" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              </svg>
+              <span style="font-size:0.9rem; font-weight:900; color:#b91c1c; margin-top:2px;">Red</span>
             </div>
-            <div id="mix-result-formula" style="font-size:0.82rem; font-weight:800; color:#7e22ce; margin-top:2px;">
-              Watch them mix like magic
+
+            <!-- Yellow -->
+            <div id="blob-yellow" data-color="yellow" class="canvas-paint-blob">
+              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(234,179,8,0.3));">
+                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#facc15"/>
+                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.65)" transform="rotate(-30 32 36)"/>
+                <circle cx="35" cy="54" r="3" fill="#713f12"/><circle cx="45" cy="54" r="3" fill="#713f12"/>
+                <path d="M37 60 Q40 64 43 60" stroke="#713f12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              </svg>
+              <span style="font-size:0.9rem; font-weight:900; color:#a16207; margin-top:2px;">Yellow</span>
+            </div>
+
+            <!-- Blue -->
+            <div id="blob-blue" data-color="blue" class="canvas-paint-blob">
+              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(59,130,246,0.3));">
+                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#3b82f6"/>
+                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
+                <circle cx="35" cy="54" r="3" fill="#1e3a8a"/><circle cx="45" cy="54" r="3" fill="#1e3a8a"/>
+                <path d="M37 60 Q40 64 43 60" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              </svg>
+              <span style="font-size:0.9rem; font-weight:900; color:#1d4ed8; margin-top:2px;">Blue</span>
+            </div>
+
+            <!-- Orange -->
+            <div id="blob-orange" data-color="orange" class="canvas-paint-blob">
+              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(249,115,22,0.3));">
+                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#f97316"/>
+                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
+                <circle cx="35" cy="54" r="3" fill="#7c2d12"/><circle cx="45" cy="54" r="3" fill="#7c2d12"/>
+                <path d="M37 60 Q40 64 43 60" stroke="#7c2d12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              </svg>
+              <span style="font-size:0.9rem; font-weight:900; color:#c2410c; margin-top:2px;">Orange</span>
+            </div>
+
+            <!-- Green -->
+            <div id="blob-green" data-color="green" class="canvas-paint-blob">
+              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(34,197,94,0.3));">
+                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#22c55e"/>
+                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
+                <circle cx="35" cy="54" r="3" fill="#14532d"/><circle cx="45" cy="54" r="3" fill="#14532d"/>
+                <path d="M37 60 Q40 64 43 60" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              </svg>
+              <span style="font-size:0.9rem; font-weight:900; color:#15803d; margin-top:2px;">Green</span>
+            </div>
+
+            <!-- Purple -->
+            <div id="blob-purple" data-color="purple" class="canvas-paint-blob">
+              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(168,85,247,0.3));">
+                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#a855f7"/>
+                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
+                <circle cx="35" cy="54" r="3" fill="#581c87"/><circle cx="45" cy="54" r="3" fill="#581c87"/>
+                <path d="M37 60 Q40 64 43 60" stroke="#581c87" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              </svg>
+              <span style="font-size:0.9rem; font-weight:900; color:#7e22ce; margin-top:2px;">Purple</span>
             </div>
           </div>
 
-          <!-- Clear / Mix Another Button -->
-          <div style="display:flex; gap:10px; margin-top:2px;">
-            <button onclick="clearMixer()" style="border:none; background:#ffffff; color:#7e22ce; border:2px solid #e9d5ff; font-size:0.8rem; font-weight:800; padding:5px 14px; border-radius:9999px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.06);">
-              ↺ Clear Slots
+          <!-- Bottom Action Hint -->
+          <div style="width:100%; display:flex; justify-content:center; align-items:center; z-index:10;">
+            <button onclick="resetColorMixer()" style="border:none; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; font-size:0.8rem; font-weight:800; padding:4px 14px; border-radius:9999px; cursor:pointer;">
+              ↺ Reset Positions
             </button>
           </div>
 
-        </div>
-
-        <!-- 6 Basic Colors Tray (Enlarged & Randomized) -->
-        <div id="mixer-pots-tray" style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:10px 4px; gap:4px;">
-          <!-- Red (Primary) -->
-          <div id="mixpot-red" data-color="red" onclick="handleMixerPotClick('red')" class="mixer-pot">
-            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(239,68,68,0.25));">
-              <circle cx="38" cy="38" r="32" fill="#ef4444" stroke="#dc2626" stroke-width="4"/>
-              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
-            </svg>
-            <span style="font-size:0.8rem; font-weight:900; color:#b91c1c; margin-top:1px;">Red</span>
-          </div>
-
-          <!-- Yellow (Primary) -->
-          <div id="mixpot-yellow" data-color="yellow" onclick="handleMixerPotClick('yellow')" class="mixer-pot">
-            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(234,179,8,0.25));">
-              <circle cx="38" cy="38" r="32" fill="#facc15" stroke="#ca8a04" stroke-width="4"/>
-              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.65)" transform="rotate(-30 30 26)"/>
-            </svg>
-            <span style="font-size:0.8rem; font-weight:900; color:#a16207; margin-top:1px;">Yellow</span>
-          </div>
-
-          <!-- Blue (Primary) -->
-          <div id="mixpot-blue" data-color="blue" onclick="handleMixerPotClick('blue')" class="mixer-pot">
-            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(59,130,246,0.25));">
-              <circle cx="38" cy="38" r="32" fill="#3b82f6" stroke="#2563eb" stroke-width="4"/>
-              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
-            </svg>
-            <span style="font-size:0.8rem; font-weight:900; color:#1d4ed8; margin-top:1px;">Blue</span>
-          </div>
-
-          <!-- Orange (Secondary) -->
-          <div id="mixpot-orange" data-color="orange" onclick="handleMixerPotClick('orange')" class="mixer-pot">
-            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(249,115,22,0.25));">
-              <circle cx="38" cy="38" r="32" fill="#f97316" stroke="#ea580c" stroke-width="4"/>
-              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
-            </svg>
-            <span style="font-size:0.8rem; font-weight:900; color:#c2410c; margin-top:1px;">Orange</span>
-          </div>
-
-          <!-- Green (Secondary) -->
-          <div id="mixpot-green" data-color="green" onclick="handleMixerPotClick('green')" class="mixer-pot">
-            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(34,197,94,0.25));">
-              <circle cx="38" cy="38" r="32" fill="#22c55e" stroke="#16a34a" stroke-width="4"/>
-              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
-            </svg>
-            <span style="font-size:0.8rem; font-weight:900; color:#15803d; margin-top:1px;">Green</span>
-          </div>
-
-          <!-- Purple (Secondary) -->
-          <div id="mixpot-purple" data-color="purple" onclick="handleMixerPotClick('purple')" class="mixer-pot">
-            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(168,85,247,0.25));">
-              <circle cx="38" cy="38" r="32" fill="#a855f7" stroke="#9333ea" stroke-width="4"/>
-              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
-            </svg>
-            <span style="font-size:0.8rem; font-weight:900; color:#7e22ce; margin-top:1px;">Purple</span>
-          </div>
         </div>
       </section>
 
@@ -1824,7 +1796,7 @@
       if (gameId === 'color-levels') updateAllLevelStarsUI();
       if (gameId === 'milo') shuffleMiloDrops();
       if (gameId === 'color-fruits') shuffleColorFruitsPots();
-      if (gameId === 'color-mixer') shuffleMixerPots();
+      if (gameId === 'color-mixer') resetColorMixer();
       if (gameId === 'scribble') setTimeout(initScribble, 100);
     }
 
@@ -2317,7 +2289,7 @@
     // Initialize initial fruit state
     renderCurrentFruit();
 
-    // --- GAME 1C: COLOR MIXING MAGIC (COLORS LEVEL 3) ---
+    // --- GAME 1C: COLOR MIXING MAGIC (COLORS LEVEL 3 - PRACTICE LAB) ---
     const colorMixRecipes = {
       // Primary Colors (3): Red, Yellow, Blue
       // Secondary Colors (3): Formed by mixing two primary colors in equal parts
@@ -2326,7 +2298,6 @@
         emoji: '🍊',
         category: 'Secondary Color',
         hex: '#f97316',
-        id: 'orange',
         phrase: 'Red and Yellow make Orange! Orange is a secondary color!'
       },
       'blue+yellow': {
@@ -2334,7 +2305,6 @@
         emoji: '🍏',
         category: 'Secondary Color',
         hex: '#22c55e',
-        id: 'green',
         phrase: 'Yellow and Blue make Green! Green is a secondary color!'
       },
       'blue+red': {
@@ -2342,7 +2312,6 @@
         emoji: '🍇',
         category: 'Secondary Color',
         hex: '#a855f7',
-        id: 'purple',
         phrase: 'Blue and Red make Purple! Purple is a secondary color!'
       },
 
@@ -2353,7 +2322,6 @@
         emoji: '🟠',
         category: 'Tertiary Color',
         hex: '#ea580c',
-        id: 'vermilion',
         phrase: 'Red and Orange make Red-Orange Vermilion! A tertiary color!'
       },
       // Yellow + Orange = Yellow-Orange (Amber)
@@ -2362,7 +2330,6 @@
         emoji: '🟡',
         category: 'Tertiary Color',
         hex: '#f59e0b',
-        id: 'amber',
         phrase: 'Yellow and Orange make Yellow-Orange Amber! A tertiary color!'
       },
       // Yellow + Green = Yellow-Green (Chartreuse)
@@ -2371,7 +2338,6 @@
         emoji: '🌱',
         category: 'Tertiary Color',
         hex: '#84cc16',
-        id: 'chartreuse',
         phrase: 'Yellow and Green make Yellow-Green Chartreuse! A tertiary color!'
       },
       // Blue + Green = Blue-Green (Teal)
@@ -2380,7 +2346,6 @@
         emoji: '🦚',
         category: 'Tertiary Color',
         hex: '#0d9488',
-        id: 'teal',
         phrase: 'Blue and Green make Blue-Green Teal! A tertiary color!'
       },
       // Blue + Purple = Blue-Purple (Violet)
@@ -2389,7 +2354,6 @@
         emoji: '🔮',
         category: 'Tertiary Color',
         hex: '#7c3aed',
-        id: 'violet',
         phrase: 'Blue and Purple make Blue-Purple Violet! A tertiary color!'
       },
       // Red + Purple = Red-Purple (Magenta)
@@ -2398,8 +2362,30 @@
         emoji: '🌸',
         category: 'Tertiary Color',
         hex: '#d946ef',
-        id: 'magenta',
         phrase: 'Red and Purple make Red-Purple Magenta! A tertiary color!'
+      },
+
+      // Bonus combinations between secondary colors for complete zero-fail toddler exploration
+      'green+orange': {
+        name: 'Citron (Olive)',
+        emoji: '🍈',
+        category: 'Tertiary Blend',
+        hex: '#65a30d',
+        phrase: 'Orange and Green make Citron! A sunny earth blend!'
+      },
+      'orange+purple': {
+        name: 'Russet (Sienna)',
+        emoji: '🍂',
+        category: 'Tertiary Blend',
+        hex: '#b45309',
+        phrase: 'Orange and Purple make Russet! A warm autumn blend!'
+      },
+      'green+purple': {
+        name: 'Olive Violet',
+        emoji: '🫐',
+        category: 'Tertiary Blend',
+        hex: '#4d7c0f',
+        phrase: 'Green and Purple make deep Olive! A rich earthy blend!'
       }
     };
 
@@ -2412,309 +2398,253 @@
       purple: { name: 'Purple', hex: '#a855f7', emoji: '🟣' }
     };
 
-    let mixerSlot1 = null;
-    let mixerSlot2 = null;
-    let mixerDiscovered = new Set();
+    let selectedTapBlob = null;
+    let splashTimeout = null;
 
-    function selectMixerColor(color) {
+    function playSplashSound() {
       initAudio();
-      if (!mixerSlot1) {
-        mixerSlot1 = color;
-        playNote(440, 0.2);
-        updateMixerSlotsUI();
-        speakPraise(colorPotsInfo[color].name);
-        const prompt = document.getElementById('mixer-prompt-text');
-        if (prompt) prompt.textContent = `Great! Now pick a 2nd color to mix with ${colorPotsInfo[color].name}!`;
-      } else if (!mixerSlot2) {
-        mixerSlot2 = color;
-        playNote(554.37, 0.2);
-        updateMixerSlotsUI();
-        performColorMix();
-      } else {
-        mixerSlot2 = color;
-        playNote(554.37, 0.2);
-        updateMixerSlotsUI();
-        performColorMix();
-      }
+      if (!audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        // Bouncy bubble pop
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(160, now);
+        osc1.frequency.exponentialRampToValueAtTime(580, now + 0.12);
+        osc1.frequency.exponentialRampToValueAtTime(320, now + 0.32);
+        gain1.gain.setValueAtTime(0.4, now);
+        gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+        osc1.connect(gain1);
+        gain1.connect(audioCtx.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.32);
+
+        // Bright celebratory chime
+        playNote(523.25, 0.22, 'sine');
+        setTimeout(() => playNote(659.25, 0.22, 'sine'), 80);
+        setTimeout(() => playNote(783.99, 0.32, 'triangle'), 150);
+        setTimeout(() => playNote(1046.50, 0.42, 'sine'), 220);
+      } catch (e) {}
     }
 
-    function clearMixerSlot(slotNum) {
-      if (slotNum === 1) mixerSlot1 = null;
-      if (slotNum === 2) mixerSlot2 = null;
-      resetCauldronVisual();
-      updateMixerSlotsUI();
-      playNote(260, 0.15, 'triangle');
-      const prompt = document.getElementById('mixer-prompt-text');
-      if (prompt) prompt.textContent = 'Tap or drag 2 colors below to mix! ✨';
-    }
-
-    function clearMixer() {
-      mixerSlot1 = null;
-      mixerSlot2 = null;
-      resetCauldronVisual();
-      updateMixerSlotsUI();
-      playNote(260, 0.15, 'triangle');
-      const prompt = document.getElementById('mixer-prompt-text');
-      if (prompt) prompt.textContent = 'Tap or drag 2 colors below to mix! ✨';
-    }
-
-    function playMixSound() {
+    function triggerColorSplash(color1, color2) {
+      if (!color1 || !color2) return;
       initAudio();
-      playNote(440, 0.15);
-      setTimeout(() => playNote(554, 0.15), 80);
-      setTimeout(() => playNote(659, 0.25), 160);
-    }
+      playSplashSound();
+      triggerConfetti();
 
-    function resetCauldronVisual() {
-      const top = document.getElementById('cauldron-liquid-top');
-      const body = document.getElementById('cauldron-liquid-body');
-      const sparkle = document.getElementById('cauldron-sparkle');
-      if (top) top.setAttribute('fill', '#e2e8f0');
-      if (body) body.setAttribute('fill', '#e2e8f0');
-      if (sparkle) sparkle.style.display = 'none';
-
-      const resName = document.getElementById('mix-result-name');
-      const resFormula = document.getElementById('mix-result-formula');
-      if (resName) {
-        resName.textContent = 'Select 2 colors! 🎨';
-        resName.style.color = '#581c87';
-      }
-      if (resFormula) {
-        resFormula.textContent = 'Watch them mix like magic';
-        resFormula.style.color = '#7e22ce';
-      }
-    }
-
-    function updateMixerSlotsUI() {
-      const s1 = document.getElementById('mix-slot-1');
-      const s2 = document.getElementById('mix-slot-2');
-      if (!s1 || !s2) return;
-
-      [ { slot: s1, color: mixerSlot1, defaultName: 'Color 1' },
-        { slot: s2, color: mixerSlot2, defaultName: 'Color 2' }
-      ].forEach(({ slot, color, defaultName }) => {
-        const ph = slot.querySelector('.slot-placeholder');
-        const b = slot.querySelector('.slot-bubble');
-        const l = slot.querySelector('.slot-label');
-        if (color) {
-          slot.classList.add('filled');
-          slot.style.borderColor = colorPotsInfo[color].hex;
-          slot.style.background = colorPotsInfo[color].hex + '18';
-          if (ph) ph.style.display = 'none';
-          if (b) {
-            b.style.display = 'block';
-            b.style.backgroundColor = colorPotsInfo[color].hex;
-          }
-          if (l) {
-            l.style.display = 'block';
-            l.textContent = colorPotsInfo[color].name;
-            l.style.color = colorPotsInfo[color].hex;
-          }
-        } else {
-          slot.classList.remove('filled');
-          slot.style.borderColor = '#c084fc';
-          slot.style.background = '#ffffff';
-          if (ph) ph.style.display = 'block';
-          if (b) b.style.display = 'none';
-          if (l) l.style.display = 'none';
-        }
-      });
-    }
-
-    function performColorMix() {
-      if (!mixerSlot1 || !mixerSlot2) return;
-
-      const cauldron = document.getElementById('mix-cauldron');
-      if (cauldron) {
-        cauldron.classList.remove('bubbling');
-        void cauldron.offsetWidth;
-        cauldron.classList.add('bubbling');
+      if (navigator.vibrate) {
+        try { navigator.vibrate([40, 60, 40]); } catch (e) {}
       }
 
-      const key = [mixerSlot1, mixerSlot2].sort().join('+');
-      let result = colorMixRecipes[key];
+      const key = [color1, color2].sort().join('+');
+      let recipe = colorMixRecipes[key];
 
-      if (!result) {
-        if (mixerSlot1 === mixerSlot2) {
-          const info = colorPotsInfo[mixerSlot1];
-          result = {
+      if (!recipe) {
+        if (color1 === color2) {
+          const info = colorPotsInfo[color1];
+          recipe = {
             name: info.name,
             emoji: info.emoji,
             category: 'Same Color',
             hex: info.hex,
-            id: mixerSlot1,
             phrase: `${info.name} plus ${info.name} is still ${info.name}!`
           };
         } else {
-          result = {
+          recipe = {
             name: 'Rainbow Blend',
             emoji: '🌈',
             category: 'Custom Blend',
             hex: '#a21caf',
-            id: 'blend',
-            phrase: `${colorPotsInfo[mixerSlot1].name} and ${colorPotsInfo[mixerSlot2].name} make a colorful blend!`
+            phrase: `${colorPotsInfo[color1].name} and ${colorPotsInfo[color2].name} make a colorful blend!`
           };
         }
       }
 
-      // Fanfare and sounds
-      playNote(523.25, 0.25);
-      setTimeout(() => playNote(659.25, 0.25), 120);
-      setTimeout(() => playNote(783.99, 0.4), 240);
-      triggerConfetti();
+      // Voice praise with Siri
+      speakPraise(recipe.phrase);
 
-      // Liquid visual update
-      const top = document.getElementById('cauldron-liquid-top');
-      const body = document.getElementById('cauldron-liquid-body');
-      const sparkle = document.getElementById('cauldron-sparkle');
-      if (top) top.setAttribute('fill', result.hex);
-      if (body) body.setAttribute('fill', result.hex);
-      if (sparkle) sparkle.style.display = 'block';
+      // Update Splash Overlay DOM
+      const overlay = document.getElementById('color-splash-overlay');
+      const splashPath = document.getElementById('splash-svg-path');
+      const splashName = document.getElementById('splash-color-name');
+      const splashFormula = document.getElementById('splash-formula');
+      const splashCategory = document.getElementById('splash-category');
 
-      // Text update
-      const resName = document.getElementById('mix-result-name');
-      const resFormula = document.getElementById('mix-result-formula');
-      const prompt = document.getElementById('mixer-prompt-text');
-
-      if (resName) {
-        resName.textContent = `${result.name} ${result.emoji}`;
-        resName.style.color = result.hex;
-      }
-      if (resFormula) {
-        resFormula.textContent = `${colorPotsInfo[mixerSlot1].name} + ${colorPotsInfo[mixerSlot2].name} = ${result.name} (${result.category})`;
-      }
-      if (prompt) {
-        prompt.textContent = `✨ Magic! ${result.name}!`;
+      if (splashPath) splashPath.setAttribute('fill', recipe.hex);
+      for (let i = 1; i <= 6; i++) {
+        const drop = document.getElementById(`splash-drop-${i}`);
+        if (drop) drop.setAttribute('fill', recipe.hex);
       }
 
-      // Siri announcement
-      speakPraise(result.phrase);
-
-      // Discovery Badge tracking
-      if (result.id && result.category !== 'Same Color' && result.category !== 'Custom Blend') {
-        const badge = document.getElementById(`badge-${result.id}`);
-        if (badge) badge.classList.add('discovered');
-
-        if (!mixerDiscovered.has(result.id)) {
-          mixerDiscovered.add(result.id);
-          const progCount = document.getElementById('mixer-progress-count');
-          if (progCount) progCount.textContent = String(mixerDiscovered.size);
-
-          if (mixerDiscovered.size === 3) {
-            setLevelStars('color-mixer', 3);
-            setTimeout(() => {
-              showLevelAppraisal(
-                'color-mixer',
-                'Color Alchemist! 🧪',
-                'You discovered magical secondary & tertiary colors!',
-                '🧙',
-                'pip',
-                'Hooray! Great job! You unlocked 3 golden stars in color mixing! Ready for shapes?'
-              );
-            }, 1400);
-          } else if (mixerDiscovered.size === 9) {
-            setLevelStars('color-mixer', 3);
-            setTimeout(() => {
-              showLevelAppraisal(
-                'color-mixer',
-                'Master of Colors! 🌟',
-                'You discovered all 9 magical color recipes!',
-                '🧙',
-                'home',
-                'Incredible! You discovered every single color recipe! You are a master of colors!'
-              );
-            }, 1400);
-          }
-        }
+      if (splashName) {
+        splashName.textContent = `${recipe.name.toUpperCase()}! ${recipe.emoji}`;
       }
-    }
-
-    function handleMixerPotClick(color) {
-      selectMixerColor(color);
-    }
-
-    function shuffleMixerPots() {
-      const tray = document.getElementById('mixer-pots-tray');
-      if (!tray) return;
-      const pots = Array.from(tray.children);
-      for (let i = pots.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = pots[i];
-        pots[i] = pots[j];
-        pots[j] = temp;
+      if (splashFormula) {
+        splashFormula.textContent = `${colorPotsInfo[color1].name} + ${colorPotsInfo[color2].name} = ${recipe.name}`;
       }
-      pots.forEach(pot => tray.appendChild(pot));
+      if (splashCategory) {
+        splashCategory.textContent = recipe.category;
+      }
+
+      if (overlay) {
+        overlay.classList.remove('fade-out');
+        overlay.classList.remove('active');
+        void overlay.offsetWidth; // Trigger reflow to restart animation
+        overlay.classList.add('active');
+
+        if (splashTimeout) clearTimeout(splashTimeout);
+        splashTimeout = setTimeout(() => {
+          overlay.classList.add('fade-out');
+          setTimeout(() => {
+            overlay.classList.remove('active');
+            overlay.classList.remove('fade-out');
+          }, 450);
+        }, 1800);
+      }
+
+      // Clear any tap selection
+      if (selectedTapBlob) {
+        selectedTapBlob.classList.remove('selected-tap');
+        selectedTapBlob = null;
+      }
     }
 
     function resetColorMixer() {
-      mixerSlot1 = null;
-      mixerSlot2 = null;
-      resetCauldronVisual();
-      updateMixerSlotsUI();
-      shuffleMixerPots();
-      const prompt = document.getElementById('mixer-prompt-text');
-      if (prompt) prompt.textContent = 'Tap or drag 2 colors below to mix! ✨';
+      if (selectedTapBlob) {
+        selectedTapBlob.classList.remove('selected-tap');
+        selectedTapBlob = null;
+      }
+      const overlay = document.getElementById('color-splash-overlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+        overlay.classList.remove('fade-out');
+      }
+      const blobs = document.querySelectorAll('.canvas-paint-blob');
+      blobs.forEach(b => {
+        b.classList.remove('pulse-target');
+        b.classList.remove('dragging');
+        b.style.transition = 'transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        b.style.transform = 'translate(0px, 0px) scale(1)';
+        b.style.zIndex = '10';
+      });
+      playNote(300, 0.15, 'triangle');
     }
 
-    // Drag & Drop for 6 Mixer Pots
-    const mixerPots = document.querySelectorAll('.mixer-pot');
-    mixerPots.forEach(pot => {
-      let active = false, startX, startY, moved = false;
-      pot.addEventListener('pointerdown', (e) => {
-        initAudio(); active = true; moved = false; pot.setPointerCapture(e.pointerId);
-        startX = e.clientX; startY = e.clientY;
-        pot.style.transition = 'none'; pot.style.zIndex = '50';
-        playNote(350, 0.1, 'triangle');
-      });
-      pot.addEventListener('pointermove', (e) => {
-        if (!active) return;
-        const dx = e.clientX - startX; const dy = e.clientY - startY;
-        if (Math.hypot(dx, dy) > 8) moved = true;
-        pot.style.transform = `translate(${dx}px, ${dy}px) scale(1.22)`;
-      });
-      const endDrag = (e) => {
-        if (!active) return; active = false; pot.releasePointerCapture(e.pointerId);
-        const pRect = pot.getBoundingClientRect();
-        const s1 = document.getElementById('mix-slot-1');
-        const s2 = document.getElementById('mix-slot-2');
-        const cauldron = document.getElementById('mix-cauldron');
+    // Drag-any-blob-into-another + Tap-to-mix without duplicate clicks
+    function initBlobDrag() {
+      const blobs = document.querySelectorAll('.canvas-paint-blob');
+      blobs.forEach(blob => {
+        let active = false, startX = 0, startY = 0, moved = false;
+        let lastTarget = null;
 
-        pot.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        pot.style.transform = 'translate(0, 0) scale(1)';
-        pot.style.zIndex = '1';
+        blob.addEventListener('pointerdown', (e) => {
+          initAudio();
+          active = true;
+          moved = false;
+          lastTarget = null;
+          blob.setPointerCapture(e.pointerId);
+          startX = e.clientX;
+          startY = e.clientY;
+          blob.style.transition = 'none';
+          blob.classList.add('dragging');
+          playNote(380, 0.08, 'triangle');
+        });
 
-        if (!moved) {
-          selectMixerColor(pot.dataset.color);
-          return;
-        }
+        blob.addEventListener('pointermove', (e) => {
+          if (!active) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          if (Math.hypot(dx, dy) > 8) moved = true;
 
-        const isOver = (elem) => {
-          if (!elem) return false;
-          const r = elem.getBoundingClientRect();
-          return !(pRect.right < r.left - 15 || pRect.left > r.right + 15 || pRect.bottom < r.top - 15 || pRect.top > r.bottom + 15);
+          blob.style.transform = `translate(${dx}px, ${dy}px) scale(1.28)`;
+
+          // Highlight any hovered target blob
+          const bRect = blob.getBoundingClientRect();
+          const bCenterX = bRect.left + bRect.width / 2;
+          const bCenterY = bRect.top + bRect.height / 2;
+
+          let currentTarget = null;
+          blobs.forEach(other => {
+            if (other === blob) return;
+            const oRect = other.getBoundingClientRect();
+            const oCenterX = oRect.left + oRect.width / 2;
+            const oCenterY = oRect.top + oRect.height / 2;
+            if (Math.hypot(bCenterX - oCenterX, bCenterY - oCenterY) < 70) {
+              currentTarget = other;
+            }
+          });
+
+          if (currentTarget !== lastTarget) {
+            if (lastTarget) lastTarget.classList.remove('pulse-target');
+            if (currentTarget) {
+              currentTarget.classList.add('pulse-target');
+              playNote(520, 0.06, 'sine');
+            }
+            lastTarget = currentTarget;
+          }
+        });
+
+        const endDrag = (e) => {
+          if (!active) return;
+          active = false;
+          try { blob.releasePointerCapture(e.pointerId); } catch (err) {}
+          blob.classList.remove('dragging');
+
+          if (lastTarget) {
+            lastTarget.classList.remove('pulse-target');
+          }
+
+          // Case 1: Dragged onto another blob
+          if (moved && lastTarget) {
+            const c1 = blob.dataset.color;
+            const c2 = lastTarget.dataset.color;
+
+            // Snap back smoothly
+            blob.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            blob.style.transform = 'translate(0px, 0px) scale(1)';
+            blob.style.zIndex = '10';
+
+            // BAMMM!
+            triggerColorSplash(c1, c2);
+            return;
+          }
+
+          // Return dragged blob smoothly to its home slot
+          blob.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          blob.style.transform = 'translate(0px, 0px) scale(1)';
+          blob.style.zIndex = '10';
+
+          // Case 2: Tap-to-mix (when user simply clicks/taps without dragging)
+          if (!moved) {
+            const color = blob.dataset.color;
+            if (!selectedTapBlob) {
+              // First blob selected
+              selectedTapBlob = blob;
+              blob.classList.add('selected-tap');
+              playNote(440, 0.15, 'sine');
+              speakPraise(colorPotsInfo[color].name);
+            } else if (selectedTapBlob === blob) {
+              // Tapped the same blob again -> deselect
+              selectedTapBlob.classList.remove('selected-tap');
+              selectedTapBlob = null;
+              playNote(260, 0.1, 'triangle');
+            } else {
+              // Tapped a second blob -> BAMMM mix!
+              const c1 = selectedTapBlob.dataset.color;
+              const c2 = color;
+              selectedTapBlob.classList.remove('selected-tap');
+              selectedTapBlob = null;
+              triggerColorSplash(c1, c2);
+            }
+          }
         };
 
-        if (isOver(s1)) {
-          mixerSlot1 = pot.dataset.color;
-          playNote(440, 0.2);
-          updateMixerSlotsUI();
-          speakPraise(colorPotsInfo[pot.dataset.color].name);
-          if (mixerSlot2) performColorMix();
-        } else if (isOver(s2)) {
-          mixerSlot2 = pot.dataset.color;
-          playNote(554.37, 0.2);
-          updateMixerSlotsUI();
-          speakPraise(colorPotsInfo[pot.dataset.color].name);
-          if (mixerSlot1) performColorMix();
-        } else if (isOver(cauldron)) {
-          selectMixerColor(pot.dataset.color);
-        } else {
-          playNote(200, 0.15, 'triangle');
-        }
-      };
-      pot.addEventListener('pointerup', endDrag);
-      pot.addEventListener('pointercancel', endDrag);
-    });
+        blob.addEventListener('pointerup', endDrag);
+        blob.addEventListener('pointercancel', endDrag);
+      });
+    }
 
     // --- GAME 2: PIP (SHAPES & PUZZLES) ---
     let pipSolved = 0;
@@ -3095,7 +3025,7 @@
     updateAllLevelStarsUI();
     shuffleMiloDrops();
     shuffleColorFruitsPots();
-    shuffleMixerPots();
+    initBlobDrag();
 
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
