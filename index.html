@@ -580,8 +580,8 @@
       transform: scale(1.04);
     }
 
-    /* COLOR POTS TRAY (LEVEL 2) */
-    .color-pot {
+    /* COLOR OPTIONS: MILO DROPS (LEVEL 1) & COLOR POTS (LEVEL 2) */
+    .milo-drop {
       cursor: grab;
       touch-action: none;
       user-select: none;
@@ -589,8 +589,21 @@
       -webkit-tap-highlight-color: transparent;
       transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .color-pot:hover { transform: scale(1.1); }
-    .color-pot:active { cursor: grabbing; transform: scale(1.18); }
+    .milo-drop:hover { transform: scale(1.12); }
+    .milo-drop:active { cursor: grabbing; transform: scale(1.22); }
+
+    .color-pot {
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      flex: 1 1 76px;
+      max-width: 96px;
+    }
+    .color-pot:hover { transform: scale(1.12); }
+    .color-pot:active { cursor: grabbing; transform: scale(1.22); }
 
     /* FANCY X & YES CELEBRATION FEEDBACK */
     .fancy-feedback-overlay {
@@ -937,28 +950,34 @@
           </div>
         </div>
 
-        <!-- Droplets Tray -->
-        <div style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:12px;">
-          <div id="milo-drop-red" data-color="red" class="milo-drop" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 70 70" style="width:74px; height:74px;">
+        <!-- Droplets Tray (Enlarged & Randomized) -->
+        <div id="milo-drops-tray" style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:14px 10px;">
+          <!-- Red Drop -->
+          <div id="milo-drop-red" data-color="red" class="milo-drop" style="width:96px; height:98px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
+            <svg viewBox="0 0 70 70" style="width:86px; height:86px; filter:drop-shadow(0 4px 10px rgba(239,68,68,0.25));">
               <path d="M35 8 C25 24 14 36 14 47 C14 59 23 66 35 66 C47 66 56 59 56 47 C56 36 45 24 35 8 Z" fill="#ef4444"/>
               <circle cx="31" cy="48" r="3" fill="#7f1d1d"/><circle cx="41" cy="48" r="3" fill="#7f1d1d"/>
               <path d="M33 53 Q36 57 39 53" stroke="#7f1d1d" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
+            <span style="font-size:0.85rem; font-weight:800; color:#b91c1c; margin-top:-2px;">Red</span>
           </div>
-          <div id="milo-drop-yellow" data-color="yellow" class="milo-drop" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 70 70" style="width:74px; height:74px;">
+          <!-- Yellow Drop -->
+          <div id="milo-drop-yellow" data-color="yellow" class="milo-drop" style="width:96px; height:98px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
+            <svg viewBox="0 0 70 70" style="width:86px; height:86px; filter:drop-shadow(0 4px 10px rgba(234,179,8,0.25));">
               <path d="M35 8 C25 24 14 36 14 47 C14 59 23 66 35 66 C47 66 56 59 56 47 C56 36 45 24 35 8 Z" fill="#eab308"/>
               <circle cx="31" cy="48" r="3" fill="#713f12"/><circle cx="41" cy="48" r="3" fill="#713f12"/>
               <path d="M33 53 Q36 57 39 53" stroke="#713f12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
+            <span style="font-size:0.85rem; font-weight:800; color:#a16207; margin-top:-2px;">Yellow</span>
           </div>
-          <div id="milo-drop-blue" data-color="blue" class="milo-drop" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 70 70" style="width:74px; height:74px;">
+          <!-- Blue Drop -->
+          <div id="milo-drop-blue" data-color="blue" class="milo-drop" style="width:96px; height:98px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
+            <svg viewBox="0 0 70 70" style="width:86px; height:86px; filter:drop-shadow(0 4px 10px rgba(59,130,246,0.25));">
               <path d="M35 8 C25 24 14 36 14 47 C14 59 23 66 35 66 C47 66 56 59 56 47 C56 36 45 24 35 8 Z" fill="#3b82f6"/>
               <circle cx="31" cy="48" r="3" fill="#1e3a8a"/><circle cx="41" cy="48" r="3" fill="#1e3a8a"/>
               <path d="M33 53 Q36 57 39 53" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
+            <span style="font-size:0.85rem; font-weight:800; color:#1d4ed8; margin-top:-2px;">Blue</span>
           </div>
         </div>
       </section>
@@ -1068,42 +1087,42 @@
           </div>
         </div>
 
-        <!-- Color Palette Tray (4 Chunky Color Pots) -->
-        <div id="color-pots-tray" style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:10px 8px;">
+        <!-- Color Palette Tray (4 Chunky Color Pots - Enlarged & Randomized) -->
+        <div id="color-pots-tray" style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:12px 6px;">
           <!-- Red Pot -->
-          <div id="cpot-red" data-color="red" onclick="handleColorPotClick('red')" class="color-pot" style="width:72px; height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-            <svg viewBox="0 0 70 70" style="width:64px; height:64px;">
-              <circle cx="35" cy="35" r="28" fill="#ef4444" stroke="#dc2626" stroke-width="3.5"/>
-              <ellipse cx="28" cy="24" rx="7" ry="4" fill="rgba(255,255,255,0.55)" transform="rotate(-30 28 24)"/>
+          <div id="cpot-red" data-color="red" onclick="handleColorPotClick('red')" class="color-pot" style="display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
+            <svg viewBox="0 0 76 76" style="width:74px; height:74px; filter:drop-shadow(0 4px 8px rgba(239,68,68,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#ef4444" stroke="#dc2626" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
             </svg>
-            <span style="font-size:0.75rem; font-weight:800; color:#b91c1c; margin-top:-2px;">Red</span>
+            <span style="font-size:0.9rem; font-weight:900; color:#b91c1c; margin-top:2px;">Red</span>
           </div>
 
           <!-- Yellow Pot -->
-          <div id="cpot-yellow" data-color="yellow" onclick="handleColorPotClick('yellow')" class="color-pot" style="width:72px; height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-            <svg viewBox="0 0 70 70" style="width:64px; height:64px;">
-              <circle cx="35" cy="35" r="28" fill="#facc15" stroke="#ca8a04" stroke-width="3.5"/>
-              <ellipse cx="28" cy="24" rx="7" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 28 24)"/>
+          <div id="cpot-yellow" data-color="yellow" onclick="handleColorPotClick('yellow')" class="color-pot" style="display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
+            <svg viewBox="0 0 76 76" style="width:74px; height:74px; filter:drop-shadow(0 4px 8px rgba(234,179,8,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#facc15" stroke="#ca8a04" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.65)" transform="rotate(-30 30 26)"/>
             </svg>
-            <span style="font-size:0.75rem; font-weight:800; color:#a16207; margin-top:-2px;">Yellow</span>
+            <span style="font-size:0.9rem; font-weight:900; color:#a16207; margin-top:2px;">Yellow</span>
           </div>
 
           <!-- Green Pot -->
-          <div id="cpot-green" data-color="green" onclick="handleColorPotClick('green')" class="color-pot" style="width:72px; height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-            <svg viewBox="0 0 70 70" style="width:64px; height:64px;">
-              <circle cx="35" cy="35" r="28" fill="#22c55e" stroke="#16a34a" stroke-width="3.5"/>
-              <ellipse cx="28" cy="24" rx="7" ry="4" fill="rgba(255,255,255,0.55)" transform="rotate(-30 28 24)"/>
+          <div id="cpot-green" data-color="green" onclick="handleColorPotClick('green')" class="color-pot" style="display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
+            <svg viewBox="0 0 76 76" style="width:74px; height:74px; filter:drop-shadow(0 4px 8px rgba(34,197,94,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#22c55e" stroke="#16a34a" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
             </svg>
-            <span style="font-size:0.75rem; font-weight:800; color:#15803d; margin-top:-2px;">Green</span>
+            <span style="font-size:0.9rem; font-weight:900; color:#15803d; margin-top:2px;">Green</span>
           </div>
 
           <!-- Purple Pot -->
-          <div id="cpot-purple" data-color="purple" onclick="handleColorPotClick('purple')" class="color-pot" style="width:72px; height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-            <svg viewBox="0 0 70 70" style="width:64px; height:64px;">
-              <circle cx="35" cy="35" r="28" fill="#a855f7" stroke="#9333ea" stroke-width="3.5"/>
-              <ellipse cx="28" cy="24" rx="7" ry="4" fill="rgba(255,255,255,0.55)" transform="rotate(-30 28 24)"/>
+          <div id="cpot-purple" data-color="purple" onclick="handleColorPotClick('purple')" class="color-pot" style="display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
+            <svg viewBox="0 0 76 76" style="width:74px; height:74px; filter:drop-shadow(0 4px 8px rgba(168,85,247,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#a855f7" stroke="#9333ea" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
             </svg>
-            <span style="font-size:0.75rem; font-weight:800; color:#7e22ce; margin-top:-2px;">Purple</span>
+            <span style="font-size:0.9rem; font-weight:900; color:#7e22ce; margin-top:2px;">Purple</span>
           </div>
         </div>
       </section>
@@ -1538,6 +1557,8 @@
       if (activeView) activeView.classList.add('active');
 
       if (gameId === 'color-levels') updateAllLevelStarsUI();
+      if (gameId === 'milo') shuffleMiloDrops();
+      if (gameId === 'color-fruits') shuffleColorFruitsPots();
       if (gameId === 'scribble') setTimeout(initScribble, 100);
     }
 
@@ -1721,6 +1742,19 @@
 
     function handleFlowerClick(color) { bloomFlower(color); }
 
+    function shuffleMiloDrops() {
+      const tray = document.getElementById('milo-drops-tray');
+      if (!tray) return;
+      const drops = Array.from(tray.children);
+      for (let i = drops.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = drops[i];
+        drops[i] = drops[j];
+        drops[j] = temp;
+      }
+      drops.forEach(drop => tray.appendChild(drop));
+    }
+
     function resetMilo() {
       miloBloomed = 0;
       miloDrops.forEach(drop => {
@@ -1733,6 +1767,7 @@
         target.querySelector('.milo-bud').style.display = 'block';
         target.querySelector('.milo-bloom').style.display = 'none';
       });
+      shuffleMiloDrops();
     }
 
     // --- GAME 1B: FRUIT & VEGGIE COLORS (COLORS LEVEL 2) ---
@@ -1780,6 +1815,20 @@
 
       resetFruitVisual(fruit.id);
       hideFancyFeedback();
+      shuffleColorFruitsPots();
+    }
+
+    function shuffleColorFruitsPots() {
+      const tray = document.getElementById('color-pots-tray');
+      if (!tray) return;
+      const pots = Array.from(tray.children);
+      for (let i = pots.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = pots[i];
+        pots[i] = pots[j];
+        pots[j] = temp;
+      }
+      pots.forEach(pot => tray.appendChild(pot));
     }
 
     function resetFruitVisual(id) {
@@ -2375,8 +2424,10 @@
       triggerConfetti();
     }
 
-    // Initialize level stars UI on page load
+    // Initialize level stars UI & randomize colors on page load
     updateAllLevelStarsUI();
+    shuffleMiloDrops();
+    shuffleColorFruitsPots();
 
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
