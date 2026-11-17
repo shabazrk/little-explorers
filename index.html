@@ -44,10 +44,10 @@
       background: linear-gradient(180deg, #fef8ee 0%, #f7ecd5 100%);
     }
 
-    /* Top Navigation Switcher */
+    /* Top Navigation Header */
     header {
       width: 100%;
-      padding: 12px 18px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -61,50 +61,56 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      cursor: pointer;
       letter-spacing: -0.02em;
     }
     .brand-title span {
       background: #fde68a;
       color: #92400e;
       font-size: 0.7rem;
-      padding: 3px 9px;
+      padding: 2px 8px;
       border-radius: 9999px;
       font-weight: 700;
     }
 
     .game-tabs {
       display: flex;
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(8px);
       border: 2px solid #fcd34d;
-      padding: 5px;
+      padding: 4px;
       border-radius: 9999px;
-      gap: 5px;
-      box-shadow: 0 4px 14px rgba(180, 83, 9, 0.08);
+      gap: 4px;
+      box-shadow: 0 4px 12px rgba(180, 83, 9, 0.08);
+      overflow-x: auto;
+      max-width: 65%;
+      -webkit-overflow-scrolling: touch;
     }
+    .game-tabs::-webkit-scrollbar { display: none; }
 
     .tab-btn {
       border: none;
       background: transparent;
-      padding: 7px 16px;
+      padding: 6px 14px;
       border-radius: 9999px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 800;
       color: #92400e;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      white-space: nowrap;
       transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .tab-btn.active {
       background: #f59e0b;
       color: #ffffff;
-      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
-      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+      transform: scale(1.04);
     }
 
-    /* Stage Area */
+    /* Main Stage */
     main {
       flex: 1;
       width: 100%;
@@ -114,12 +120,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 14px 14px;
+      padding: 8px 12px 12px;
     }
 
     .game-view {
       position: absolute;
-      inset: 8px 12px;
+      inset: 6px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -142,6 +148,114 @@
       opacity: 1;
       pointer-events: auto;
       transform: scale(1);
+    }
+
+    /* HOMEPAGE CATALOG VIEW */
+    #view-home {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+      padding: 18px 16px;
+    }
+    #view-home::-webkit-scrollbar { display: none; }
+
+    .category-section {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 0 4px;
+    }
+    .category-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #78350f;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .category-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .game-card {
+      background: #ffffff;
+      border: 2.5px solid #fde68a;
+      border-radius: 22px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 10px rgba(180, 83, 9, 0.05);
+    }
+    .game-card:hover {
+      border-color: #f59e0b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.15);
+    }
+    .game-card:active {
+      transform: scale(0.97);
+    }
+
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .card-info h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #78350f;
+      line-height: 1.2;
+    }
+    .card-info p {
+      font-size: 0.8rem;
+      color: #92400e;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .card-play-btn {
+      background: #f59e0b;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
     }
 
     /* Animations */
@@ -169,7 +283,7 @@
       100% { transform: translate(var(--dx), var(--dy)) scale(1.4); opacity: 0; }
     }
 
-    /* UNMISSABLE TODDLER APPRAISAL MODAL */
+    /* Appraisal Modal */
     #levelAppraisalModal {
       position: fixed;
       inset: 0;
@@ -216,48 +330,18 @@
       gap: 12px;
       margin-bottom: 4px;
     }
-    .star-item {
-      font-size: 2.8rem;
-      animation: wobble 1s infinite alternate;
-    }
-    .big-star {
-      font-size: 4.2rem;
-      animation: starFloat 1.8s ease-in-out infinite alternate;
-    }
+    .star-item { font-size: 2.8rem; animation: wobble 1s infinite alternate; }
+    .big-star { font-size: 4.2rem; animation: starFloat 1.8s ease-in-out infinite alternate; }
     @keyframes starFloat {
       0% { transform: translateY(0) scale(1); }
       100% { transform: translateY(-10px) scale(1.15); }
     }
 
-    .modal-avatar {
-      font-size: 5.5rem;
-      margin: 4px 0 10px;
-      animation: wobble 1.2s infinite alternate;
-    }
+    .modal-avatar { font-size: 5.5rem; margin: 4px 0 10px; animation: wobble 1.2s infinite alternate; }
+    .modal-title { font-size: 2rem; font-weight: 900; color: #78350f; margin-bottom: 6px; }
+    .modal-subtitle { font-size: 1.1rem; font-weight: 700; color: #92400e; margin-bottom: 24px; max-width: 330px; }
 
-    .modal-title {
-      font-size: 2rem;
-      font-weight: 900;
-      color: #78350f;
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
-    .modal-subtitle {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #92400e;
-      margin-bottom: 24px;
-      max-width: 330px;
-      line-height: 1.4;
-    }
-
-    /* THE TWO CHUNKY ACTION BUTTONS */
-    .modal-buttons-row {
-      width: 100%;
-      display: flex;
-      gap: 14px;
-    }
-
+    .modal-buttons-row { width: 100%; display: flex; gap: 14px; }
     .action-btn {
       flex: 1;
       border: none;
@@ -269,23 +353,12 @@
       gap: 10px;
       cursor: pointer;
       font-weight: 900;
-      transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.15s;
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.15s;
     }
-    .action-btn:active {
-      transform: scale(0.92);
-    }
+    .action-btn:active { transform: scale(0.92); }
 
-    .replay-btn {
-      background: #fef3c7;
-      color: #92400e;
-      border: 3px solid #fde68a;
-      font-size: 1.15rem;
-    }
-    .replay-btn:hover {
-      background: #fde68a;
-    }
-
+    .replay-btn { background: #fef3c7; color: #92400e; border: 3px solid #fde68a; font-size: 1.15rem; }
     .next-btn {
       background: #10b981;
       color: #ffffff;
@@ -294,15 +367,8 @@
       box-shadow: 0 10px 28px rgba(16, 185, 129, 0.5);
       animation: pulseNext 1.5s infinite alternate;
     }
-    .next-btn:hover {
-      background: #059669;
-    }
-    @keyframes pulseNext {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.06); }
-    }
+    @keyframes pulseNext { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
 
-    /* Confetti Particle */
     .confetti-particle {
       position: absolute;
       top: -20px;
@@ -318,22 +384,28 @@
 <body>
 
   <div id="app">
-    <!-- Top Bar with Instant Game Switching -->
+    <!-- Top Bar with Home & Instant Game Switchers -->
     <header>
-      <div class="brand-title">
+      <div class="brand-title" onclick="switchGame('home')">
         🌱 Little Explorers
         <span>Ages 3–5</span>
       </div>
 
       <nav class="game-tabs">
-        <button class="tab-btn active" onclick="switchGame('milo')">
-          <span style="font-size:1.2rem;">🐻</span> Milo’s Colors
+        <button id="tab-home" class="tab-btn active" onclick="switchGame('home')">
+          <span>🏠</span> Home
         </button>
-        <button class="tab-btn" onclick="switchGame('pip')">
-          <span style="font-size:1.2rem;">🐦</span> Pip’s Shapes
+        <button id="tab-milo" class="tab-btn" onclick="switchGame('milo')">
+          <span>🎨</span> Colors
         </button>
-        <button class="tab-btn" onclick="switchGame('penny')">
-          <span style="font-size:1.2rem;">🐷</span> Penny’s Puddles
+        <button id="tab-pip" class="tab-btn" onclick="switchGame('pip')">
+          <span>🔷</span> Shapes
+        </button>
+        <button id="tab-lola" class="tab-btn" onclick="switchGame('lola')">
+          <span>🔢</span> Numbers
+        </button>
+        <button id="tab-penny" class="tab-btn" onclick="switchGame('penny')">
+          <span>🐷</span> Puddles
         </button>
       </nav>
     </header>
@@ -341,47 +413,144 @@
     <!-- Main Game Staging -->
     <main>
 
-      <!-- GAME 1: MILO'S COLOR GARDEN -->
-      <section id="view-milo" class="game-view active">
-        <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <div style="font-size:2.6rem;">🐻</div>
-            <div>
-              <h3 style="font-size:1.25rem; color:#78350f; font-weight:800;">Milo’s Garden</h3>
-              <p style="font-size:0.9rem; color:#92400e;">Match or tap the drops to wake each flower!</p>
+      <!-- HOMEPAGE SECTION CLASSIFICATIONS (THE LEARNING HUB) -->
+      <section id="view-home" class="game-view active">
+        
+        <!-- Welcome Hero -->
+        <div style="width:100%; text-align:left; margin-bottom:16px;">
+          <h2 style="font-size:1.4rem; font-weight:900; color:#78350f; display:flex; align-items:center; gap:8px;">
+            Explore & Play 🌟
+          </h2>
+          <p style="font-size:0.85rem; color:#92400e; font-weight:600;">Choose a learning world to begin your adventure!</p>
+        </div>
+
+        <!-- SECTION 1: COLORS & CREATIVITY -->
+        <div class="category-section">
+          <div class="category-header">
+            <h3 class="category-title">
+              <span>🎨</span> Colors & Creativity
+            </h3>
+            <span class="category-badge">Sensory & Art</span>
+          </div>
+          <div class="cards-grid">
+            <div class="game-card" onclick="switchGame('milo')">
+              <div class="card-left">
+                <div class="card-avatar" style="background:#fee2e2;">🐻</div>
+                <div class="card-info">
+                  <h4>Milo’s Color Garden</h4>
+                  <p>Match colored drops to wake sleeping flowers</p>
+                </div>
+              </div>
+              <button class="card-play-btn">Play ➔</button>
             </div>
           </div>
-          <button onclick="resetMilo()" style="border:none; background:#fef3c7; color:#92400e; padding:10px 16px; border-radius:9999px; font-weight:800; font-size:0.9rem; cursor:pointer;">↺ Reset</button>
+        </div>
+
+        <!-- SECTION 2: SHAPES & SPATIAL REASONING -->
+        <div class="category-section">
+          <div class="category-header">
+            <h3 class="category-title">
+              <span>🔷</span> Shapes & Puzzles
+            </h3>
+            <span class="category-badge">Spatial Geometry</span>
+          </div>
+          <div class="cards-grid">
+            <div class="game-card" onclick="switchGame('pip')">
+              <div class="card-left">
+                <div class="card-avatar" style="background:#fef3c7;">🐦</div>
+                <div class="card-info">
+                  <h4>Pip’s Treehouse</h4>
+                  <p>Fit wooden shapes to reveal animal friends</p>
+                </div>
+              </div>
+              <button class="card-play-btn">Play ➔</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: EARLY MATHEMATICS & NUMBERS -->
+        <div class="category-section">
+          <div class="category-header">
+            <h3 class="category-title">
+              <span>🔢</span> Early Math & Numbers
+            </h3>
+            <span class="category-badge">Counting & Logic</span>
+          </div>
+          <div class="cards-grid">
+            <div class="game-card" onclick="switchGame('lola')">
+              <div class="card-left">
+                <div class="card-avatar" style="background:#dbeafe;">🦦</div>
+                <div class="card-info">
+                  <h4>Lola’s Berry Picnic</h4>
+                  <p>Count 1, 2, 3 delicious berries onto picnic plates</p>
+                </div>
+              </div>
+              <button class="card-play-btn">Play ➔</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: PRETEND PLAY & DAILY HABITS -->
+        <div class="category-section">
+          <div class="category-header">
+            <h3 class="category-title">
+              <span>🐷</span> Pretend Play & Routines
+            </h3>
+            <span class="category-badge">Life Skills & Joy</span>
+          </div>
+          <div class="cards-grid">
+            <div class="game-card" onclick="switchGame('penny')">
+              <div class="card-left">
+                <div class="card-avatar" style="background:#fce7f3;">🐷</div>
+                <div class="card-info">
+                  <h4>Penny’s Muddy Puddles</h4>
+                  <p>Put on rainboots & jump in muddy puddles with snorts!</p>
+                </div>
+              </div>
+              <button class="card-play-btn">Play ➔</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- GAME 1: MILO'S COLOR GARDEN (COLORS & ART) -->
+      <section id="view-milo" class="game-view">
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
+            <div>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Milo’s Colors</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Match drops to wake the flowers!</p>
+            </div>
+          </div>
+          <button onclick="resetMilo()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
         </div>
 
         <!-- Flowers Stage -->
         <div style="flex:1; width:100%; display:flex; justify-content:space-around; align-items:center; background:linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%); border-radius:24px; border:3px dashed #6ee7b7; margin:14px 0; position:relative;">
-          
-          <!-- Red Flower -->
+          <!-- Red -->
           <div id="milo-target-red" data-color="red" onclick="handleFlowerClick('red')" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center; cursor:pointer;">
-            <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+            <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px;">
               <path d="M40 70 C30 50 25 35 40 18 C55 35 50 50 40 70 Z" fill="#f87171" stroke="#dc2626" stroke-width="2.5"/>
               <path d="M33 42 Q36 46 39 42 M41 42 Q44 46 47 42" stroke="#7f1d1d" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
-            <svg class="milo-bloom" viewBox="0 0 100 100" style="width:110px; height:110px; display:none; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
-              <circle cx="50" cy="30" r="15" fill="#f87171"/>
-              <circle cx="70" cy="50" r="15" fill="#f87171"/>
-              <circle cx="50" cy="70" r="15" fill="#f87171"/>
-              <circle cx="30" cy="50" r="15" fill="#f87171"/>
+            <svg class="milo-bloom" viewBox="0 0 100 100" style="width:110px; height:110px; display:none;">
+              <circle cx="50" cy="30" r="15" fill="#f87171"/><circle cx="70" cy="50" r="15" fill="#f87171"/>
+              <circle cx="50" cy="70" r="15" fill="#f87171"/><circle cx="30" cy="50" r="15" fill="#f87171"/>
               <circle cx="50" cy="50" r="20" fill="#fef08a"/>
               <circle cx="43" cy="46" r="3" fill="#78350f"/><circle cx="57" cy="46" r="3" fill="#78350f"/>
               <path d="M43 54 Q50 60 57 54" stroke="#78350f" stroke-width="3" stroke-linecap="round" fill="none"/>
             </svg>
             <div style="width:8px; height:50px; background:#059669; border-radius:5px; margin-top:-6px;"></div>
           </div>
-
-          <!-- Yellow Flower -->
+          <!-- Yellow -->
           <div id="milo-target-yellow" data-color="yellow" onclick="handleFlowerClick('yellow')" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center; cursor:pointer;">
-            <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+            <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px;">
               <path d="M40 70 C30 50 25 35 40 18 C55 35 50 50 40 70 Z" fill="#fde047" stroke="#ca8a04" stroke-width="2.5"/>
               <path d="M33 42 Q36 46 39 42 M41 42 Q44 46 47 42" stroke="#713f12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
-            <svg class="milo-bloom" viewBox="0 0 100 100" style="width:110px; height:110px; display:none; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+            <svg class="milo-bloom" viewBox="0 0 100 100" style="width:110px; height:110px; display:none;">
               <circle cx="50" cy="24" r="14" fill="#fde047"/><circle cx="74" cy="38" r="14" fill="#fde047"/>
               <circle cx="70" cy="70" r="14" fill="#fde047"/><circle cx="30" cy="70" r="14" fill="#fde047"/>
               <circle cx="26" cy="38" r="14" fill="#fde047"/><circle cx="50" cy="50" r="20" fill="#a16207"/>
@@ -390,45 +559,40 @@
             </svg>
             <div style="width:8px; height:50px; background:#059669; border-radius:5px; margin-top:-6px;"></div>
           </div>
-
-          <!-- Blue Flower -->
+          <!-- Blue -->
           <div id="milo-target-blue" data-color="blue" onclick="handleFlowerClick('blue')" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center; cursor:pointer;">
-            <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
+            <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px;">
               <path d="M40 70 C30 50 25 35 40 18 C55 35 50 50 40 70 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="2.5"/>
               <path d="M33 42 Q36 46 39 42 M41 42 Q44 46 47 42" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
-            <svg class="milo-bloom" viewBox="0 0 100 100" style="width:110px; height:110px; display:none; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+            <svg class="milo-bloom" viewBox="0 0 100 100" style="width:110px; height:110px; display:none;">
               <path d="M28 38 C28 16 72 16 72 38 C78 68 22 68 28 38 Z" fill="#60a5fa"/>
               <circle cx="43" cy="42" r="3" fill="#1e3a8a"/><circle cx="57" cy="42" r="3" fill="#1e3a8a"/>
               <path d="M44 50 Q50 56 56 50" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round" fill="none"/>
             </svg>
             <div style="width:8px; height:50px; background:#059669; border-radius:5px; margin-top:-6px;"></div>
           </div>
-
         </div>
 
         <!-- Droplets Tray -->
         <div style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:12px;">
           <div id="milo-drop-red" data-color="red" class="milo-drop" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 70 70" style="width:74px; height:74px; filter:drop-shadow(0 4px 6px rgba(239,68,68,0.3));">
+            <svg viewBox="0 0 70 70" style="width:74px; height:74px;">
               <path d="M35 8 C25 24 14 36 14 47 C14 59 23 66 35 66 C47 66 56 59 56 47 C56 36 45 24 35 8 Z" fill="#ef4444"/>
-              <ellipse cx="28" cy="38" rx="4" ry="7" fill="#ffffff" opacity="0.45" transform="rotate(-20 28 38)"/>
               <circle cx="31" cy="48" r="3" fill="#7f1d1d"/><circle cx="41" cy="48" r="3" fill="#7f1d1d"/>
               <path d="M33 53 Q36 57 39 53" stroke="#7f1d1d" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
           </div>
           <div id="milo-drop-yellow" data-color="yellow" class="milo-drop" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 70 70" style="width:74px; height:74px; filter:drop-shadow(0 4px 6px rgba(234,179,8,0.3));">
+            <svg viewBox="0 0 70 70" style="width:74px; height:74px;">
               <path d="M35 8 C25 24 14 36 14 47 C14 59 23 66 35 66 C47 66 56 59 56 47 C56 36 45 24 35 8 Z" fill="#eab308"/>
-              <ellipse cx="28" cy="38" rx="4" ry="7" fill="#ffffff" opacity="0.5" transform="rotate(-20 28 38)"/>
               <circle cx="31" cy="48" r="3" fill="#713f12"/><circle cx="41" cy="48" r="3" fill="#713f12"/>
               <path d="M33 53 Q36 57 39 53" stroke="#713f12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
           </div>
           <div id="milo-drop-blue" data-color="blue" class="milo-drop" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 70 70" style="width:74px; height:74px; filter:drop-shadow(0 4px 6px rgba(59,130,246,0.3));">
+            <svg viewBox="0 0 70 70" style="width:74px; height:74px;">
               <path d="M35 8 C25 24 14 36 14 47 C14 59 23 66 35 66 C47 66 56 59 56 47 C56 36 45 24 35 8 Z" fill="#3b82f6"/>
-              <ellipse cx="28" cy="38" rx="4" ry="7" fill="#ffffff" opacity="0.45" transform="rotate(-20 28 38)"/>
               <circle cx="31" cy="48" r="3" fill="#1e3a8a"/><circle cx="41" cy="48" r="3" fill="#1e3a8a"/>
               <path d="M33 53 Q36 57 39 53" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
@@ -436,62 +600,58 @@
         </div>
       </section>
 
-      <!-- GAME 2: PIP'S TREEHOUSE SHAPES -->
+      <!-- GAME 2: PIP'S TREEHOUSE (SHAPES & PUZZLES) -->
       <section id="view-pip" class="game-view">
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:10px;">
-            <div style="font-size:2.6rem;">🐦</div>
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
             <div>
-              <h3 style="font-size:1.25rem; color:#78350f; font-weight:800;">Pip’s Treehouse</h3>
-              <p style="font-size:0.9rem; color:#92400e;">Fit the wooden shapes into their tree hollows!</p>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Pip’s Shapes</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Fit shapes into tree hollows!</p>
             </div>
           </div>
-          <button onclick="resetPip()" style="border:none; background:#fef3c7; color:#92400e; padding:10px 16px; border-radius:9999px; font-weight:800; font-size:0.9rem; cursor:pointer;">↺ Reset</button>
+          <button onclick="resetPip()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
         </div>
 
         <div style="flex:1; width:100%; display:flex; justify-content:space-around; align-items:center; background:linear-gradient(180deg, #fef3c7 0%, #fde68a 100%); border-radius:24px; border:3px dashed #f59e0b; margin:14px 0;">
-          
-          <!-- Circle Socket -->
-          <div id="pip-socket-circle" data-shape="circle" onclick="handleSocketClick('circle')" class="pip-socket" style="width:105px; height:105px; border-radius:50%; border:4px dashed #b45309; display:flex; align-items:center; justify-content:center; background:rgba(180,83,9,0.12); box-shadow:inset 0 3px 6px rgba(0,0,0,0.1); cursor:pointer;">
+          <!-- Circle -->
+          <div id="pip-socket-circle" data-shape="circle" onclick="handleSocketClick('circle')" class="pip-socket rounded-full border-4 border-dashed border-amber-600/70 flex items-center justify-center bg-amber-950/15" style="width:100px; height:100px; cursor:pointer;">
             <span class="pip-hint" style="font-size:0.9rem; font-weight:800; color:#b45309;">Circle</span>
-            <span class="pip-animal" style="font-size:3.6rem; display:none;">🐰</span>
+            <span class="pip-animal" style="font-size:3.5rem; display:none;">🐰</span>
           </div>
-
-          <!-- Triangle Socket -->
-          <div id="pip-socket-triangle" data-shape="triangle" onclick="handleSocketClick('triangle')" class="pip-socket" style="width:105px; height:105px; display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer;">
-            <svg viewBox="0 0 100 100" style="width:105px; height:105px;">
-              <polygon points="50,15 15,85 85,85" fill="rgba(180,83,9,0.12)" stroke="#b45309" stroke-width="4" stroke-dasharray="8,5"/>
+          <!-- Triangle -->
+          <div id="pip-socket-triangle" data-shape="triangle" onclick="handleSocketClick('triangle')" class="pip-socket flex items-center justify-center relative cursor-pointer" style="width:100px; height:100px;">
+            <svg viewBox="0 0 100 100" style="width:100px; height:100px;">
+              <polygon points="50,15 15,85 85,85" fill="rgba(180,83,9,0.15)" stroke="#b45309" stroke-width="4" stroke-dasharray="8,5"/>
             </svg>
-            <span class="pip-hint" style="position:absolute; font-size:0.9rem; font-weight:800; color:#b45309; margin-top:10px;">Triangle</span>
-            <span class="pip-animal" style="position:absolute; font-size:3.6rem; display:none;">🦊</span>
+            <span class="pip-hint" style="position:absolute; font-size:0.9rem; font-weight:800; color:#b45309; margin-top:8px;">Triangle</span>
+            <span class="pip-animal" style="position:absolute; font-size:3.5rem; display:none;">🦊</span>
           </div>
-
-          <!-- Square Socket -->
-          <div id="pip-socket-square" data-shape="square" onclick="handleSocketClick('square')" class="pip-socket" style="width:100px; height:100px; border-radius:20px; border:4px dashed #b45309; display:flex; align-items:center; justify-content:center; background:rgba(180,83,9,0.12); box-shadow:inset 0 3px 6px rgba(0,0,0,0.1); cursor:pointer;">
+          <!-- Square -->
+          <div id="pip-socket-square" data-shape="square" onclick="handleSocketClick('square')" class="pip-socket rounded-2xl border-4 border-dashed border-amber-600/70 flex items-center justify-center bg-amber-950/15" style="width:96px; height:96px; cursor:pointer;">
             <span class="pip-hint" style="font-size:0.9rem; font-weight:800; color:#b45309;">Square</span>
-            <span class="pip-animal" style="font-size:3.6rem; display:none;">🦉</span>
+            <span class="pip-animal" style="font-size:3.5rem; display:none;">🦉</span>
           </div>
-
         </div>
 
-        <!-- Shape Blocks Tray -->
+        <!-- Shape Tray -->
         <div style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#fefce8; border:2px solid #fef08a; border-radius:24px; padding:12px;">
-          <div id="pip-block-circle" data-shape="circle" class="pip-block" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 80 80" style="width:76px; height:76px; filter:drop-shadow(0 4px 6px rgba(217,119,6,0.3));">
+          <div id="pip-block-circle" data-shape="circle" class="pip-block cursor-grab touch-none" style="width:78px; height:78px; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 80 80" style="width:74px; height:74px;">
               <circle cx="40" cy="40" r="34" fill="#fbbf24" stroke="#d97706" stroke-width="3"/>
               <circle cx="34" cy="38" r="3.5" fill="#92400e"/><circle cx="46" cy="38" r="3.5" fill="#92400e"/>
               <path d="M34 46 Q40 52 46 46" stroke="#92400e" stroke-width="3" stroke-linecap="round" fill="none"/>
             </svg>
           </div>
-          <div id="pip-block-triangle" data-shape="triangle" class="pip-block" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 80 80" style="width:76px; height:76px; filter:drop-shadow(0 4px 6px rgba(194,65,12,0.3));">
+          <div id="pip-block-triangle" data-shape="triangle" class="pip-block cursor-grab touch-none" style="width:78px; height:78px; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 80 80" style="width:74px; height:74px;">
               <polygon points="40,8 10,70 70,70" fill="#f97316" stroke="#c2410c" stroke-width="3"/>
               <circle cx="35" cy="46" r="3.5" fill="#9a3412"/><circle cx="45" cy="46" r="3.5" fill="#9a3412"/>
               <path d="M36 53 Q40 58 44 53" stroke="#9a3412" stroke-width="3" stroke-linecap="round" fill="none"/>
             </svg>
           </div>
-          <div id="pip-block-square" data-shape="square" class="pip-block" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 80 80" style="width:76px; height:76px; filter:drop-shadow(0 4px 6px rgba(5,150,105,0.3));">
+          <div id="pip-block-square" data-shape="square" class="pip-block cursor-grab touch-none" style="width:78px; height:78px; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 80 80" style="width:74px; height:74px;">
               <rect x="10" y="10" width="60" height="60" rx="14" fill="#34d399" stroke="#059669" stroke-width="3"/>
               <circle cx="34" cy="38" r="3.5" fill="#065f46"/><circle cx="46" cy="38" r="3.5" fill="#065f46"/>
               <path d="M34 46 Q40 52 46 46" stroke="#065f46" stroke-width="3" stroke-linecap="round" fill="none"/>
@@ -500,26 +660,66 @@
         </div>
       </section>
 
-      <!-- GAME 3: PENNY'S MUDDY PUDDLES -->
+      <!-- GAME 3: LOLA'S BERRY PICNIC (EARLY MATHEMATICS & NUMBERS) -->
+      <section id="view-lola" class="game-view">
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
+            <div>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Lola’s Numbers</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Tap to count 1, 2, 3 delicious berries!</p>
+            </div>
+          </div>
+          <button onclick="resetLola()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+        </div>
+
+        <!-- Picnic Riverbank Stage with 3 Number Plates -->
+        <div style="flex:1; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:space-around; background:linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%); border-radius:24px; border:3px dashed #60a5fa; margin:14px 0; padding:12px; position:relative;">
+          
+          <!-- Lola Mascot Prompt -->
+          <div style="display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.85); padding:6px 16px; border-radius:9999px; border:2px solid #93c5fd;">
+            <span style="font-size:1.6rem;">🦦</span>
+            <span id="lola-speech" style="font-size:0.9rem; font-weight:800; color:#1e40af;">Count the berries into Lola’s basket!</span>
+          </div>
+
+          <!-- The Big Picnic Basket Target -->
+          <div id="lola-basket" onclick="tapAddBerry()" style="width:200px; height:120px; background:#b45309; border:4px solid #78350f; border-radius:28px 28px 50px 50px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(180,83,9,0.25); cursor:pointer; position:relative;">
+            <div style="width:120px; height:14px; background:#78350f; border-radius:6px; position:absolute; top:-10px;"></div>
+            <div id="basket-berries" style="display:flex; gap:6px; flex-wrap:wrap; justify-content:center; padding:8px;"></div>
+            <span id="basket-count" style="font-size:1.5rem; font-weight:900; color:#ffffff; text-shadow:0 2px 4px rgba(0,0,0,0.3);">0 / 3</span>
+          </div>
+
+          <div style="font-size:0.85rem; font-weight:800; color:#1e3a8a;">Tap the berry below to count! 🍓</div>
+        </div>
+
+        <!-- Berry Tray -->
+        <div style="width:100%; display:flex; justify-content:center; align-items:center; background:#eff6ff; border:2px solid #bfdbfe; border-radius:24px; padding:12px;">
+          <div onclick="tapAddBerry()" style="cursor:pointer; display:flex; align-items:center; gap:12px; background:#ffffff; padding:8px 24px; border-radius:9999px; border:3px solid #f87171; box-shadow:0 4px 12px rgba(239,68,68,0.2);" class="active:scale-95 transition-transform">
+            <span style="font-size:2.4rem;">🍓</span>
+            <span style="font-size:1.1rem; font-weight:900; color:#b91c1c;">Tap Berry!</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- GAME 4: PENNY'S MUDDY PUDDLES (PRETEND PLAY & HABITS) -->
       <section id="view-penny" class="game-view">
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:10px;">
-            <div style="font-size:2.6rem;">🐷</div>
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
             <div>
-              <h3 style="font-size:1.25rem; color:#78350f; font-weight:800;">Penny’s Puddles</h3>
-              <p id="penny-status" style="font-size:0.9rem; color:#92400e;">Step 1: Put on the yellow boots!</p>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Penny’s Puddles</h3>
+              <p id="penny-status" style="font-size:0.85rem; color:#92400e;">Step 1: Put on the yellow boots!</p>
             </div>
           </div>
-          <button onclick="resetPenny()" style="border:none; background:#fef3c7; color:#92400e; padding:10px 16px; border-radius:9999px; font-weight:800; font-size:0.9rem; cursor:pointer;">↺ Reset</button>
+          <button onclick="resetPenny()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
         </div>
 
         <div id="penny-stage" onclick="jumpPenny(event)" style="flex:1; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; background:linear-gradient(180deg, #bae6fd 0%, #a7f3d0 100%); border-radius:24px; border:3px dashed #38bdf8; margin:14px 0; position:relative; overflow:hidden; cursor:pointer;">
-          
           <div id="penny-splatters" style="position:absolute; inset:0; pointer-events:none;"></div>
 
-          <!-- Penny Character -->
+          <!-- Penny -->
           <div id="penny-character" style="position:relative; z-index:2; margin-bottom:8px;">
-            <svg viewBox="0 0 100 120" style="width:145px; height:170px; filter:drop-shadow(0 6px 12px rgba(0,0,0,0.12));">
+            <svg viewBox="0 0 100 120" style="width:140px; height:165px;">
               <ellipse cx="62" cy="18" rx="7" ry="14" fill="#f472b6" stroke="#db2777" stroke-width="2.5"/>
               <ellipse cx="78" cy="20" rx="7" ry="14" fill="#f472b6" stroke="#db2777" stroke-width="2.5"/>
               <rect x="18" y="36" width="38" height="24" rx="12" fill="#f472b6" stroke="#db2777" stroke-width="2.5"/>
@@ -543,16 +743,14 @@
           </div>
 
           <!-- Mud Puddle -->
-          <div id="penny-puddle" style="width:280px; height:60px; background:#78350f; border-radius:50%; border:4px solid #92400e; margin-bottom:-14px; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 4px 10px rgba(0,0,0,0.3);">
-            <span id="penny-tap-label" style="display:none; font-size:0.85rem; font-weight:900; color:#fde68a; letter-spacing:0.06em;">TAP TO JUMP! 💦</span>
+          <div id="penny-puddle" style="width:280px; height:60px; background:#78350f; border-radius:50%; border:4px solid #92400e; margin-bottom:-14px; display:flex; align-items:center; justify-content:center;">
+            <span id="penny-tap-label" style="display:none; font-size:0.85rem; font-weight:900; color:#fde68a;">TAP TO JUMP! 💦</span>
           </div>
-
         </div>
 
-        <!-- Boots Tray / Jump Splash Counter -->
         <div id="penny-tray" style="width:100%; display:flex; justify-content:space-between; align-items:center; background:#fdf2f8; border:2px solid #fbcfe8; border-radius:24px; padding:12px 20px;">
           <div id="penny-drag-boots" onclick="applyBootsDirectly()" style="cursor:grab; touch-action:none;">
-            <svg viewBox="0 0 80 50" style="width:84px; height:52px; filter:drop-shadow(0 4px 6px rgba(202,138,4,0.3));">
+            <svg viewBox="0 0 80 50" style="width:84px; height:52px;">
               <path d="M10 6 L26 6 L26 24 L36 26 C38 36 14 40 10 34 Z" fill="#facc15" stroke="#ca8a04" stroke-width="3"/>
               <path d="M44 6 L60 6 L60 24 L70 26 C72 36 48 40 44 34 Z" fill="#facc15" stroke="#ca8a04" stroke-width="3"/>
             </svg>
@@ -560,7 +758,6 @@
           <span style="font-size:0.95rem; font-weight:800; color:#db2777;">Drag or tap boots to wear!</span>
         </div>
 
-        <!-- Jump Progress Dots -->
         <div id="penny-progress" style="width:100%; display:none; justify-content:space-between; align-items:center; background:#ecfdf5; border:2px solid #a7f3d0; border-radius:24px; padding:12px 20px;">
           <span style="font-size:0.95rem; font-weight:800; color:#065f46;">Splashes:</span>
           <div style="display:flex; gap:10px;" id="penny-dots">
@@ -581,29 +778,23 @@
       <div id="confettiContainer" style="position:absolute; inset:0; pointer-events:none; overflow:hidden;"></div>
       
       <div class="appraisal-card">
-        <!-- Floating Stars -->
         <div class="stars-row">
           <span class="star-item">⭐</span>
           <span class="star-item big-star">🌟</span>
           <span class="star-item">⭐</span>
         </div>
 
-        <!-- Mascot Avatar -->
         <div id="modalAnimalAvatar" class="modal-avatar">🐻</div>
 
-        <!-- Encouraging Praise -->
         <h2 id="modalTitle" class="modal-title">Wonderful Job!</h2>
         <p id="modalSubtitle" class="modal-subtitle">You completed the level!</p>
 
         <!-- The 2 Big Action Buttons -->
         <div class="modal-buttons-row">
-          <!-- Replay Button -->
           <button id="modalReplayBtn" onclick="handleModalReplay()" class="action-btn replay-btn">
             <span style="font-size:1.5rem;">↺</span>
             <span>Replay</span>
           </button>
-
-          <!-- Go Next Level Button -->
           <button id="modalNextBtn" onclick="handleModalNext()" class="action-btn next-btn">
             <span>Go Next Level</span>
             <span style="font-size:1.5rem;">➔</span>
@@ -661,13 +852,12 @@
     }
 
     function playCelebrationFanfare() {
-      const melody = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      const melody = [523.25, 659.25, 783.99, 1046.50];
       melody.forEach((freq, idx) => {
         setTimeout(() => playNote(freq, 0.45, 'sine'), idx * 110);
       });
     }
 
-    // Optional Spoken Praise for Toddlers
     function speakPraise(text) {
       if ('speechSynthesis' in window) {
         try {
@@ -679,29 +869,25 @@
       }
     }
 
-    // --- Tab Switcher ---
-    let currentGame = 'milo';
+    // --- Tab Switcher & Navigation ---
+    let currentGame = 'home';
 
     function switchGame(gameId) {
       initAudio();
       currentGame = gameId;
       playNote(440, 0.2, 'triangle');
+
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.game-view').forEach(view => view.classList.remove('active'));
 
-      if (gameId === 'milo') {
-        document.querySelectorAll('.tab-btn')[0].classList.add('active');
-        document.getElementById('view-milo').classList.add('active');
-      } else if (gameId === 'pip') {
-        document.querySelectorAll('.tab-btn')[1].classList.add('active');
-        document.getElementById('view-pip').classList.add('active');
-      } else if (gameId === 'penny') {
-        document.querySelectorAll('.tab-btn')[2].classList.add('active');
-        document.getElementById('view-penny').classList.add('active');
-      }
+      const activeTab = document.getElementById(`tab-${gameId}`);
+      if (activeTab) activeTab.classList.add('active');
+
+      const activeView = document.getElementById(`view-${gameId}`);
+      if (activeView) activeView.classList.add('active');
     }
 
-    // --- APPRAISAL & LEVEL PROGRESSION LOGIC ---
+    // --- Appraisal & Level Progression Logic ---
     let activeLevel = 'milo';
     let nextLevel = 'pip';
 
@@ -745,6 +931,7 @@
 
       if (activeLevel === 'milo') resetMilo();
       else if (activeLevel === 'pip') resetPip();
+      else if (activeLevel === 'lola') resetLola();
       else if (activeLevel === 'penny') resetPenny();
     }
 
@@ -754,12 +941,13 @@
 
       if (activeLevel === 'milo') resetMilo();
       else if (activeLevel === 'pip') resetPip();
+      else if (activeLevel === 'lola') resetLola();
       else if (activeLevel === 'penny') resetPenny();
 
       switchGame(nextLevel);
     }
 
-    // --- GAME 1: MILO LOGIC ---
+    // --- GAME 1: MILO (COLORS) ---
     let miloBloomed = 0;
     const miloDrops = document.querySelectorAll('.milo-drop');
     const miloTargets = document.querySelectorAll('.milo-target');
@@ -785,70 +973,49 @@
 
         playNote(523 + miloBloomed * 120, 0.5);
 
-        // Immediate Level Complete Appraisal Check!
         if (miloBloomed === 3) {
           setTimeout(() => {
-            showLevelAppraisal(
-              'milo',
-              'Super Blooming! 🌸',
-              'You helped Milo wake up the whole garden!',
-              '🐻',
-              'pip',
-              'Hooray! Great job!'
-            );
+            showLevelAppraisal('milo', 'Super Blooming! 🌸', 'You helped Milo wake up the whole garden!', '🐻', 'pip', 'Hooray! Great job!');
           }, 300);
         }
       }
     }
 
-    // Tap-to-Place Accessibility Fallback for toddlers
-    let selectedMiloColor = null;
     miloDrops.forEach(drop => {
       let active = false, startX, startY;
-      
       drop.addEventListener('pointerdown', (e) => {
         initAudio(); active = true; drop.setPointerCapture(e.pointerId);
         startX = e.clientX; startY = e.clientY;
         drop.style.transition = 'none'; drop.style.zIndex = '50';
-        selectedMiloColor = drop.dataset.color;
       });
-
       drop.addEventListener('pointermove', (e) => {
         if (!active) return;
         const dx = e.clientX - startX; const dy = e.clientY - startY;
         drop.style.transform = `translate(${dx}px, ${dy}px) scale(1.15)`;
       });
-
       const endDrag = (e) => {
         if (!active) return; active = false; drop.releasePointerCapture(e.pointerId);
         const dRect = drop.getBoundingClientRect();
         let matched = false;
-
         miloTargets.forEach(target => {
           const tRect = target.getBoundingClientRect();
-          // Generous overlap check
           const overlap = !(dRect.right < tRect.left - 20 || dRect.left > tRect.right + 20 || dRect.bottom < tRect.top - 20 || dRect.top > tRect.bottom + 20);
           if (overlap && target.dataset.color === drop.dataset.color) {
             matched = true;
             bloomFlower(drop.dataset.color);
           }
         });
-
         if (!matched) {
           playNote(220, 0.2, 'triangle');
           drop.style.transition = 'transform 0.3s ease';
           drop.style.transform = 'translate(0, 0) scale(1)';
         }
       };
-
       drop.addEventListener('pointerup', endDrag);
       drop.addEventListener('pointercancel', endDrag);
     });
 
-    function handleFlowerClick(color) {
-      // Tap on flower to water if tapped or selected
-      bloomFlower(color);
-    }
+    function handleFlowerClick(color) { bloomFlower(color); }
 
     function resetMilo() {
       miloBloomed = 0;
@@ -864,7 +1031,7 @@
       });
     }
 
-    // --- GAME 2: PIP LOGIC ---
+    // --- GAME 2: PIP (SHAPES) ---
     let pipSolved = 0;
     const pipBlocks = document.querySelectorAll('.pip-block');
     const pipSockets = document.querySelectorAll('.pip-socket');
@@ -889,14 +1056,7 @@
 
         if (pipSolved === 3) {
           setTimeout(() => {
-            showLevelAppraisal(
-              'pip',
-              'Cozy Treehouse! 🌲',
-              'All three friends are safe & snug in their tree hollows!',
-              '🐦',
-              'penny',
-              'Wonderful! All friends are happy!'
-            );
+            showLevelAppraisal('pip', 'Cozy Treehouse! 🌲', 'All three friends are safe & snug in their tree hollows!', '🐦', 'lola', 'Wonderful! All friends are happy!');
           }, 300);
         }
       }
@@ -910,18 +1070,15 @@
         block.style.transition = 'none'; block.style.zIndex = '50';
         playNote(300, 0.1, 'triangle');
       });
-
       block.addEventListener('pointermove', (e) => {
         if (!active) return;
         const dx = e.clientX - startX; const dy = e.clientY - startY;
         block.style.transform = `translate(${dx}px, ${dy}px) scale(1.15)`;
       });
-
       const endDrag = (e) => {
         if (!active) return; active = false; block.releasePointerCapture(e.pointerId);
         const bRect = block.getBoundingClientRect();
         let matched = false;
-
         pipSockets.forEach(socket => {
           const sRect = socket.getBoundingClientRect();
           const overlap = !(bRect.right < sRect.left - 20 || bRect.left > sRect.right + 20 || bRect.bottom < sRect.top - 20 || bRect.top > sRect.bottom + 20);
@@ -930,21 +1087,17 @@
             fitShape(block.dataset.shape);
           }
         });
-
         if (!matched) {
           playNote(180, 0.15, 'triangle');
           block.style.transition = 'transform 0.3s ease';
           block.style.transform = 'translate(0, 0) scale(1)';
         }
       };
-
       block.addEventListener('pointerup', endDrag);
       block.addEventListener('pointercancel', endDrag);
     });
 
-    function handleSocketClick(shape) {
-      fitShape(shape);
-    }
+    function handleSocketClick(shape) { fitShape(shape); }
 
     function resetPip() {
       pipSolved = 0;
@@ -960,7 +1113,50 @@
       });
     }
 
-    // --- GAME 3: PENNY LOGIC ---
+    // --- GAME 3: LOLA (EARLY MATHEMATICS & NUMBERS) ---
+    let lolaBerries = 0;
+    const maxLolaBerries = 3;
+
+    function tapAddBerry() {
+      if (lolaBerries >= maxLolaBerries) return;
+      lolaBerries++;
+      playNote(400 + lolaBerries * 100, 0.3, 'sine');
+
+      const countLabels = ["One! 🍓", "Two! 🍓🍓", "Three! 🍓🍓🍓"];
+      document.getElementById('lola-speech').textContent = countLabels[lolaBerries - 1];
+      document.getElementById('basket-count').textContent = `${lolaBerries} / 3`;
+
+      // Add visual berry to basket
+      const berryElem = document.createElement('span');
+      berryElem.textContent = '🍓';
+      berryElem.style.fontSize = '1.8rem';
+      berryElem.className = 'pop-in';
+      document.getElementById('basket-berries').appendChild(berryElem);
+
+      speakPraise(String(lolaBerries));
+
+      if (lolaBerries === maxLolaBerries) {
+        setTimeout(() => {
+          showLevelAppraisal(
+            'lola',
+            'Super Counting! 🍓',
+            'You counted 1, 2, 3 delicious berries for Lola’s picnic!',
+            '🦦',
+            'penny',
+            'Super counter! Three berries ready for the picnic!'
+          );
+        }, 400);
+      }
+    }
+
+    function resetLola() {
+      lolaBerries = 0;
+      document.getElementById('basket-berries').innerHTML = '';
+      document.getElementById('basket-count').textContent = '0 / 3';
+      document.getElementById('lola-speech').textContent = "Count the berries into Lola’s basket!";
+    }
+
+    // --- GAME 4: PENNY (PRETEND PLAY & ROUTINES) ---
     let pennyHasBoots = false;
     let pennyJumps = 0;
     const maxPennyJumps = 5;
@@ -988,12 +1184,10 @@
       bx = e.clientX; by = e.clientY;
       dragBoots.style.transition = 'none'; dragBoots.style.zIndex = '50';
     });
-
     dragBoots.addEventListener('pointermove', (e) => {
       if (!activeB) return;
       dragBoots.style.transform = `translate(${e.clientX - bx}px, ${e.clientY - by}px) scale(1.15)`;
     });
-
     const releaseBoots = (e) => {
       if (!activeB) return; activeB = false; dragBoots.releasePointerCapture(e.pointerId);
       const bRect = dragBoots.getBoundingClientRect();
@@ -1025,7 +1219,6 @@
         dots[pennyJumps - 1].style.transform = 'scale(1.25)';
       }
 
-      // Mud Splatters
       const splatters = document.getElementById('penny-splatters');
       for (let i = 0; i < 8; i++) {
         const drop = document.createElement('div');
@@ -1048,14 +1241,7 @@
       if (pennyJumps === maxPennyJumps) {
         setTimeout(() => {
           playSnort();
-          showLevelAppraisal(
-            'penny',
-            'Splash Champion! 💦',
-            'Penny had so much fun jumping in the muddy puddles!',
-            '🐷',
-            'milo',
-            'Splash champion! You did it!'
-          );
+          showLevelAppraisal('penny', 'Splash Champion! 💦', 'Penny had so much fun jumping in the muddy puddles!', '🐷', 'home', 'Splash champion! You did it!');
         }, 400);
       }
     }
