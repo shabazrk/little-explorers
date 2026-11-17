@@ -605,21 +605,26 @@
     .color-pot:hover { transform: scale(1.12); }
     .color-pot:active { cursor: grabbing; transform: scale(1.22); }
 
-    /* LEVEL 3: COLOR MIXING PLAYGROUND (WHITE SPACE & BAMMM SPLASH) */
+    /* LEVEL 3: COLOR MIXING PLAYGROUND (WATERCOLOR PAPER & LIQUID DROPLETS) */
     .color-playground-canvas {
       flex: 1;
       width: 100%;
-      background: #ffffff;
+      background-color: #fcfbf9;
+      background-image:
+        radial-gradient(rgba(0, 0, 0, 0.022) 1px, transparent 0),
+        radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 0);
+      background-size: 16px 16px;
+      background-position: 0 0, 8px 8px;
       border-radius: 28px;
-      border: 3px solid #f1f5f9;
-      box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.04);
+      border: 2.5px solid #e7e5e0;
+      box-shadow: inset 0 2px 18px rgba(0, 0, 0, 0.045);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 10px;
+      padding: 14px 10px;
       margin: 8px 0 4px;
       touch-action: none;
     }
@@ -629,41 +634,147 @@
       touch-action: none;
       user-select: none;
       -webkit-user-select: none;
+      -webkit-touch-callout: none;
       -webkit-tap-highlight-color: transparent;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 6px;
       transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 10;
+      will-change: transform;
+    }
+    .canvas-paint-blob * {
+      pointer-events: none;
     }
     .canvas-paint-blob:hover {
-      transform: scale(1.1);
+      transform: scale(1.07);
     }
     .canvas-paint-blob.dragging {
       cursor: grabbing;
-      transform: scale(1.28) !important;
       z-index: 99 !important;
-      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.25)) !important;
+      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.28));
     }
     .canvas-paint-blob.pulse-target {
-      animation: blobTargetPulse 0.4s infinite alternate ease-in-out;
-      transform: scale(1.22);
+      animation: blobTargetPulse 0.38s infinite alternate ease-in-out;
     }
     @keyframes blobTargetPulse {
-      0% { transform: scale(1.12); }
-      100% { transform: scale(1.28); filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.7)); }
+      0% { transform: scale(1.06); }
+      100% { transform: scale(1.18); filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.55)); }
     }
-    .canvas-paint-blob.selected-tap {
-      animation: blobSelected 0.7s infinite alternate ease-in-out;
-      filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.75));
+    .canvas-paint-blob.selected-tap .water-droplet {
+      animation: blobSelected 0.65s infinite alternate ease-in-out;
+      outline: 4px solid rgba(168, 85, 247, 0.55);
+      outline-offset: 4px;
     }
     @keyframes blobSelected {
-      0% { transform: scale(1.1) translateY(0); }
-      100% { transform: scale(1.2) translateY(-6px); }
+      0% { transform: scale(1.04) translateY(0); }
+      100% { transform: scale(1.12) translateY(-5px); }
     }
 
-    /* BAMMM! COLOR SPLASH OVERLAY */
+    /* Realistic 3D Translucent Round Water Paint Droplets on Paper */
+    .water-droplet {
+      position: relative;
+      width: clamp(92px, 24vw, 118px);
+      height: clamp(92px, 24vw, 118px);
+      border-radius: 50% 49% 51% 49% / 49% 51% 49% 51%;
+      background: radial-gradient(circle at 38% 34%, var(--drop-core) 0%, var(--drop-mid) 54%, var(--drop-edge) 88%, var(--drop-dark) 100%);
+      box-shadow:
+        0 10px 16px -4px rgba(0, 0, 0, 0.38),
+        0 4px 10px -1px var(--drop-shadow),
+        inset 0 -9px 14px rgba(0, 0, 0, 0.45),
+        inset 0 4px 10px rgba(255, 255, 255, 0.32),
+        inset -7px -5px 12px var(--drop-rim);
+      transition: transform 0.2s ease;
+    }
+    /* Curved glossy ring-light specular highlight on top of liquid dome */
+    .water-droplet::before {
+      content: '';
+      position: absolute;
+      top: 11%;
+      left: 29%;
+      width: 28%;
+      height: 14%;
+      border-radius: 50%;
+      border: 3.5px solid rgba(255, 255, 255, 0.92);
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.04) 70%);
+      transform: rotate(-14deg);
+      filter: blur(0.35px);
+    }
+    /* Luminous refracted caustic light arc on lower-right curve */
+    .water-droplet::after {
+      content: '';
+      position: absolute;
+      bottom: 9%;
+      right: 10%;
+      width: 58%;
+      height: 58%;
+      border-radius: 50%;
+      border-right: 4.5px solid var(--drop-caustic);
+      border-bottom: 3.5px solid var(--drop-caustic);
+      border-top: 3px solid transparent;
+      border-left: 3px solid transparent;
+      filter: blur(2.2px);
+      opacity: 0.88;
+    }
+
+    .droplet-red {
+      --drop-core: rgba(255, 62, 42, 0.85);
+      --drop-mid: rgba(218, 18, 14, 0.93);
+      --drop-edge: rgba(142, 6, 6, 0.98);
+      --drop-dark: #450303;
+      --drop-rim: rgba(255, 115, 85, 0.72);
+      --drop-caustic: rgba(255, 165, 125, 0.88);
+      --drop-shadow: rgba(153, 27, 27, 0.45);
+    }
+    .droplet-yellow {
+      --drop-core: rgba(254, 240, 82, 0.76);
+      --drop-mid: rgba(220, 182, 12, 0.9);
+      --drop-edge: rgba(148, 110, 6, 0.96);
+      --drop-dark: #4f3702;
+      --drop-rim: rgba(255, 248, 148, 0.85);
+      --drop-caustic: rgba(255, 254, 175, 0.96);
+      --drop-shadow: rgba(161, 98, 7, 0.42);
+    }
+    .droplet-blue {
+      --drop-core: rgba(68, 154, 255, 0.82);
+      --drop-mid: rgba(24, 92, 228, 0.92);
+      --drop-edge: rgba(14, 46, 142, 0.98);
+      --drop-dark: #091a52;
+      --drop-rim: rgba(125, 195, 255, 0.78);
+      --drop-caustic: rgba(168, 222, 255, 0.92);
+      --drop-shadow: rgba(30, 58, 138, 0.45);
+    }
+    .droplet-orange {
+      --drop-core: rgba(255, 152, 48, 0.84);
+      --drop-mid: rgba(232, 92, 10, 0.93);
+      --drop-edge: rgba(152, 46, 5, 0.98);
+      --drop-dark: #571802;
+      --drop-rim: rgba(255, 192, 108, 0.78);
+      --drop-caustic: rgba(255, 218, 142, 0.92);
+      --drop-shadow: rgba(154, 52, 18, 0.45);
+    }
+    .droplet-green {
+      --drop-core: rgba(26, 182, 66, 0.82);
+      --drop-mid: rgba(10, 124, 34, 0.94);
+      --drop-edge: rgba(4, 68, 16, 0.98);
+      --drop-dark: #02280a;
+      --drop-rim: rgba(98, 238, 128, 0.82);
+      --drop-caustic: rgba(138, 255, 152, 0.94);
+      --drop-shadow: rgba(20, 83, 45, 0.48);
+    }
+    .droplet-purple {
+      --drop-core: rgba(188, 98, 255, 0.82);
+      --drop-mid: rgba(124, 32, 204, 0.93);
+      --drop-edge: rgba(72, 12, 132, 0.98);
+      --drop-dark: #28034c;
+      --drop-rim: rgba(220, 165, 255, 0.78);
+      --drop-caustic: rgba(238, 198, 255, 0.92);
+      --drop-shadow: rgba(88, 28, 135, 0.45);
+    }
+
+    /* WATERCOLOR SPLASH OVERLAY */
     .color-splash-overlay {
       position: absolute;
       inset: 0;
@@ -673,26 +784,26 @@
       justify-content: center;
       pointer-events: none;
       opacity: 0;
-      transform: scale(0.2);
-      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: scale(0.25);
+      transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 120;
     }
     .color-splash-overlay.active {
       opacity: 1;
       transform: scale(1);
-      animation: splashBoom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      animation: splashBloom 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
     .color-splash-overlay.fade-out {
       opacity: 0;
-      transform: scale(1.2);
+      transform: scale(1.18);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
-    @keyframes splashBoom {
-      0% { transform: scale(0.2) rotate(-15deg); opacity: 0; }
-      50% { transform: scale(1.15) rotate(4deg); opacity: 1; }
-      75% { transform: scale(0.96) rotate(-2deg); }
-      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    @keyframes splashBloom {
+      0% { transform: scale(0.2); opacity: 0; }
+      55% { transform: scale(1.1); opacity: 1; }
+      80% { transform: scale(0.97); }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     /* FANCY X & YES CELEBRATION FEEDBACK */
@@ -1252,113 +1363,72 @@
           </div>
         </div>
 
-        <!-- Blank White Playground Canvas with Paint Blobs & Splash -->
+        <!-- Blank White Watercolor Paper Canvas with Round Liquid Paint Droplets & Splash -->
         <div id="color-playground" class="color-playground-canvas">
           
-          <!-- Top Friendly Hint -->
-          <div style="background:#f8fafc; border:1.5px solid #e2e8f0; padding:6px 18px; border-radius:9999px; font-size:0.88rem; font-weight:800; color:#475569; box-shadow:0 2px 6px rgba(0,0,0,0.04); z-index:10;">
-            👉 Drag any color onto another color to mix!
-          </div>
-
-          <!-- BAMMM! Splash Overlay -->
+          <!-- Watercolor Splash Overlay (Only Created Color Name) -->
           <div id="color-splash-overlay" class="color-splash-overlay">
-            <div style="position:relative; width:280px; height:280px; display:flex; align-items:center; justify-content:center;">
-              <svg id="splash-svg" viewBox="0 0 200 200" style="width:100%; height:100%; filter:drop-shadow(0 12px 28px rgba(0,0,0,0.22));">
-                <path id="splash-svg-path" d="M100 20 C125 15 140 40 160 35 C175 45 165 70 185 85 C190 105 170 125 180 145 C165 160 145 155 130 175 C105 185 95 165 70 180 C50 170 60 145 40 135 C20 120 35 95 20 75 C35 55 55 65 70 40 C85 25 85 20 100 20 Z" fill="#f97316"/>
-                <circle id="splash-drop-1" cx="178" cy="28" r="7" fill="#f97316"/>
-                <circle id="splash-drop-2" cx="190" cy="115" r="5" fill="#f97316"/>
-                <circle id="splash-drop-3" cx="145" cy="188" r="8" fill="#f97316"/>
-                <circle id="splash-drop-4" cx="28" cy="155" r="6" fill="#f97316"/>
-                <circle id="splash-drop-5" cx="16" cy="62" r="7" fill="#f97316"/>
-                <circle id="splash-drop-6" cx="85" cy="12" r="5" fill="#f97316"/>
+            <div style="position:relative; width:310px; height:310px; display:flex; align-items:center; justify-content:center;">
+              <svg id="splash-svg" viewBox="0 0 260 260" style="width:100%; height:100%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.16));">
+                <!-- Outer soft watercolor bleed wash -->
+                <path id="splash-wash-outer" d="M130 20 C170 12 195 46 222 55 C248 64 234 106 246 134 C256 160 226 188 216 214 C204 240 164 228 134 244 C100 254 70 228 44 212 C18 194 24 152 14 122 C6 92 40 72 54 46 C70 20 96 26 130 20 Z" fill="#f97316" opacity="0.26"/>
+                <!-- Middle layered watercolor bloom -->
+                <path id="splash-wash-mid" d="M132 36 C166 30 186 58 208 72 C228 88 216 122 224 146 C230 172 204 192 188 210 C168 228 134 218 108 226 C80 232 60 206 42 186 C24 164 40 130 32 104 C26 78 56 66 74 48 C92 32 104 42 132 36 Z" fill="#f97316" opacity="0.52"/>
+                <!-- Main rich watercolor splash body -->
+                <path id="splash-svg-path" d="M130 48 C158 44 176 68 196 82 C212 96 200 124 208 144 C214 166 190 184 174 198 C154 212 128 204 104 210 C80 216 64 192 50 174 C36 154 50 126 46 104 C42 82 68 72 86 58 C102 44 108 52 130 48 Z" fill="#f97316" opacity="0.88"/>
+                <!-- Organic watercolor splatter droplets -->
+                <circle id="splash-drop-1" cx="228" cy="38" r="9" fill="#f97316" opacity="0.72"/>
+                <circle id="splash-drop-2" cx="244" cy="108" r="6" fill="#f97316" opacity="0.65"/>
+                <circle id="splash-drop-3" cx="218" cy="224" r="10" fill="#f97316" opacity="0.7"/>
+                <circle id="splash-drop-4" cx="36" cy="218" r="8" fill="#f97316" opacity="0.68"/>
+                <circle id="splash-drop-5" cx="18" cy="78" r="9" fill="#f97316" opacity="0.7"/>
+                <circle id="splash-drop-6" cx="84" cy="16" r="7" fill="#f97316" opacity="0.65"/>
+                <circle id="splash-drop-7" cx="178" cy="18" r="5" fill="#f97316" opacity="0.55"/>
+                <circle id="splash-drop-8" cx="128" cy="252" r="6" fill="#f97316" opacity="0.6"/>
               </svg>
-              <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; z-index:10;">
-                <span style="font-size:0.95rem; font-weight:900; color:#ffffff; text-shadow:0 2px 4px rgba(0,0,0,0.35); letter-spacing:1px;">💥 BAMMM! 💥</span>
-                <h2 id="splash-color-name" style="font-size:1.9rem; font-weight:900; color:#ffffff; text-shadow:0 3px 8px rgba(0,0,0,0.4); margin:2px 0; line-height:1.1;">ORANGE! 🍊</h2>
-                <div id="splash-formula" style="font-size:0.92rem; font-weight:800; color:#ffffff; text-shadow:0 2px 5px rgba(0,0,0,0.4); background:rgba(0,0,0,0.22); padding:3px 12px; border-radius:9999px; margin-top:4px;">
-                  Red + Yellow = Orange
-                </div>
-                <span id="splash-category" style="font-size:0.75rem; font-weight:800; color:rgba(255,255,255,0.95); text-shadow:0 1px 3px rgba(0,0,0,0.3); margin-top:4px;">
-                  Secondary Color
-                </span>
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:30px; z-index:10;">
+                <h2 id="splash-color-name" style="font-size:2rem; font-weight:900; color:#ffffff; text-shadow:0 3px 10px rgba(0,0,0,0.42); margin:0; line-height:1.15;">Orange</h2>
               </div>
             </div>
           </div>
 
-          <!-- The 6 Colors spread in the white space -->
-          <div id="canvas-blobs-container" style="width:100%; flex:1; display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(2, 1fr); align-items:center; justify-items:center; gap:16px; padding:10px 4px;">
+          <!-- The 6 Big Round Water Paint Droplets on White Paper -->
+          <div id="canvas-blobs-container" style="width:100%; flex:1; display:grid; grid-template-columns:repeat(2, 1fr); grid-template-rows:repeat(3, 1fr); align-items:center; justify-items:center; gap:14px 18px; padding:12px 10px; touch-action:none;">
             <!-- Red -->
             <div id="blob-red" data-color="red" class="canvas-paint-blob">
-              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(239,68,68,0.3));">
-                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#ef4444"/>
-                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
-                <circle cx="35" cy="54" r="3" fill="#7f1d1d"/><circle cx="45" cy="54" r="3" fill="#7f1d1d"/>
-                <path d="M37 60 Q40 64 43 60" stroke="#7f1d1d" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              </svg>
-              <span style="font-size:0.9rem; font-weight:900; color:#b91c1c; margin-top:2px;">Red</span>
+              <div class="water-droplet droplet-red"></div>
+              <span style="font-size:0.95rem; font-weight:800; color:#991b1b;">Red</span>
             </div>
 
             <!-- Yellow -->
             <div id="blob-yellow" data-color="yellow" class="canvas-paint-blob">
-              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(234,179,8,0.3));">
-                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#facc15"/>
-                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.65)" transform="rotate(-30 32 36)"/>
-                <circle cx="35" cy="54" r="3" fill="#713f12"/><circle cx="45" cy="54" r="3" fill="#713f12"/>
-                <path d="M37 60 Q40 64 43 60" stroke="#713f12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              </svg>
-              <span style="font-size:0.9rem; font-weight:900; color:#a16207; margin-top:2px;">Yellow</span>
+              <div class="water-droplet droplet-yellow"></div>
+              <span style="font-size:0.95rem; font-weight:800; color:#854d0e;">Yellow</span>
             </div>
 
             <!-- Blue -->
             <div id="blob-blue" data-color="blue" class="canvas-paint-blob">
-              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(59,130,246,0.3));">
-                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#3b82f6"/>
-                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
-                <circle cx="35" cy="54" r="3" fill="#1e3a8a"/><circle cx="45" cy="54" r="3" fill="#1e3a8a"/>
-                <path d="M37 60 Q40 64 43 60" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              </svg>
-              <span style="font-size:0.9rem; font-weight:900; color:#1d4ed8; margin-top:2px;">Blue</span>
+              <div class="water-droplet droplet-blue"></div>
+              <span style="font-size:0.95rem; font-weight:800; color:#1e40af;">Blue</span>
             </div>
 
             <!-- Orange -->
             <div id="blob-orange" data-color="orange" class="canvas-paint-blob">
-              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(249,115,22,0.3));">
-                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#f97316"/>
-                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
-                <circle cx="35" cy="54" r="3" fill="#7c2d12"/><circle cx="45" cy="54" r="3" fill="#7c2d12"/>
-                <path d="M37 60 Q40 64 43 60" stroke="#7c2d12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              </svg>
-              <span style="font-size:0.9rem; font-weight:900; color:#c2410c; margin-top:2px;">Orange</span>
+              <div class="water-droplet droplet-orange"></div>
+              <span style="font-size:0.95rem; font-weight:800; color:#c2410c;">Orange</span>
             </div>
 
             <!-- Green -->
             <div id="blob-green" data-color="green" class="canvas-paint-blob">
-              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(34,197,94,0.3));">
-                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#22c55e"/>
-                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
-                <circle cx="35" cy="54" r="3" fill="#14532d"/><circle cx="45" cy="54" r="3" fill="#14532d"/>
-                <path d="M37 60 Q40 64 43 60" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              </svg>
-              <span style="font-size:0.9rem; font-weight:900; color:#15803d; margin-top:2px;">Green</span>
+              <div class="water-droplet droplet-green"></div>
+              <span style="font-size:0.95rem; font-weight:800; color:#166534;">Green</span>
             </div>
 
             <!-- Purple -->
             <div id="blob-purple" data-color="purple" class="canvas-paint-blob">
-              <svg viewBox="0 0 80 80" style="width:78px; height:78px; filter:drop-shadow(0 6px 12px rgba(168,85,247,0.3));">
-                <path d="M40 8 C25 24 16 38 16 52 C16 66 26 74 40 74 C54 74 64 66 64 52 C64 38 55 24 40 8 Z" fill="#a855f7"/>
-                <ellipse cx="32" cy="36" rx="8" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 32 36)"/>
-                <circle cx="35" cy="54" r="3" fill="#581c87"/><circle cx="45" cy="54" r="3" fill="#581c87"/>
-                <path d="M37 60 Q40 64 43 60" stroke="#581c87" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              </svg>
-              <span style="font-size:0.9rem; font-weight:900; color:#7e22ce; margin-top:2px;">Purple</span>
+              <div class="water-droplet droplet-purple"></div>
+              <span style="font-size:0.95rem; font-weight:800; color:#6b21a8;">Purple</span>
             </div>
-          </div>
-
-          <!-- Bottom Action Hint -->
-          <div style="width:100%; display:flex; justify-content:center; align-items:center; z-index:10;">
-            <button onclick="resetColorMixer()" style="border:none; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; font-size:0.8rem; font-weight:800; padding:4px 14px; border-radius:9999px; cursor:pointer;">
-              ↺ Reset Positions
-            </button>
           </div>
 
         </div>
@@ -2465,27 +2535,23 @@
       // Voice praise with Siri
       speakPraise(recipe.phrase);
 
-      // Update Splash Overlay DOM
+      // Update Watercolor Splash Overlay DOM (Only Created Color Name)
       const overlay = document.getElementById('color-splash-overlay');
+      const washOuter = document.getElementById('splash-wash-outer');
+      const washMid = document.getElementById('splash-wash-mid');
       const splashPath = document.getElementById('splash-svg-path');
       const splashName = document.getElementById('splash-color-name');
-      const splashFormula = document.getElementById('splash-formula');
-      const splashCategory = document.getElementById('splash-category');
 
+      if (washOuter) washOuter.setAttribute('fill', recipe.hex);
+      if (washMid) washMid.setAttribute('fill', recipe.hex);
       if (splashPath) splashPath.setAttribute('fill', recipe.hex);
-      for (let i = 1; i <= 6; i++) {
+      for (let i = 1; i <= 8; i++) {
         const drop = document.getElementById(`splash-drop-${i}`);
         if (drop) drop.setAttribute('fill', recipe.hex);
       }
 
       if (splashName) {
-        splashName.textContent = `${recipe.name.toUpperCase()}! ${recipe.emoji}`;
-      }
-      if (splashFormula) {
-        splashFormula.textContent = `${colorPotsInfo[color1].name} + ${colorPotsInfo[color2].name} = ${recipe.name}`;
-      }
-      if (splashCategory) {
-        splashCategory.textContent = recipe.category;
+        splashName.textContent = recipe.name;
       }
 
       if (overlay) {
@@ -2526,56 +2592,56 @@
         b.classList.remove('pulse-target');
         b.classList.remove('dragging');
         b.style.transition = 'transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        b.style.transform = 'translate(0px, 0px) scale(1)';
+        b.style.transform = 'translate3d(0px, 0px, 0) scale(1)';
         b.style.zIndex = '10';
       });
       playNote(300, 0.15, 'triangle');
     }
 
-    // Drag-any-blob-into-another + Tap-to-mix without duplicate clicks
+    // Bulletproof Drag-any-droplet-into-another + Tap-to-mix
     function initBlobDrag() {
-      const blobs = document.querySelectorAll('.canvas-paint-blob');
+      const blobs = Array.from(document.querySelectorAll('.canvas-paint-blob'));
+
+      const findOverlappingBlob = (draggedBlob) => {
+        const bRect = draggedBlob.getBoundingClientRect();
+        const bCenterX = bRect.left + bRect.width / 2;
+        const bCenterY = bRect.top + bRect.height / 2;
+        const threshold = Math.max(85, bRect.width * 0.85);
+
+        let closest = null;
+        let minDist = Infinity;
+
+        blobs.forEach(other => {
+          if (other === draggedBlob) return;
+          const oRect = other.getBoundingClientRect();
+          const oCenterX = oRect.left + oRect.width / 2;
+          const oCenterY = oRect.top + oRect.height / 2;
+          const dist = Math.hypot(bCenterX - oCenterX, bCenterY - oCenterY);
+          if (dist < threshold && dist < minDist) {
+            minDist = dist;
+            closest = other;
+          }
+        });
+        return closest;
+      };
+
       blobs.forEach(blob => {
-        let active = false, startX = 0, startY = 0, moved = false;
+        let active = false;
+        let activePointerId = null;
+        let startX = 0;
+        let startY = 0;
+        let moved = false;
         let lastTarget = null;
 
-        blob.addEventListener('pointerdown', (e) => {
-          initAudio();
-          active = true;
-          moved = false;
-          lastTarget = null;
-          blob.setPointerCapture(e.pointerId);
-          startX = e.clientX;
-          startY = e.clientY;
-          blob.style.transition = 'none';
-          blob.classList.add('dragging');
-          playNote(380, 0.08, 'triangle');
-        });
-
-        blob.addEventListener('pointermove', (e) => {
-          if (!active) return;
+        const onPointerMove = (e) => {
+          if (!active || e.pointerId !== activePointerId) return;
           const dx = e.clientX - startX;
           const dy = e.clientY - startY;
           if (Math.hypot(dx, dy) > 8) moved = true;
 
-          blob.style.transform = `translate(${dx}px, ${dy}px) scale(1.28)`;
+          blob.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(1.14)`;
 
-          // Highlight any hovered target blob
-          const bRect = blob.getBoundingClientRect();
-          const bCenterX = bRect.left + bRect.width / 2;
-          const bCenterY = bRect.top + bRect.height / 2;
-
-          let currentTarget = null;
-          blobs.forEach(other => {
-            if (other === blob) return;
-            const oRect = other.getBoundingClientRect();
-            const oCenterX = oRect.left + oRect.width / 2;
-            const oCenterY = oRect.top + oRect.height / 2;
-            if (Math.hypot(bCenterX - oCenterX, bCenterY - oCenterY) < 70) {
-              currentTarget = other;
-            }
-          });
-
+          const currentTarget = findOverlappingBlob(blob);
           if (currentTarget !== lastTarget) {
             if (lastTarget) lastTarget.classList.remove('pulse-target');
             if (currentTarget) {
@@ -2584,54 +2650,55 @@
             }
             lastTarget = currentTarget;
           }
-        });
+        };
 
         const endDrag = (e) => {
-          if (!active) return;
+          if (!active || e.pointerId !== activePointerId) return;
           active = false;
-          try { blob.releasePointerCapture(e.pointerId); } catch (err) {}
-          blob.classList.remove('dragging');
+          activePointerId = null;
 
+          window.removeEventListener('pointermove', onPointerMove);
+          window.removeEventListener('pointerup', endDrag);
+          window.removeEventListener('pointercancel', endDrag);
+
+          try { blob.releasePointerCapture(e.pointerId); } catch (err) {}
+
+          // Re-check overlap right before resetting transform
+          const dropTarget = moved ? (findOverlappingBlob(blob) || lastTarget) : null;
+
+          blob.classList.remove('dragging');
           if (lastTarget) {
             lastTarget.classList.remove('pulse-target');
+            lastTarget = null;
+          }
+          if (dropTarget) {
+            dropTarget.classList.remove('pulse-target');
           }
 
-          // Case 1: Dragged onto another blob
-          if (moved && lastTarget) {
-            const c1 = blob.dataset.color;
-            const c2 = lastTarget.dataset.color;
+          // Smoothly return dragged droplet to its paper spot
+          blob.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          blob.style.transform = 'translate3d(0px, 0px, 0) scale(1)';
+          blob.style.zIndex = '10';
 
-            // Snap back smoothly
-            blob.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            blob.style.transform = 'translate(0px, 0px) scale(1)';
-            blob.style.zIndex = '10';
-
-            // BAMMM!
-            triggerColorSplash(c1, c2);
+          // Case 1: Dragged onto another droplet -> merge with watercolor splash!
+          if (moved && dropTarget) {
+            triggerColorSplash(blob.dataset.color, dropTarget.dataset.color);
             return;
           }
 
-          // Return dragged blob smoothly to its home slot
-          blob.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-          blob.style.transform = 'translate(0px, 0px) scale(1)';
-          blob.style.zIndex = '10';
-
-          // Case 2: Tap-to-mix (when user simply clicks/taps without dragging)
+          // Case 2: Simple tap-to-mix fallback (zero double-selection bug)
           if (!moved) {
             const color = blob.dataset.color;
             if (!selectedTapBlob) {
-              // First blob selected
               selectedTapBlob = blob;
               blob.classList.add('selected-tap');
               playNote(440, 0.15, 'sine');
               speakPraise(colorPotsInfo[color].name);
             } else if (selectedTapBlob === blob) {
-              // Tapped the same blob again -> deselect
               selectedTapBlob.classList.remove('selected-tap');
               selectedTapBlob = null;
               playNote(260, 0.1, 'triangle');
             } else {
-              // Tapped a second blob -> BAMMM mix!
               const c1 = selectedTapBlob.dataset.color;
               const c2 = color;
               selectedTapBlob.classList.remove('selected-tap');
@@ -2641,8 +2708,28 @@
           }
         };
 
-        blob.addEventListener('pointerup', endDrag);
-        blob.addEventListener('pointercancel', endDrag);
+        blob.addEventListener('pointerdown', (e) => {
+          if (e.button !== undefined && e.button !== 0 && e.pointerType === 'mouse') return;
+          e.preventDefault();
+          initAudio();
+
+          active = true;
+          activePointerId = e.pointerId;
+          moved = false;
+          lastTarget = null;
+          startX = e.clientX;
+          startY = e.clientY;
+
+          try { blob.setPointerCapture(e.pointerId); } catch (err) {}
+          blob.style.transition = 'none';
+          blob.classList.add('dragging');
+          blob.style.zIndex = '99';
+          playNote(380, 0.08, 'triangle');
+
+          window.addEventListener('pointermove', onPointerMove, { passive: true });
+          window.addEventListener('pointerup', endDrag);
+          window.addEventListener('pointercancel', endDrag);
+        });
       });
     }
 
