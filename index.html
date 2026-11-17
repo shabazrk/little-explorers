@@ -150,112 +150,107 @@
       transform: scale(1);
     }
 
-    /* HOMEPAGE CATALOG VIEW */
+    /* HOMEPAGE 2-COLUMN WIREFRAME VIEW */
     #view-home {
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: flex-start;
       overflow-y: auto;
       touch-action: pan-y;
       -webkit-overflow-scrolling: touch;
-      padding: 18px 16px;
+      padding: 16px 14px 24px;
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      border: 3.5px solid #ffffff;
+      box-shadow: 0 16px 40px rgba(2, 132, 199, 0.35);
     }
     #view-home::-webkit-scrollbar { display: none; }
 
-    .category-section {
+    .home-header-banner {
       width: 100%;
-      margin-bottom: 20px;
+      text-align: center;
+      margin-bottom: 14px;
+      color: #ffffff;
     }
-    .category-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      padding: 0 4px;
-    }
-    .category-title {
-      font-size: 1.05rem;
+    .home-header-banner h2 {
+      font-size: 1.45rem;
       font-weight: 900;
-      color: #78350f;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 8px rgba(2, 132, 199, 0.45);
     }
-    .category-badge {
-      font-size: 0.7rem;
+    .home-header-banner p {
+      font-size: 0.85rem;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 9999px;
-      background: #fef3c7;
-      color: #b45309;
+      opacity: 0.95;
+      text-shadow: 0 1px 4px rgba(2, 132, 199, 0.3);
     }
 
-    .cards-grid {
+    .wireframe-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px 14px;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
     }
 
-    .game-card {
-      background: #ffffff;
-      border: 2.5px solid #fde68a;
-      border-radius: 22px;
-      padding: 12px 14px;
+    .wireframe-card {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 4px 10px rgba(180, 83, 9, 0.05);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .game-card:hover {
-      border-color: #f59e0b;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.15);
+    .wireframe-card:hover {
+      transform: translateY(-4px) scale(1.03);
     }
-    .game-card:active {
-      transform: scale(0.97);
+    .wireframe-card:active {
+      transform: scale(0.94);
     }
 
-    .card-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .card-avatar {
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
+    .wireframe-box {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 26px;
+      background: #f8fafc;
+      border: 3px solid #ffffff;
+      box-shadow: 0 8px 20px rgba(3, 105, 161, 0.28), 0 2px 6px rgba(0,0,0,0.06);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.9rem;
-      border: 2px solid rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
     }
-    .card-info h4 {
-      font-size: 1rem;
-      font-weight: 800;
-      color: #78350f;
-      line-height: 1.2;
+    .wireframe-card:hover .wireframe-box {
+      box-shadow: 0 12px 28px rgba(3, 105, 161, 0.38);
+      border-color: #fef08a;
     }
-    .card-info p {
-      font-size: 0.8rem;
-      color: #92400e;
-      font-weight: 500;
-      margin-top: 2px;
-    }
-    .card-play-btn {
-      background: #f59e0b;
-      color: #ffffff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 9999px;
+
+    .wireframe-label {
+      margin-top: 8px;
+      width: 100%;
+      background: #ffffff;
+      color: #0369a1;
       font-size: 0.85rem;
       font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 2px solid #bae6fd;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.15);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: all 0.2s ease;
+    }
+    .wireframe-card:hover .wireframe-label {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fcd34d;
     }
 
     /* Animations */
@@ -555,20 +550,23 @@
         <button id="tab-home" class="tab-btn active" onclick="switchGame('home')">
           <span>🏠</span> Home
         </button>
-        <button id="tab-milo" class="tab-btn" onclick="switchGame('milo')">
-          <span>🌸</span> Flowers
+        <button id="tab-colors" class="tab-btn" onclick="switchGame('colors')">
+          <span>🎨</span> Colours
         </button>
-        <button id="tab-color-fruits" class="tab-btn" onclick="switchGame('color-fruits')">
-          <span>🍎</span> Fruits
+        <button id="tab-lola" class="tab-btn" onclick="switchGame('lola')">
+          <span>🔢</span> Maths
         </button>
         <button id="tab-pip" class="tab-btn" onclick="switchGame('pip')">
           <span>🔷</span> Shapes
         </button>
-        <button id="tab-lola" class="tab-btn" onclick="switchGame('lola')">
-          <span>🔢</span> Numbers
-        </button>
         <button id="tab-penny" class="tab-btn" onclick="switchGame('penny')">
           <span>🐷</span> Puddles
+        </button>
+        <button id="tab-animals" class="tab-btn" onclick="switchGame('animals')">
+          <span>🐶</span> Sounds
+        </button>
+        <button id="tab-scribble" class="tab-btn" onclick="switchGame('scribble')">
+          <span>✨</span> Scribbles
         </button>
       </nav>
     </header>
@@ -576,121 +574,134 @@
     <!-- Main Game Staging -->
     <main>
 
-      <!-- HOMEPAGE SECTION CLASSIFICATIONS (THE LEARNING HUB) -->
+      <!-- HOMEPAGE 2-COLUMN WIREFRAME WIDGETS (EXACT FORMAT FROM WIREFRAME) -->
       <section id="view-home" class="game-view active">
         
-        <!-- Welcome Hero -->
-        <div style="width:100%; text-align:left; margin-bottom:16px;">
-          <h2 style="font-size:1.4rem; font-weight:900; color:#78350f; display:flex; align-items:center; gap:8px;">
-            Explore & Play 🌟
-          </h2>
-          <p style="font-size:0.85rem; color:#92400e; font-weight:600;">Choose a learning world or level to begin your adventure!</p>
+        <div class="home-header-banner">
+          <h2>Little Explorers 🌟</h2>
+          <p>Tap a world to start playing!</p>
         </div>
 
-        <!-- SECTION 1: COLORS & CREATIVITY (MULTI-LEVEL) -->
-        <div class="category-section">
-          <div class="category-header">
-            <h3 class="category-title">
-              <span>🎨</span> Colors & Creativity
-            </h3>
-            <span class="category-badge">2 Levels Available</span>
-          </div>
-          <div class="cards-grid">
-            <!-- Level 1 -->
-            <div class="game-card" onclick="switchGame('milo')">
-              <div class="card-left">
-                <div class="card-avatar" style="background:#fee2e2;">🌸</div>
-                <div class="card-info">
-                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
-                    <span style="background:#fde68a; color:#92400e; font-size:0.65rem; font-weight:800; padding:1px 7px; border-radius:9999px;">LEVEL 1</span>
-                    <h4 style="margin:0;">Milo’s Flower Garden</h4>
-                  </div>
-                  <p>Match colored drops to bloom sleeping flowers</p>
-                </div>
-              </div>
-              <button class="card-play-btn">Play ➔</button>
+        <div class="wireframe-grid">
+          <!-- Widget 1: Play with Colours -->
+          <div class="wireframe-card" onclick="switchGame('colors')">
+            <div class="wireframe-box" style="background: linear-gradient(135deg, #fee2e2 0%, #fef3c7 100%);">
+              <svg viewBox="0 0 100 100" style="width: 82%; height: 82%;">
+                <!-- Bear Milo -->
+                <circle cx="34" cy="46" r="22" fill="#b45309"/>
+                <circle cx="20" cy="30" r="8" fill="#b45309"/><circle cx="20" cy="30" r="4.5" fill="#fde68a"/>
+                <circle cx="48" cy="30" r="8" fill="#b45309"/><circle cx="48" cy="30" r="4.5" fill="#fde68a"/>
+                <ellipse cx="34" cy="52" rx="10" ry="7" fill="#fde68a"/>
+                <circle cx="34" cy="48" r="3" fill="#78350f"/>
+                <circle cx="28" cy="42" r="2.5" fill="#ffffff"/><circle cx="40" cy="42" r="2.5" fill="#ffffff"/>
+                <!-- Flower -->
+                <circle cx="70" cy="36" r="6" fill="#f43f5e"/><circle cx="82" cy="42" r="6" fill="#f43f5e"/>
+                <circle cx="82" cy="56" r="6" fill="#f43f5e"/><circle cx="70" cy="62" r="6" fill="#f43f5e"/>
+                <circle cx="58" cy="56" r="6" fill="#f43f5e"/><circle cx="58" cy="42" r="6" fill="#f43f5e"/>
+                <circle cx="70" cy="49" r="8" fill="#fde047"/>
+                <!-- Apple -->
+                <circle cx="68" cy="76" r="14" fill="#ef4444"/>
+                <path d="M68 62 C68 56 73 53 76 52" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <path d="M70 58 C78 54 80 60 76 62 Z" fill="#22c55e"/>
+              </svg>
             </div>
+            <div class="wireframe-label">Play with Colours</div>
+          </div>
 
-            <!-- Level 2 -->
-            <div class="game-card" onclick="switchGame('color-fruits')">
-              <div class="card-left">
-                <div class="card-avatar" style="background:#fef3c7;">🍎</div>
-                <div class="card-info">
-                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
-                    <span style="background:#bbf7d0; color:#166534; font-size:0.65rem; font-weight:800; padding:1px 7px; border-radius:9999px;">LEVEL 2</span>
-                    <h4 style="margin:0;">Color Fruits & Veggies</h4>
-                  </div>
-                  <p>Pick the right color: red apple, yellow banana & green broccoli!</p>
-                </div>
-              </div>
-              <button class="card-play-btn">Play ➔</button>
+          <!-- Widget 2: Do the maths -->
+          <div class="wireframe-card" onclick="switchGame('lola')">
+            <div class="wireframe-box" style="background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);">
+              <svg viewBox="0 0 100 100" style="width: 82%; height: 82%;">
+                <!-- Otter Lola -->
+                <circle cx="36" cy="44" r="22" fill="#a16207"/>
+                <circle cx="20" cy="32" r="6" fill="#a16207"/><circle cx="52" cy="32" r="6" fill="#a16207"/>
+                <ellipse cx="36" cy="50" rx="11" ry="8" fill="#fef08a"/>
+                <ellipse cx="36" cy="46" rx="4" ry="2.5" fill="#451a03"/>
+                <circle cx="29" cy="40" r="2.5" fill="#451a03"/><circle cx="43" cy="40" r="2.5" fill="#451a03"/>
+                <!-- Strawberries 1, 2, 3 -->
+                <circle cx="74" cy="32" r="10" fill="#ef4444"/><circle cx="74" cy="32" r="7" fill="#f87171"/>
+                <text x="74" y="36" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">1</text>
+                <circle cx="62" cy="56" r="10" fill="#ef4444"/><circle cx="62" cy="56" r="7" fill="#f87171"/>
+                <text x="62" y="60" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">2</text>
+                <circle cx="78" cy="72" r="10" fill="#ef4444"/><circle cx="78" cy="72" r="7" fill="#f87171"/>
+                <text x="78" y="76" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">3</text>
+              </svg>
             </div>
+            <div class="wireframe-label">Do the maths</div>
           </div>
-        </div>
 
-        <!-- SECTION 2: SHAPES & SPATIAL REASONING -->
-        <div class="category-section">
-          <div class="category-header">
-            <h3 class="category-title">
-              <span>🔷</span> Shapes & Puzzles
-            </h3>
-            <span class="category-badge">Spatial Geometry</span>
-          </div>
-          <div class="cards-grid">
-            <div class="game-card" onclick="switchGame('pip')">
-              <div class="card-left">
-                <div class="card-avatar" style="background:#fef3c7;">🐦</div>
-                <div class="card-info">
-                  <h4>Pip’s Treehouse</h4>
-                  <p>Fit wooden shapes to reveal animal friends</p>
-                </div>
-              </div>
-              <button class="card-play-btn">Play ➔</button>
+          <!-- Widget 3: Find Shapes -->
+          <div class="wireframe-card" onclick="switchGame('pip')">
+            <div class="wireframe-box" style="background: linear-gradient(135deg, #fefce8 0%, #fed7aa 100%);">
+              <svg viewBox="0 0 100 100" style="width: 82%; height: 82%;">
+                <!-- Bird Pip -->
+                <circle cx="35" cy="40" r="18" fill="#38bdf8"/>
+                <polygon points="18,40 10,43 18,46" fill="#f59e0b"/>
+                <circle cx="30" cy="36" r="3" fill="#0f172a"/>
+                <!-- Wooden Shapes -->
+                <circle cx="68" cy="32" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="2.5"/>
+                <polygon points="70,50 56,76 84,76" fill="#f97316" stroke="#c2410c" stroke-width="2.5" stroke-linejoin="round"/>
+                <rect x="22" y="64" width="22" height="22" rx="6" fill="#34d399" stroke="#059669" stroke-width="2.5"/>
+              </svg>
             </div>
+            <div class="wireframe-label">Find Shapes</div>
           </div>
-        </div>
 
-        <!-- SECTION 3: EARLY MATHEMATICS & NUMBERS -->
-        <div class="category-section">
-          <div class="category-header">
-            <h3 class="category-title">
-              <span>🔢</span> Early Math & Numbers
-            </h3>
-            <span class="category-badge">Counting & Logic</span>
-          </div>
-          <div class="cards-grid">
-            <div class="game-card" onclick="switchGame('lola')">
-              <div class="card-left">
-                <div class="card-avatar" style="background:#dbeafe;">🦦</div>
-                <div class="card-info">
-                  <h4>Lola’s Berry Picnic</h4>
-                  <p>Count 1, 2, 3 delicious berries onto picnic plates</p>
-                </div>
-              </div>
-              <button class="card-play-btn">Play ➔</button>
+          <!-- Widget 4: Muddy Puddles -->
+          <div class="wireframe-card" onclick="switchGame('penny')">
+            <div class="wireframe-box" style="background: linear-gradient(135deg, #bae6fd 0%, #a7f3d0 100%);">
+              <svg viewBox="0 0 100 100" style="width: 82%; height: 82%;">
+                <!-- Penny Pig -->
+                <circle cx="48" cy="36" r="22" fill="#f472b6"/>
+                <ellipse cx="34" cy="20" rx="5" ry="9" fill="#f472b6"/><ellipse cx="62" cy="20" rx="5" ry="9" fill="#f472b6"/>
+                <ellipse cx="48" cy="40" rx="9" ry="6" fill="#fb7185"/>
+                <circle cx="45" cy="40" r="2" fill="#881337"/><circle cx="51" cy="40" r="2" fill="#881337"/>
+                <circle cx="42" cy="30" r="2.5" fill="#1e293b"/><circle cx="54" cy="30" r="2.5" fill="#1e293b"/>
+                <!-- Boots & Puddle Splash -->
+                <ellipse cx="50" cy="80" rx="34" ry="10" fill="#78350f"/>
+                <path d="M40 70 L40 82 L47 82" stroke="#facc15" stroke-width="5" stroke-linecap="round"/>
+                <path d="M56 70 L56 82 L63 82" stroke="#facc15" stroke-width="5" stroke-linecap="round"/>
+                <circle cx="28" cy="74" r="3" fill="#78350f"/><circle cx="72" cy="74" r="3" fill="#78350f"/>
+              </svg>
             </div>
+            <div class="wireframe-label">Muddy Puddles</div>
           </div>
-        </div>
 
-        <!-- SECTION 4: PRETEND PLAY & DAILY HABITS -->
-        <div class="category-section">
-          <div class="category-header">
-            <h3 class="category-title">
-              <span>🐷</span> Pretend Play & Routines
-            </h3>
-            <span class="category-badge">Life Skills & Joy</span>
-          </div>
-          <div class="cards-grid">
-            <div class="game-card" onclick="switchGame('penny')">
-              <div class="card-left">
-                <div class="card-avatar" style="background:#fce7f3;">🐷</div>
-                <div class="card-info">
-                  <h4>Penny’s Muddy Puddles</h4>
-                  <p>Put on rainboots & jump in muddy puddles with snorts!</p>
-                </div>
-              </div>
-              <button class="card-play-btn">Play ➔</button>
+          <!-- Widget 5: Animal Sounds -->
+          <div class="wireframe-card" onclick="switchGame('animals')">
+            <div class="wireframe-box" style="background: linear-gradient(135deg, #fdf4ff 0%, #fce7f3 100%);">
+              <svg viewBox="0 0 100 100" style="width: 82%; height: 82%;">
+                <!-- Puppy Dog -->
+                <circle cx="40" cy="50" r="22" fill="#d97706"/>
+                <ellipse cx="20" cy="46" rx="6" ry="12" fill="#92400e"/>
+                <ellipse cx="60" cy="46" rx="6" ry="12" fill="#92400e"/>
+                <ellipse cx="40" cy="56" rx="8" ry="6" fill="#fef3c7"/>
+                <circle cx="40" cy="53" r="3" fill="#451a03"/>
+                <circle cx="34" cy="45" r="2.5" fill="#1e293b"/><circle cx="46" cy="45" r="2.5" fill="#1e293b"/>
+                <!-- Musical Notes -->
+                <text x="68" y="32" font-size="20" fill="#ec4899">♪</text>
+                <text x="78" y="52" font-size="16" fill="#8b5cf6">♫</text>
+                <text x="24" y="28" font-size="16" fill="#3b82f6">♪</text>
+              </svg>
             </div>
+            <div class="wireframe-label">Animal Sounds</div>
+          </div>
+
+          <!-- Widget 6: Magic Scribbles -->
+          <div class="wireframe-card" onclick="switchGame('scribble')">
+            <div class="wireframe-box" style="background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%);">
+              <svg viewBox="0 0 100 100" style="width: 82%; height: 82%;">
+                <!-- Rainbow Swirl Arc -->
+                <path d="M20 74 C26 40 50 32 80 42" stroke="#ef4444" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <path d="M24 78 C30 46 52 38 82 48" stroke="#facc15" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <path d="M28 82 C34 52 54 44 84 54" stroke="#3b82f6" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <!-- Magic Stars -->
+                <text x="24" y="36" font-size="18" fill="#eab308">✨</text>
+                <text x="64" y="30" font-size="20" fill="#a855f7">🌟</text>
+                <text x="70" y="80" font-size="16" fill="#ec4899">✨</text>
+              </svg>
+            </div>
+            <div class="wireframe-label">Magic Scribbles</div>
           </div>
         </div>
 
@@ -1112,6 +1123,82 @@
         </div>
       </section>
 
+      <!-- GAME 5: ANIMAL SOUNDS (MUSICAL DISCOVERY) -->
+      <section id="view-animals" class="game-view">
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
+            <div>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Animal Sounds 🐾</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Tap animals to hear their friendly sounds!</p>
+            </div>
+          </div>
+          <button onclick="resetAnimals()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+        </div>
+
+        <div style="flex:1; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:12px 6px; align-content:center; background:linear-gradient(180deg, #fdf4ff 0%, #fae8ff 100%); border-radius:24px; border:3px dashed #d8b4fe; margin:14px 0;">
+          <!-- Dog -->
+          <div onclick="tapAnimal('dog', 392, 'Woof! Woof!', '🐶')" style="background:#ffffff; border:3px solid #fbcfe8; border-radius:22px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 8px; cursor:pointer; box-shadow:0 6px 16px rgba(192,38,211,0.12);" class="active:scale-95">
+            <span style="font-size:3.8rem; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));">🐶</span>
+            <span style="font-size:1rem; font-weight:900; color:#86198f; margin-top:6px;">Puppy</span>
+            <span style="font-size:0.75rem; font-weight:700; color:#c026d3;">"Woof Woof!"</span>
+          </div>
+          <!-- Cat -->
+          <div onclick="tapAnimal('cat', 523.25, 'Meow! Meow!', '🐱')" style="background:#ffffff; border:3px solid #fbcfe8; border-radius:22px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 8px; cursor:pointer; box-shadow:0 6px 16px rgba(192,38,211,0.12);" class="active:scale-95">
+            <span style="font-size:3.8rem; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));">🐱</span>
+            <span style="font-size:1rem; font-weight:900; color:#86198f; margin-top:6px;">Kitty</span>
+            <span style="font-size:0.75rem; font-weight:700; color:#c026d3;">"Meow Meow!"</span>
+          </div>
+          <!-- Frog -->
+          <div onclick="tapAnimal('frog', 261.63, 'Ribbit! Ribbit!', '🐸')" style="background:#ffffff; border:3px solid #fbcfe8; border-radius:22px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 8px; cursor:pointer; box-shadow:0 6px 16px rgba(192,38,211,0.12);" class="active:scale-95">
+            <span style="font-size:3.8rem; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));">🐸</span>
+            <span style="font-size:1rem; font-weight:900; color:#86198f; margin-top:6px;">Froggy</span>
+            <span style="font-size:0.75rem; font-weight:700; color:#c026d3;">"Ribbit Ribbit!"</span>
+          </div>
+          <!-- Chick -->
+          <div onclick="tapAnimal('chick', 659.25, 'Cheep! Cheep!', '🐥')" style="background:#ffffff; border:3px solid #fbcfe8; border-radius:22px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 8px; cursor:pointer; box-shadow:0 6px 16px rgba(192,38,211,0.12);" class="active:scale-95">
+            <span style="font-size:3.8rem; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));">🐥</span>
+            <span style="font-size:1rem; font-weight:900; color:#86198f; margin-top:6px;">Chick</span>
+            <span style="font-size:0.75rem; font-weight:700; color:#c026d3;">"Cheep Cheep!"</span>
+          </div>
+        </div>
+
+        <div style="width:100%; text-align:center; background:#fdf2f8; border:2px solid #fbcfe8; border-radius:20px; padding:10px;">
+          <span id="animal-speech" style="font-size:0.95rem; font-weight:800; color:#9d174d;">Tap an animal to hear them sing!</span>
+        </div>
+      </section>
+
+      <!-- GAME 6: MAGIC SCRIBBLES (CREATIVE DRAWING) -->
+      <section id="view-scribble" class="game-view">
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
+            <div>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Magic Scribbles ✨</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Draw glowing rainbow lines with your finger!</p>
+            </div>
+          </div>
+          <button onclick="clearScribbleCanvas()" style="border:none; background:#fee2e2; color:#b91c1c; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">🧹 Clear</button>
+        </div>
+
+        <div style="flex:1; width:100%; background:#ffffff; border-radius:24px; border:3px dashed #c084fc; margin:12px 0; position:relative; overflow:hidden;">
+          <canvas id="scribbleCanvas" style="width:100%; height:100%; display:block; touch-action:none;"></canvas>
+          <div id="scribble-hint" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; color:#a855f7; font-size:1.1rem; font-weight:800; opacity:0.6;">
+            ✨ Touch & Scribble Anywhere! ✨
+          </div>
+        </div>
+
+        <!-- Color Crayons Tray -->
+        <div style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#faf5ff; border:2px solid #e9d5ff; border-radius:24px; padding:10px 14px;">
+          <button onclick="setScribbleColor('rainbow')" style="border:none; background:linear-gradient(90deg, #ef4444, #f59e0b, #10b981, #3b82f6); color:#fff; font-size:0.85rem; font-weight:900; padding:8px 14px; border-radius:9999px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.15);">🌈 Rainbow</button>
+          <button onclick="setScribbleColor('#ef4444')" style="border:none; width:36px; height:36px; border-radius:50%; background:#ef4444; cursor:pointer; box-shadow:0 3px 8px rgba(239,68,68,0.3);"></button>
+          <button onclick="setScribbleColor('#f59e0b')" style="border:none; width:36px; height:36px; border-radius:50%; background:#f59e0b; cursor:pointer; box-shadow:0 3px 8px rgba(245,158,11,0.3);"></button>
+          <button onclick="setScribbleColor('#10b981')" style="border:none; width:36px; height:36px; border-radius:50%; background:#10b981; cursor:pointer; box-shadow:0 3px 8px rgba(16,185,129,0.3);"></button>
+          <button onclick="setScribbleColor('#3b82f6')" style="border:none; width:36px; height:36px; border-radius:50%; background:#3b82f6; cursor:pointer; box-shadow:0 3px 8px rgba(59,130,246,0.3);"></button>
+          <button onclick="addSparkleStar()" style="border:none; background:#fef08a; font-size:1.3rem; padding:4px 10px; border-radius:9999px; cursor:pointer;" title="Stamp Star">⭐</button>
+        </div>
+      </section>
+
     </main>
 
     <!-- UNMISSABLE TODDLER APPRAISAL MODAL -->
@@ -1215,17 +1302,23 @@
 
     function switchGame(gameId) {
       initAudio();
+      if (gameId === 'colors') gameId = 'milo';
       currentGame = gameId;
       playNote(440, 0.2, 'triangle');
 
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.game-view').forEach(view => view.classList.remove('active'));
 
-      const activeTab = document.getElementById(`tab-${gameId}`);
+      let tabId = gameId;
+      if (gameId === 'milo' || gameId === 'color-fruits') tabId = 'colors';
+
+      const activeTab = document.getElementById(`tab-${tabId}`);
       if (activeTab) activeTab.classList.add('active');
 
       const activeView = document.getElementById(`view-${gameId}`);
       if (activeView) activeView.classList.add('active');
+
+      if (gameId === 'scribble') setTimeout(initScribble, 100);
     }
 
     // --- Appraisal & Level Progression Logic ---
@@ -1275,6 +1368,8 @@
       else if (activeLevel === 'pip') resetPip();
       else if (activeLevel === 'lola') resetLola();
       else if (activeLevel === 'penny') resetPenny();
+      else if (activeLevel === 'animals') resetAnimals();
+      else if (activeLevel === 'scribble') clearScribbleCanvas();
     }
 
     function handleModalNext() {
@@ -1286,6 +1381,8 @@
       else if (activeLevel === 'pip') resetPip();
       else if (activeLevel === 'lola') resetLola();
       else if (activeLevel === 'penny') resetPenny();
+      else if (activeLevel === 'animals') resetAnimals();
+      else if (activeLevel === 'scribble') clearScribbleCanvas();
 
       switchGame(nextLevel);
     }
@@ -1907,6 +2004,110 @@
         d.style.background = '#cbd5e1';
         d.style.transform = 'scale(1)';
       });
+    }
+
+    // --- GAME 5: ANIMAL SOUNDS ---
+    let animalsTapped = new Set();
+    function tapAnimal(name, freq, soundText, emoji) {
+      initAudio();
+      animalsTapped.add(name);
+      playNote(freq, 0.4, 'sine');
+      setTimeout(() => playNote(freq * 1.25, 0.35, 'triangle'), 100);
+
+      document.getElementById('animal-speech').textContent = `${emoji} ${name.toUpperCase()}: ${soundText}`;
+      speakPraise(`${name} says ${soundText}`);
+
+      if (animalsTapped.size === 4) {
+        setTimeout(() => {
+          showLevelAppraisal('animals', 'Animal Friend! 🐾', 'You heard all the friendly animal songs!', '🐶', 'scribble', 'Hooray! Great animal explorer!');
+        }, 600);
+      }
+    }
+
+    function resetAnimals() {
+      animalsTapped.clear();
+      document.getElementById('animal-speech').textContent = 'Tap an animal to hear them sing!';
+    }
+
+    // --- GAME 6: MAGIC SCRIBBLES ---
+    let scribbleColor = 'rainbow';
+    let scribbleHue = 0;
+    let scribbleCanvas, scribbleCtx, isDrawing = false;
+
+    function initScribble() {
+      scribbleCanvas = document.getElementById('scribbleCanvas');
+      if (!scribbleCanvas) return;
+      const rect = scribbleCanvas.parentElement.getBoundingClientRect();
+      scribbleCanvas.width = rect.width;
+      scribbleCanvas.height = rect.height;
+      scribbleCtx = scribbleCanvas.getContext('2d');
+      scribbleCtx.lineCap = 'round';
+      scribbleCtx.lineJoin = 'round';
+      scribbleCtx.lineWidth = 14;
+
+      const getPos = (e) => {
+        const r = scribbleCanvas.getBoundingClientRect();
+        return { x: e.clientX - r.left, y: e.clientY - r.top };
+      };
+
+      scribbleCanvas.addEventListener('pointerdown', (e) => {
+        initAudio();
+        isDrawing = true;
+        scribbleCanvas.setPointerCapture(e.pointerId);
+        document.getElementById('scribble-hint').style.display = 'none';
+        const pos = getPos(e);
+        scribbleCtx.beginPath();
+        scribbleCtx.moveTo(pos.x, pos.y);
+        playNote(400 + Math.random() * 200, 0.15, 'sine');
+      });
+
+      scribbleCanvas.addEventListener('pointermove', (e) => {
+        if (!isDrawing) return;
+        const pos = getPos(e);
+        if (scribbleColor === 'rainbow') {
+          scribbleHue = (scribbleHue + 5) % 360;
+          scribbleCtx.strokeStyle = `hsl(${scribbleHue}, 90%, 55%)`;
+          scribbleCtx.shadowColor = `hsl(${scribbleHue}, 90%, 65%)`;
+          scribbleCtx.shadowBlur = 10;
+        } else {
+          scribbleCtx.strokeStyle = scribbleColor;
+          scribbleCtx.shadowColor = scribbleColor;
+          scribbleCtx.shadowBlur = 8;
+        }
+        scribbleCtx.lineTo(pos.x, pos.y);
+        scribbleCtx.stroke();
+      });
+
+      const endDraw = (e) => {
+        if (!isDrawing) return;
+        isDrawing = false;
+        try { scribbleCanvas.releasePointerCapture(e.pointerId); } catch(err) {}
+      };
+      scribbleCanvas.addEventListener('pointerup', endDraw);
+      scribbleCanvas.addEventListener('pointercancel', endDraw);
+    }
+
+    function setScribbleColor(color) {
+      scribbleColor = color;
+      playNote(523.25, 0.2);
+    }
+
+    function clearScribbleCanvas() {
+      if (!scribbleCanvas || !scribbleCtx) return;
+      scribbleCtx.clearRect(0, 0, scribbleCanvas.width, scribbleCanvas.height);
+      document.getElementById('scribble-hint').style.display = 'flex';
+      playNote(220, 0.25, 'triangle');
+    }
+
+    function addSparkleStar() {
+      if (!scribbleCanvas || !scribbleCtx) return;
+      document.getElementById('scribble-hint').style.display = 'none';
+      const x = Math.random() * (scribbleCanvas.width - 60) + 30;
+      const y = Math.random() * (scribbleCanvas.height - 60) + 30;
+      scribbleCtx.font = '36px sans-serif';
+      scribbleCtx.fillText('⭐', x, y);
+      playNote(659.25, 0.35);
+      triggerConfetti();
     }
 
     // PWA Service Worker Registration
