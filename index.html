@@ -605,6 +605,78 @@
     .color-pot:hover { transform: scale(1.12); }
     .color-pot:active { cursor: grabbing; transform: scale(1.22); }
 
+    /* LEVEL 3: COLOR MIXER STYLES */
+    .mix-disco-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 9999px;
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1.5px solid #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .mix-disco-badge.discovered {
+      background: #fdf4ff;
+      color: #86198f;
+      border-color: #d946ef;
+      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.25);
+      transform: scale(1.06);
+    }
+
+    .mix-slot {
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .mix-slot:hover {
+      transform: scale(1.05);
+      border-color: #a855f7;
+    }
+    .mix-slot.filled {
+      border-style: solid;
+    }
+
+    .mix-cauldron {
+      user-select: none;
+      -webkit-user-select: none;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .mix-cauldron:hover {
+      transform: scale(1.06);
+    }
+    .mix-cauldron.bubbling {
+      animation: cauldronSwirl 0.6s ease-in-out;
+    }
+    @keyframes cauldronSwirl {
+      0% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.1) rotate(-6deg); }
+      50% { transform: scale(1.15) rotate(6deg); }
+      75% { transform: scale(1.08) rotate(-3deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .mixer-pot {
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      flex: 1 1 50px;
+      max-width: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .mixer-pot:hover { transform: scale(1.12); }
+    .mixer-pot:active { cursor: grabbing; transform: scale(1.22); }
+
     /* FANCY X & YES CELEBRATION FEEDBACK */
     .fancy-feedback-overlay {
       position: absolute;
@@ -877,6 +949,24 @@
             </div>
             <button class="widget-play-btn" style="padding:10px 18px; font-size:0.85rem;">Play ➔</button>
           </div>
+
+          <!-- Level 3 Widget Card -->
+          <div class="color-level-widget" onclick="switchGame('color-mixer')">
+            <div class="level-left-content">
+              <div class="level-avatar-box" style="background:#f3e8ff; border:2px solid #d8b4fe;">🧪</div>
+              <div class="level-details">
+                <span class="level-pill-badge" style="background:#e9d5ff; color:#6b21a8;">LEVEL 3</span>
+                <h4>Color Mixing Magic</h4>
+                <p>Mix colors to make secondary & tertiary magic!</p>
+                <div class="level-stars" id="stars-color-mixer">
+                  <span class="star-slot star-grey">★</span>
+                  <span class="star-slot star-grey">★</span>
+                  <span class="star-slot star-grey">★</span>
+                </div>
+              </div>
+            </div>
+            <button class="widget-play-btn" style="padding:10px 18px; font-size:0.85rem;">Play ➔</button>
+          </div>
         </div>
       </section>
 
@@ -901,6 +991,7 @@
           <button onclick="switchGame('color-levels')" class="level-pill" style="border:1.5px dashed #f59e0b; background:#fffbeb;">☰ All Levels</button>
           <button class="level-pill active">🌸 Level 1: Flowers</button>
           <button onclick="switchGame('color-fruits')" class="level-pill">🍎 Level 2: Fruits & Veggies</button>
+          <button onclick="switchGame('color-mixer')" class="level-pill">🧪 Level 3: Color Mixing</button>
         </div>
 
         <!-- Flowers Stage -->
@@ -1004,6 +1095,7 @@
           <button onclick="switchGame('color-levels')" class="level-pill" style="border:1.5px dashed #f59e0b; background:#fffbeb;">☰ All Levels</button>
           <button onclick="switchGame('milo')" class="level-pill">🌸 Level 1: Flowers</button>
           <button class="level-pill active">🍎 Level 2: Fruits & Veggies</button>
+          <button onclick="switchGame('color-mixer')" class="level-pill">🧪 Level 3: Color Mixing</button>
         </div>
 
         <!-- Progress Tracker & Prompt Bar -->
@@ -1123,6 +1215,179 @@
               <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
             </svg>
             <span style="font-size:0.9rem; font-weight:900; color:#7e22ce; margin-top:2px;">Purple</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- GAME 1C: COLOR MIXING MAGIC (COLORS LEVEL 3) -->
+      <section id="view-color-mixer" class="game-view">
+        <!-- Top Game Header -->
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
+            <div>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Color Mixing Magic 🧪</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Level 3 • Mix colors to make new magic!</p>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button onclick="switchGame('color-levels')" style="border:none; background:#fef3c7; color:#92400e; padding:8px 12px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;" title="All Levels">☰ Levels</button>
+            <button onclick="resetColorMixer()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+          </div>
+        </div>
+
+        <!-- Level Switcher -->
+        <div class="level-pill-bar">
+          <button onclick="switchGame('color-levels')" class="level-pill" style="border:1.5px dashed #f59e0b; background:#fffbeb;">☰ All Levels</button>
+          <button onclick="switchGame('milo')" class="level-pill">🌸 Level 1: Flowers</button>
+          <button onclick="switchGame('color-fruits')" class="level-pill">🍎 Level 2: Fruits & Veggies</button>
+          <button class="level-pill active">🧪 Level 3: Color Mixing</button>
+        </div>
+
+        <!-- Discovery Badge Tracker -->
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 4px; margin-top:2px;">
+          <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; max-width:78%;">
+            <span id="badge-orange" class="mix-disco-badge" title="Orange (Red + Yellow)">🍊 Orange</span>
+            <span id="badge-green" class="mix-disco-badge" title="Green (Yellow + Blue)">🍏 Green</span>
+            <span id="badge-purple" class="mix-disco-badge" title="Purple (Blue + Red)">🍇 Purple</span>
+            <span id="badge-vermilion" class="mix-disco-badge" title="Red-Orange (Red + Orange)">🟠 Vermilion</span>
+            <span id="badge-amber" class="mix-disco-badge" title="Yellow-Orange (Yellow + Orange)">🟡 Amber</span>
+            <span id="badge-chartreuse" class="mix-disco-badge" title="Yellow-Green (Yellow + Green)">🌱 Chartreuse</span>
+            <span id="badge-teal" class="mix-disco-badge" title="Blue-Green (Blue + Green)">🦚 Teal</span>
+            <span id="badge-violet" class="mix-disco-badge" title="Blue-Purple (Blue + Purple)">🔮 Violet</span>
+            <span id="badge-magenta" class="mix-disco-badge" title="Red-Purple (Red + Purple)">🌸 Magenta</span>
+          </div>
+          <div style="background:#fef3c7; border:1.5px solid #fde68a; padding:4px 10px; border-radius:9999px; font-size:0.75rem; font-weight:900; color:#92400e; white-space:nowrap;">
+            <span id="mixer-progress-count">0</span>/9 Discovered
+          </div>
+        </div>
+
+        <!-- The Magic Mixing Cauldron Stage -->
+        <div id="mixer-stage" style="flex:1; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:space-between; background:linear-gradient(180deg, #fdf4ff 0%, #fae8ff 100%); border-radius:28px; border:3px dashed #d8b4fe; margin:6px 0; padding:10px; position:relative; overflow:hidden;">
+
+          <!-- Prompt Banner -->
+          <div style="background:rgba(255,255,255,0.95); padding:5px 16px; border-radius:9999px; border:2px solid #f0abfc; box-shadow:0 2px 8px rgba(192,38,211,0.08); z-index:10;">
+            <span id="mixer-prompt-text" style="font-size:0.9rem; font-weight:900; color:#86198f;">Tap or drag 2 colors below to mix! ✨</span>
+          </div>
+
+          <!-- Color Mixing Slots: [Slot 1] + [Slot 2] = [Result] -->
+          <div style="display:flex; align-items:center; justify-content:center; gap:8px; width:100%; margin:4px 0;">
+            
+            <!-- Slot 1 -->
+            <div id="mix-slot-1" onclick="clearMixerSlot(1)" class="mix-slot" style="width:74px; height:74px; border-radius:20px; border:3px dashed #c084fc; background:#ffffff; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 4px 10px rgba(192,38,211,0.08); transition:all 0.3s ease;">
+              <span class="slot-placeholder" style="font-size:0.75rem; font-weight:800; color:#a855f7;">Color 1</span>
+              <span class="slot-bubble" style="display:none; width:40px; height:40px; border-radius:50%; box-shadow:0 3px 8px rgba(0,0,0,0.18);"></span>
+              <span class="slot-label" style="font-size:0.75rem; font-weight:800; margin-top:2px; display:none;"></span>
+            </div>
+
+            <!-- Plus Sign -->
+            <div style="font-size:1.6rem; font-weight:900; color:#a855f7; line-height:1;">+</div>
+
+            <!-- Slot 2 -->
+            <div id="mix-slot-2" onclick="clearMixerSlot(2)" class="mix-slot" style="width:74px; height:74px; border-radius:20px; border:3px dashed #c084fc; background:#ffffff; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 4px 10px rgba(192,38,211,0.08); transition:all 0.3s ease;">
+              <span class="slot-placeholder" style="font-size:0.75rem; font-weight:800; color:#a855f7;">Color 2</span>
+              <span class="slot-bubble" style="display:none; width:40px; height:40px; border-radius:50%; box-shadow:0 3px 8px rgba(0,0,0,0.18);"></span>
+              <span class="slot-label" style="font-size:0.75rem; font-weight:800; margin-top:2px; display:none;"></span>
+            </div>
+
+            <!-- Equals Sign -->
+            <div style="font-size:1.6rem; font-weight:900; color:#a855f7; line-height:1;">=</div>
+
+            <!-- Magic Resulting Cauldron / Bowl -->
+            <div id="mix-cauldron" class="mix-cauldron" style="width:92px; height:84px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; cursor:pointer;" onclick="playMixSound()">
+              <svg viewBox="0 0 100 90" style="width:88px; height:78px; filter:drop-shadow(0 6px 14px rgba(192,38,211,0.2));">
+                <!-- Cauldron Outer Rim & Handles -->
+                <ellipse cx="50" cy="24" rx="36" ry="10" fill="#475569" stroke="#1e293b" stroke-width="2.5"/>
+                <!-- Cauldron Body -->
+                <path d="M16 26 C12 58 26 82 50 82 C74 82 88 58 84 26 Z" fill="#334155" stroke="#1e293b" stroke-width="3"/>
+                <!-- Cauldron Legs -->
+                <circle cx="28" cy="81" r="5" fill="#1e293b"/><circle cx="72" cy="81" r="5" fill="#1e293b"/>
+                <!-- Cauldron Liquid (Dynamic Color Fill) -->
+                <ellipse id="cauldron-liquid-top" cx="50" cy="24" rx="32" ry="8" fill="#e2e8f0" style="transition:fill 0.5s ease;"/>
+                <path id="cauldron-liquid-body" d="M20 28 C22 52 32 74 50 74 C68 74 78 52 80 28 Z" fill="#e2e8f0" opacity="0.9" style="transition:fill 0.5s ease;"/>
+                <!-- Cute Face on Cauldron -->
+                <circle cx="43" cy="50" r="3" fill="#ffffff"/><circle cx="57" cy="50" r="3" fill="#ffffff"/>
+                <path d="M44 58 Q50 64 56 58" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <!-- Sparkles -->
+                <text id="cauldron-sparkle" x="50" y="18" font-size="16" text-anchor="middle" style="display:none;">✨</text>
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- Result Display Banner -->
+          <div id="mix-result-banner" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:48px; width:100%; text-align:center;">
+            <div id="mix-result-name" style="font-size:1.25rem; font-weight:900; color:#581c87; line-height:1.2;">
+              Select 2 colors! 🎨
+            </div>
+            <div id="mix-result-formula" style="font-size:0.82rem; font-weight:800; color:#7e22ce; margin-top:2px;">
+              Watch them mix like magic
+            </div>
+          </div>
+
+          <!-- Clear / Mix Another Button -->
+          <div style="display:flex; gap:10px; margin-top:2px;">
+            <button onclick="clearMixer()" style="border:none; background:#ffffff; color:#7e22ce; border:2px solid #e9d5ff; font-size:0.8rem; font-weight:800; padding:5px 14px; border-radius:9999px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.06);">
+              ↺ Clear Slots
+            </button>
+          </div>
+
+        </div>
+
+        <!-- 6 Basic Colors Tray (Enlarged & Randomized) -->
+        <div id="mixer-pots-tray" style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:10px 4px; gap:4px;">
+          <!-- Red (Primary) -->
+          <div id="mixpot-red" data-color="red" onclick="handleMixerPotClick('red')" class="mixer-pot">
+            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(239,68,68,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#ef4444" stroke="#dc2626" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
+            </svg>
+            <span style="font-size:0.8rem; font-weight:900; color:#b91c1c; margin-top:1px;">Red</span>
+          </div>
+
+          <!-- Yellow (Primary) -->
+          <div id="mixpot-yellow" data-color="yellow" onclick="handleMixerPotClick('yellow')" class="mixer-pot">
+            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(234,179,8,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#facc15" stroke="#ca8a04" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.65)" transform="rotate(-30 30 26)"/>
+            </svg>
+            <span style="font-size:0.8rem; font-weight:900; color:#a16207; margin-top:1px;">Yellow</span>
+          </div>
+
+          <!-- Blue (Primary) -->
+          <div id="mixpot-blue" data-color="blue" onclick="handleMixerPotClick('blue')" class="mixer-pot">
+            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(59,130,246,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#3b82f6" stroke="#2563eb" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
+            </svg>
+            <span style="font-size:0.8rem; font-weight:900; color:#1d4ed8; margin-top:1px;">Blue</span>
+          </div>
+
+          <!-- Orange (Secondary) -->
+          <div id="mixpot-orange" data-color="orange" onclick="handleMixerPotClick('orange')" class="mixer-pot">
+            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(249,115,22,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#f97316" stroke="#ea580c" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
+            </svg>
+            <span style="font-size:0.8rem; font-weight:900; color:#c2410c; margin-top:1px;">Orange</span>
+          </div>
+
+          <!-- Green (Secondary) -->
+          <div id="mixpot-green" data-color="green" onclick="handleMixerPotClick('green')" class="mixer-pot">
+            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(34,197,94,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#22c55e" stroke="#16a34a" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
+            </svg>
+            <span style="font-size:0.8rem; font-weight:900; color:#15803d; margin-top:1px;">Green</span>
+          </div>
+
+          <!-- Purple (Secondary) -->
+          <div id="mixpot-purple" data-color="purple" onclick="handleMixerPotClick('purple')" class="mixer-pot">
+            <svg viewBox="0 0 76 76" style="width:64px; height:64px; filter:drop-shadow(0 4px 8px rgba(168,85,247,0.25));">
+              <circle cx="38" cy="38" r="32" fill="#a855f7" stroke="#9333ea" stroke-width="4"/>
+              <ellipse cx="30" cy="26" rx="9" ry="5" fill="rgba(255,255,255,0.6)" transform="rotate(-30 30 26)"/>
+            </svg>
+            <span style="font-size:0.8rem; font-weight:900; color:#7e22ce; margin-top:1px;">Purple</span>
           </div>
         </div>
       </section>
@@ -1548,7 +1813,7 @@
       document.querySelectorAll('.game-view').forEach(view => view.classList.remove('active'));
 
       let tabId = gameId;
-      if (gameId === 'milo' || gameId === 'color-fruits' || gameId === 'color-levels') tabId = 'colors';
+      if (gameId === 'milo' || gameId === 'color-fruits' || gameId === 'color-mixer' || gameId === 'color-levels') tabId = 'colors';
 
       const activeTab = document.getElementById(`tab-${tabId}`);
       if (activeTab) activeTab.classList.add('active');
@@ -1559,6 +1824,7 @@
       if (gameId === 'color-levels') updateAllLevelStarsUI();
       if (gameId === 'milo') shuffleMiloDrops();
       if (gameId === 'color-fruits') shuffleColorFruitsPots();
+      if (gameId === 'color-mixer') shuffleMixerPots();
       if (gameId === 'scribble') setTimeout(initScribble, 100);
     }
 
@@ -1580,7 +1846,7 @@
     }
 
     function updateAllLevelStarsUI() {
-      ['milo', 'color-fruits'].forEach(key => {
+      ['milo', 'color-fruits', 'color-mixer'].forEach(key => {
         const starCount = getLevelStars(key);
         const container = document.getElementById(`stars-${key}`);
         if (!container) return;
@@ -1639,6 +1905,7 @@
 
       if (activeLevel === 'milo') resetMilo();
       else if (activeLevel === 'color-fruits') resetColorFruits();
+      else if (activeLevel === 'color-mixer') resetColorMixer();
       else if (activeLevel === 'pip') resetPip();
       else if (activeLevel === 'lola') resetLola();
       else if (activeLevel === 'penny') resetPenny();
@@ -1649,7 +1916,7 @@
     function handleModalLevels() {
       playNote(440, 0.2, 'triangle');
       document.getElementById('levelAppraisalModal').classList.remove('visible');
-      if (activeLevel === 'milo' || activeLevel === 'color-fruits') {
+      if (activeLevel === 'milo' || activeLevel === 'color-fruits' || activeLevel === 'color-mixer') {
         switchGame('color-levels');
       } else {
         switchGame('home');
@@ -1662,6 +1929,7 @@
 
       if (activeLevel === 'milo') resetMilo();
       else if (activeLevel === 'color-fruits') resetColorFruits();
+      else if (activeLevel === 'color-mixer') resetColorMixer();
       else if (activeLevel === 'pip') resetPip();
       else if (activeLevel === 'lola') resetLola();
       else if (activeLevel === 'penny') resetPenny();
@@ -1962,8 +2230,8 @@
               'Master Artist! 🎨',
               'You colored all the delicious fruits and veggies perfectly!',
               '🍎',
-              'pip',
-              'Hooray! Master artist! You colored all the fruits! You earned 3 golden stars!'
+              'color-mixer',
+              'Hooray! Master artist! You colored all the fruits! Ready to mix magic colors?'
             );
           }
         }, 1800);
@@ -2048,6 +2316,405 @@
 
     // Initialize initial fruit state
     renderCurrentFruit();
+
+    // --- GAME 1C: COLOR MIXING MAGIC (COLORS LEVEL 3) ---
+    const colorMixRecipes = {
+      // Primary Colors (3): Red, Yellow, Blue
+      // Secondary Colors (3): Formed by mixing two primary colors in equal parts
+      'red+yellow': {
+        name: 'Orange',
+        emoji: '🍊',
+        category: 'Secondary Color',
+        hex: '#f97316',
+        id: 'orange',
+        phrase: 'Red and Yellow make Orange! Orange is a secondary color!'
+      },
+      'blue+yellow': {
+        name: 'Green',
+        emoji: '🍏',
+        category: 'Secondary Color',
+        hex: '#22c55e',
+        id: 'green',
+        phrase: 'Yellow and Blue make Green! Green is a secondary color!'
+      },
+      'blue+red': {
+        name: 'Purple (Violet)',
+        emoji: '🍇',
+        category: 'Secondary Color',
+        hex: '#a855f7',
+        id: 'purple',
+        phrase: 'Blue and Red make Purple! Purple is a secondary color!'
+      },
+
+      // Tertiary Colors (6): Formed by mixing a primary color with an adjacent secondary color
+      // Red + Orange = Red-Orange (Vermilion)
+      'orange+red': {
+        name: 'Red-Orange (Vermilion)',
+        emoji: '🟠',
+        category: 'Tertiary Color',
+        hex: '#ea580c',
+        id: 'vermilion',
+        phrase: 'Red and Orange make Red-Orange Vermilion! A tertiary color!'
+      },
+      // Yellow + Orange = Yellow-Orange (Amber)
+      'orange+yellow': {
+        name: 'Yellow-Orange (Amber)',
+        emoji: '🟡',
+        category: 'Tertiary Color',
+        hex: '#f59e0b',
+        id: 'amber',
+        phrase: 'Yellow and Orange make Yellow-Orange Amber! A tertiary color!'
+      },
+      // Yellow + Green = Yellow-Green (Chartreuse)
+      'green+yellow': {
+        name: 'Yellow-Green (Chartreuse)',
+        emoji: '🌱',
+        category: 'Tertiary Color',
+        hex: '#84cc16',
+        id: 'chartreuse',
+        phrase: 'Yellow and Green make Yellow-Green Chartreuse! A tertiary color!'
+      },
+      // Blue + Green = Blue-Green (Teal)
+      'blue+green': {
+        name: 'Blue-Green (Teal)',
+        emoji: '🦚',
+        category: 'Tertiary Color',
+        hex: '#0d9488',
+        id: 'teal',
+        phrase: 'Blue and Green make Blue-Green Teal! A tertiary color!'
+      },
+      // Blue + Purple = Blue-Purple (Violet)
+      'blue+purple': {
+        name: 'Blue-Purple (Violet)',
+        emoji: '🔮',
+        category: 'Tertiary Color',
+        hex: '#7c3aed',
+        id: 'violet',
+        phrase: 'Blue and Purple make Blue-Purple Violet! A tertiary color!'
+      },
+      // Red + Purple = Red-Purple (Magenta)
+      'purple+red': {
+        name: 'Red-Purple (Magenta)',
+        emoji: '🌸',
+        category: 'Tertiary Color',
+        hex: '#d946ef',
+        id: 'magenta',
+        phrase: 'Red and Purple make Red-Purple Magenta! A tertiary color!'
+      }
+    };
+
+    const colorPotsInfo = {
+      red: { name: 'Red', hex: '#ef4444', emoji: '🔴' },
+      yellow: { name: 'Yellow', hex: '#facc15', emoji: '🟡' },
+      blue: { name: 'Blue', hex: '#3b82f6', emoji: '🔵' },
+      orange: { name: 'Orange', hex: '#f97316', emoji: '🟠' },
+      green: { name: 'Green', hex: '#22c55e', emoji: '🟢' },
+      purple: { name: 'Purple', hex: '#a855f7', emoji: '🟣' }
+    };
+
+    let mixerSlot1 = null;
+    let mixerSlot2 = null;
+    let mixerDiscovered = new Set();
+
+    function selectMixerColor(color) {
+      initAudio();
+      if (!mixerSlot1) {
+        mixerSlot1 = color;
+        playNote(440, 0.2);
+        updateMixerSlotsUI();
+        speakPraise(colorPotsInfo[color].name);
+        const prompt = document.getElementById('mixer-prompt-text');
+        if (prompt) prompt.textContent = `Great! Now pick a 2nd color to mix with ${colorPotsInfo[color].name}!`;
+      } else if (!mixerSlot2) {
+        mixerSlot2 = color;
+        playNote(554.37, 0.2);
+        updateMixerSlotsUI();
+        performColorMix();
+      } else {
+        mixerSlot2 = color;
+        playNote(554.37, 0.2);
+        updateMixerSlotsUI();
+        performColorMix();
+      }
+    }
+
+    function clearMixerSlot(slotNum) {
+      if (slotNum === 1) mixerSlot1 = null;
+      if (slotNum === 2) mixerSlot2 = null;
+      resetCauldronVisual();
+      updateMixerSlotsUI();
+      playNote(260, 0.15, 'triangle');
+      const prompt = document.getElementById('mixer-prompt-text');
+      if (prompt) prompt.textContent = 'Tap or drag 2 colors below to mix! ✨';
+    }
+
+    function clearMixer() {
+      mixerSlot1 = null;
+      mixerSlot2 = null;
+      resetCauldronVisual();
+      updateMixerSlotsUI();
+      playNote(260, 0.15, 'triangle');
+      const prompt = document.getElementById('mixer-prompt-text');
+      if (prompt) prompt.textContent = 'Tap or drag 2 colors below to mix! ✨';
+    }
+
+    function playMixSound() {
+      initAudio();
+      playNote(440, 0.15);
+      setTimeout(() => playNote(554, 0.15), 80);
+      setTimeout(() => playNote(659, 0.25), 160);
+    }
+
+    function resetCauldronVisual() {
+      const top = document.getElementById('cauldron-liquid-top');
+      const body = document.getElementById('cauldron-liquid-body');
+      const sparkle = document.getElementById('cauldron-sparkle');
+      if (top) top.setAttribute('fill', '#e2e8f0');
+      if (body) body.setAttribute('fill', '#e2e8f0');
+      if (sparkle) sparkle.style.display = 'none';
+
+      const resName = document.getElementById('mix-result-name');
+      const resFormula = document.getElementById('mix-result-formula');
+      if (resName) {
+        resName.textContent = 'Select 2 colors! 🎨';
+        resName.style.color = '#581c87';
+      }
+      if (resFormula) {
+        resFormula.textContent = 'Watch them mix like magic';
+        resFormula.style.color = '#7e22ce';
+      }
+    }
+
+    function updateMixerSlotsUI() {
+      const s1 = document.getElementById('mix-slot-1');
+      const s2 = document.getElementById('mix-slot-2');
+      if (!s1 || !s2) return;
+
+      [ { slot: s1, color: mixerSlot1, defaultName: 'Color 1' },
+        { slot: s2, color: mixerSlot2, defaultName: 'Color 2' }
+      ].forEach(({ slot, color, defaultName }) => {
+        const ph = slot.querySelector('.slot-placeholder');
+        const b = slot.querySelector('.slot-bubble');
+        const l = slot.querySelector('.slot-label');
+        if (color) {
+          slot.classList.add('filled');
+          slot.style.borderColor = colorPotsInfo[color].hex;
+          slot.style.background = colorPotsInfo[color].hex + '18';
+          if (ph) ph.style.display = 'none';
+          if (b) {
+            b.style.display = 'block';
+            b.style.backgroundColor = colorPotsInfo[color].hex;
+          }
+          if (l) {
+            l.style.display = 'block';
+            l.textContent = colorPotsInfo[color].name;
+            l.style.color = colorPotsInfo[color].hex;
+          }
+        } else {
+          slot.classList.remove('filled');
+          slot.style.borderColor = '#c084fc';
+          slot.style.background = '#ffffff';
+          if (ph) ph.style.display = 'block';
+          if (b) b.style.display = 'none';
+          if (l) l.style.display = 'none';
+        }
+      });
+    }
+
+    function performColorMix() {
+      if (!mixerSlot1 || !mixerSlot2) return;
+
+      const cauldron = document.getElementById('mix-cauldron');
+      if (cauldron) {
+        cauldron.classList.remove('bubbling');
+        void cauldron.offsetWidth;
+        cauldron.classList.add('bubbling');
+      }
+
+      const key = [mixerSlot1, mixerSlot2].sort().join('+');
+      let result = colorMixRecipes[key];
+
+      if (!result) {
+        if (mixerSlot1 === mixerSlot2) {
+          const info = colorPotsInfo[mixerSlot1];
+          result = {
+            name: info.name,
+            emoji: info.emoji,
+            category: 'Same Color',
+            hex: info.hex,
+            id: mixerSlot1,
+            phrase: `${info.name} plus ${info.name} is still ${info.name}!`
+          };
+        } else {
+          result = {
+            name: 'Rainbow Blend',
+            emoji: '🌈',
+            category: 'Custom Blend',
+            hex: '#a21caf',
+            id: 'blend',
+            phrase: `${colorPotsInfo[mixerSlot1].name} and ${colorPotsInfo[mixerSlot2].name} make a colorful blend!`
+          };
+        }
+      }
+
+      // Fanfare and sounds
+      playNote(523.25, 0.25);
+      setTimeout(() => playNote(659.25, 0.25), 120);
+      setTimeout(() => playNote(783.99, 0.4), 240);
+      triggerConfetti();
+
+      // Liquid visual update
+      const top = document.getElementById('cauldron-liquid-top');
+      const body = document.getElementById('cauldron-liquid-body');
+      const sparkle = document.getElementById('cauldron-sparkle');
+      if (top) top.setAttribute('fill', result.hex);
+      if (body) body.setAttribute('fill', result.hex);
+      if (sparkle) sparkle.style.display = 'block';
+
+      // Text update
+      const resName = document.getElementById('mix-result-name');
+      const resFormula = document.getElementById('mix-result-formula');
+      const prompt = document.getElementById('mixer-prompt-text');
+
+      if (resName) {
+        resName.textContent = `${result.name} ${result.emoji}`;
+        resName.style.color = result.hex;
+      }
+      if (resFormula) {
+        resFormula.textContent = `${colorPotsInfo[mixerSlot1].name} + ${colorPotsInfo[mixerSlot2].name} = ${result.name} (${result.category})`;
+      }
+      if (prompt) {
+        prompt.textContent = `✨ Magic! ${result.name}!`;
+      }
+
+      // Siri announcement
+      speakPraise(result.phrase);
+
+      // Discovery Badge tracking
+      if (result.id && result.category !== 'Same Color' && result.category !== 'Custom Blend') {
+        const badge = document.getElementById(`badge-${result.id}`);
+        if (badge) badge.classList.add('discovered');
+
+        if (!mixerDiscovered.has(result.id)) {
+          mixerDiscovered.add(result.id);
+          const progCount = document.getElementById('mixer-progress-count');
+          if (progCount) progCount.textContent = String(mixerDiscovered.size);
+
+          if (mixerDiscovered.size === 3) {
+            setLevelStars('color-mixer', 3);
+            setTimeout(() => {
+              showLevelAppraisal(
+                'color-mixer',
+                'Color Alchemist! 🧪',
+                'You discovered magical secondary & tertiary colors!',
+                '🧙',
+                'pip',
+                'Hooray! Great job! You unlocked 3 golden stars in color mixing! Ready for shapes?'
+              );
+            }, 1400);
+          } else if (mixerDiscovered.size === 9) {
+            setLevelStars('color-mixer', 3);
+            setTimeout(() => {
+              showLevelAppraisal(
+                'color-mixer',
+                'Master of Colors! 🌟',
+                'You discovered all 9 magical color recipes!',
+                '🧙',
+                'home',
+                'Incredible! You discovered every single color recipe! You are a master of colors!'
+              );
+            }, 1400);
+          }
+        }
+      }
+    }
+
+    function handleMixerPotClick(color) {
+      selectMixerColor(color);
+    }
+
+    function shuffleMixerPots() {
+      const tray = document.getElementById('mixer-pots-tray');
+      if (!tray) return;
+      const pots = Array.from(tray.children);
+      for (let i = pots.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = pots[i];
+        pots[i] = pots[j];
+        pots[j] = temp;
+      }
+      pots.forEach(pot => tray.appendChild(pot));
+    }
+
+    function resetColorMixer() {
+      mixerSlot1 = null;
+      mixerSlot2 = null;
+      resetCauldronVisual();
+      updateMixerSlotsUI();
+      shuffleMixerPots();
+      const prompt = document.getElementById('mixer-prompt-text');
+      if (prompt) prompt.textContent = 'Tap or drag 2 colors below to mix! ✨';
+    }
+
+    // Drag & Drop for 6 Mixer Pots
+    const mixerPots = document.querySelectorAll('.mixer-pot');
+    mixerPots.forEach(pot => {
+      let active = false, startX, startY, moved = false;
+      pot.addEventListener('pointerdown', (e) => {
+        initAudio(); active = true; moved = false; pot.setPointerCapture(e.pointerId);
+        startX = e.clientX; startY = e.clientY;
+        pot.style.transition = 'none'; pot.style.zIndex = '50';
+        playNote(350, 0.1, 'triangle');
+      });
+      pot.addEventListener('pointermove', (e) => {
+        if (!active) return;
+        const dx = e.clientX - startX; const dy = e.clientY - startY;
+        if (Math.hypot(dx, dy) > 8) moved = true;
+        pot.style.transform = `translate(${dx}px, ${dy}px) scale(1.22)`;
+      });
+      const endDrag = (e) => {
+        if (!active) return; active = false; pot.releasePointerCapture(e.pointerId);
+        const pRect = pot.getBoundingClientRect();
+        const s1 = document.getElementById('mix-slot-1');
+        const s2 = document.getElementById('mix-slot-2');
+        const cauldron = document.getElementById('mix-cauldron');
+
+        pot.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        pot.style.transform = 'translate(0, 0) scale(1)';
+        pot.style.zIndex = '1';
+
+        if (!moved) {
+          selectMixerColor(pot.dataset.color);
+          return;
+        }
+
+        const isOver = (elem) => {
+          if (!elem) return false;
+          const r = elem.getBoundingClientRect();
+          return !(pRect.right < r.left - 15 || pRect.left > r.right + 15 || pRect.bottom < r.top - 15 || pRect.top > r.bottom + 15);
+        };
+
+        if (isOver(s1)) {
+          mixerSlot1 = pot.dataset.color;
+          playNote(440, 0.2);
+          updateMixerSlotsUI();
+          speakPraise(colorPotsInfo[pot.dataset.color].name);
+          if (mixerSlot2) performColorMix();
+        } else if (isOver(s2)) {
+          mixerSlot2 = pot.dataset.color;
+          playNote(554.37, 0.2);
+          updateMixerSlotsUI();
+          speakPraise(colorPotsInfo[pot.dataset.color].name);
+          if (mixerSlot1) performColorMix();
+        } else if (isOver(cauldron)) {
+          selectMixerColor(pot.dataset.color);
+        } else {
+          playNote(200, 0.15, 'triangle');
+        }
+      };
+      pot.addEventListener('pointerup', endDrag);
+      pot.addEventListener('pointercancel', endDrag);
+    });
 
     // --- GAME 2: PIP (SHAPES & PUZZLES) ---
     let pipSolved = 0;
@@ -2428,6 +3095,7 @@
     updateAllLevelStarsUI();
     shuffleMiloDrops();
     shuffleColorFruitsPots();
+    shuffleMixerPots();
 
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
