@@ -162,6 +162,137 @@
       0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
       100% { transform: translate(var(--dx), var(--dy)) scale(1.3); opacity: 0; }
     }
+
+    /* Appraisal & Level Complete Modal */
+    .appraisal-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(120, 53, 15, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .appraisal-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .appraisal-card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border: 4px solid #facc15;
+      border-radius: 36px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transform: scale(0.8);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .appraisal-modal-overlay.active .appraisal-card {
+      transform: scale(1);
+    }
+
+    .stars-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .star-item {
+      font-size: 2.2rem;
+      animation: wobble 1s infinite alternate;
+    }
+    .big-star {
+      font-size: 3.2rem;
+      animation: starFloat 1.8s ease-in-out infinite alternate;
+    }
+    @keyframes starFloat {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.15); }
+    }
+
+    .modal-avatar {
+      font-size: 4rem;
+      margin: 4px 0 10px;
+      animation: wobble 1.2s infinite alternate;
+    }
+
+    .modal-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #78350f;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .modal-subtitle {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #92400e;
+      margin-bottom: 24px;
+      max-width: 300px;
+      line-height: 1.4;
+    }
+
+    .modal-buttons-row {
+      width: 100%;
+      display: flex;
+      gap: 12px;
+    }
+
+    .action-btn {
+      flex: 1;
+      border: none;
+      border-radius: 24px;
+      padding: 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .action-btn:active {
+      transform: scale(0.92);
+    }
+
+    .replay-btn {
+      background: #fef3c7;
+      color: #92400e;
+      border: 3px solid #fde68a;
+      font-size: 1.05rem;
+    }
+    .replay-btn:hover {
+      background: #fde68a;
+    }
+
+    .next-btn {
+      background: #10b981;
+      color: #ffffff;
+      border: 3px solid #059669;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
+      animation: pulseNext 1.5s infinite alternate;
+    }
+    .next-btn:hover {
+      background: #059669;
+    }
+    @keyframes pulseNext {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
   </style>
 </head>
 <body>
@@ -410,9 +541,57 @@
           </div>
           <span style="font-size:0.85rem; font-weight:700; color:#db2777;">Drag boots to Penny’s feet!</span>
         </div>
+
+        <!-- Jump Progress Dots (Appears during jumping) -->
+        <div id="penny-progress" style="width:100%; display:none; justify-content:space-between; align-items:center; background:#ecfdf5; border:2px solid #a7f3d0; border-radius:20px; padding:10px 16px;">
+          <span style="font-size:0.85rem; font-weight:800; color:#065f46;">Splashes:</span>
+          <div style="display:flex; gap:8px;" id="penny-dots">
+            <div class="pdot" style="width:14px; height:14px; border-radius:50%; background:#cbd5e1;"></div>
+            <div class="pdot" style="width:14px; height:14px; border-radius:50%; background:#cbd5e1;"></div>
+            <div class="pdot" style="width:14px; height:14px; border-radius:50%; background:#cbd5e1;"></div>
+            <div class="pdot" style="width:14px; height:14px; border-radius:50%; background:#cbd5e1;"></div>
+            <div class="pdot" style="width:14px; height:14px; border-radius:50%; background:#cbd5e1;"></div>
+          </div>
+          <span style="font-size:0.8rem; font-weight:700; color:#059669;">5 to Giggle!</span>
+        </div>
       </section>
 
     </main>
+
+    <!-- Unified Toddler Appraisal & Level Complete Modal -->
+    <div id="levelAppraisalModal" class="appraisal-modal-overlay">
+      <div class="appraisal-card">
+        <!-- Star Badges -->
+        <div class="stars-row">
+          <span class="star-item">⭐</span>
+          <span class="star-item big-star">🌟</span>
+          <span class="star-item">⭐</span>
+        </div>
+
+        <!-- Mascot Avatar -->
+        <div id="modalAnimalAvatar" class="modal-avatar">🐻</div>
+
+        <!-- Praise Messages -->
+        <h2 id="modalTitle" class="modal-title">Wonderful Job!</h2>
+        <p id="modalSubtitle" class="modal-subtitle">You did it all by yourself!</p>
+
+        <!-- Big Toddler Action Buttons -->
+        <div class="modal-buttons-row">
+          <!-- Replay Button -->
+          <button id="modalReplayBtn" onclick="handleModalReplay()" class="action-btn replay-btn">
+            <span style="font-size:1.3rem;">↺</span>
+            <span>Play Again</span>
+          </button>
+
+          <!-- Next Level Button -->
+          <button id="modalNextBtn" onclick="handleModalNext()" class="action-btn next-btn">
+            <span>Next Game</span>
+            <span style="font-size:1.3rem;">➔</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -461,9 +640,19 @@
       } catch (e) {}
     }
 
+    function playCelebrationFanfare() {
+      const melody = [523.25, 659.25, 783.99, 1046.50]; // C, E, G, High C
+      melody.forEach((freq, idx) => {
+        setTimeout(() => playNote(freq, 0.45, 'sine'), idx * 120);
+      });
+    }
+
     // --- Tab Switcher ---
+    let currentGame = 'milo';
+
     function switchGame(gameId) {
       initAudio();
+      currentGame = gameId;
       playNote(440, 0.2, 'triangle');
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.game-view').forEach(view => view.classList.remove('active'));
@@ -478,6 +667,47 @@
         document.querySelectorAll('.tab-btn')[2].classList.add('active');
         document.getElementById('view-penny').classList.add('active');
       }
+    }
+
+    // --- Appraisal Modal Logic ---
+    let activeLevel = 'milo';
+    let nextLevel = 'pip';
+
+    function showLevelAppraisal(game, title, subtitle, avatar, next) {
+      activeLevel = game;
+      nextLevel = next;
+
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalSubtitle').textContent = subtitle;
+      document.getElementById('modalAnimalAvatar').textContent = avatar;
+
+      playCelebrationFanfare();
+
+      setTimeout(() => {
+        document.getElementById('levelAppraisalModal').classList.add('active');
+      }, 500);
+    }
+
+    function handleModalReplay() {
+      playNote(440, 0.2, 'triangle');
+      document.getElementById('levelAppraisalModal').classList.remove('active');
+
+      if (activeLevel === 'milo') resetMilo();
+      else if (activeLevel === 'pip') resetPip();
+      else if (activeLevel === 'penny') resetPenny();
+    }
+
+    function handleModalNext() {
+      playNote(659.25, 0.3, 'sine');
+      document.getElementById('levelAppraisalModal').classList.remove('active');
+
+      // Reset the current level first so it's clean for next visit
+      if (activeLevel === 'milo') resetMilo();
+      else if (activeLevel === 'pip') resetPip();
+      else if (activeLevel === 'penny') resetPenny();
+
+      // Switch to next game!
+      switchGame(nextLevel);
     }
 
     // --- GAME 1: MILO LOGIC ---
@@ -511,6 +741,17 @@
             const bloom = target.querySelector('.milo-bloom');
             bloom.style.display = 'block'; bloom.classList.add('pop-in');
             playNote(523 + miloBloomed * 120, 0.5);
+
+            // Level Complete Check!
+            if (miloBloomed === 3) {
+              showLevelAppraisal(
+                'milo',
+                'Super Blooming! 🌸',
+                'You helped Milo wake up the flowers in the garden!',
+                '🐻',
+                'pip'
+              );
+            }
           }
         });
         if (!matched) {
@@ -567,6 +808,17 @@
             const hint = socket.querySelector('.pip-hint'); if (hint) hint.style.display = 'none';
             const animal = socket.querySelector('.pip-animal'); if (animal) { animal.style.display = 'block'; animal.classList.add('pop-in'); }
             playNote(659 + pipSolved * 80, 0.4);
+
+            // Level Complete Check!
+            if (pipSolved === 3) {
+              showLevelAppraisal(
+                'pip',
+                'Cozy Treehouse! 🌲',
+                'All three friends are safe & snug in their tree hollows!',
+                '🐦',
+                'penny'
+              );
+            }
           }
         });
         if (!matched) {
@@ -595,6 +847,7 @@
     // --- GAME 3: PENNY LOGIC ---
     let pennyHasBoots = false;
     let pennyJumps = 0;
+    const maxPennyJumps = 5;
     const dragBoots = document.getElementById('penny-drag-boots');
     const dropZone = document.getElementById('penny-drop-zone');
 
@@ -620,7 +873,8 @@
         document.getElementById('penny-bare-legs').style.display = 'none';
         document.getElementById('penny-boots').style.display = 'block';
         dropZone.style.display = 'none';
-        dragBoots.style.display = 'none';
+        document.getElementById('penny-tray').style.display = 'none';
+        document.getElementById('penny-progress').style.display = 'flex';
         document.getElementById('penny-tap-label').style.display = 'block';
         document.getElementById('penny-status').textContent = "Step 2: Tap the puddle to jump!";
       } else {
@@ -632,7 +886,7 @@
     dragBoots.addEventListener('pointercancel', releaseBoots);
 
     function jumpPenny(e) {
-      if (!pennyHasBoots) return;
+      if (!pennyHasBoots || pennyJumps >= maxPennyJumps) return;
       pennyJumps++;
       playSnort();
       playNote(260, 0.2, 'triangle');
@@ -641,9 +895,16 @@
       void char.offsetWidth;
       char.classList.add('jump-anim');
 
+      // Update progress dots
+      const dots = document.querySelectorAll('#penny-dots .pdot');
+      if (dots[pennyJumps - 1]) {
+        dots[pennyJumps - 1].style.background = '#059669';
+        dots[pennyJumps - 1].style.transform = 'scale(1.2)';
+      }
+
       // Mud Splatters
       const splatters = document.getElementById('penny-splatters');
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 7; i++) {
         const drop = document.createElement('div');
         drop.className = 'splash-drop';
         drop.style.position = 'absolute';
@@ -660,6 +921,20 @@
         splatters.appendChild(drop);
         setTimeout(() => drop.remove(), 600);
       }
+
+      // Check for level complete!
+      if (pennyJumps === maxPennyJumps) {
+        setTimeout(() => {
+          playSnort();
+          showLevelAppraisal(
+            'penny',
+            'Splash Champion! 💦',
+            'Penny had so much fun jumping in the muddy puddles!',
+            '🐷',
+            'milo'
+          );
+        }, 500);
+      }
     }
 
     function resetPenny() {
@@ -668,10 +943,18 @@
       document.getElementById('penny-bare-legs').style.display = 'block';
       document.getElementById('penny-boots').style.display = 'none';
       dropZone.style.display = 'block';
+      document.getElementById('penny-tray').style.display = 'flex';
+      document.getElementById('penny-progress').style.display = 'none';
       dragBoots.style.display = 'block';
       dragBoots.style.transform = 'translate(0, 0) scale(1)';
       document.getElementById('penny-tap-label').style.display = 'none';
       document.getElementById('penny-status').textContent = "Step 1: Put on the yellow boots!";
+
+      const dots = document.querySelectorAll('#penny-dots .pdot');
+      dots.forEach(d => {
+        d.style.background = '#cbd5e1';
+        d.style.transform = 'scale(1)';
+      });
     }
 
     // PWA Service Worker Registration
