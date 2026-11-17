@@ -1,5 +1,5 @@
-// Offline-First Service Worker for Little Explorers PWA
-const CACHE_NAME = 'explorers-v1';
+// Network-First Service Worker for Little Explorers PWA
+const CACHE_NAME = 'explorers-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -26,10 +26,17 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+// Network-first strategy: always fetch the latest version from GitHub Pages, fallback to cache offline
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
+        }
+        return networkResponse;
+      })
+      .catch(() => caches.match(event.request))
   );
 });

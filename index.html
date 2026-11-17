@@ -7,6 +7,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Little Explorers" />
   <meta name="theme-color" content="#fef3c7" />
+  
+  <!-- Cache-Busting so GitHub Pages always gets latest updates immediately -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
   <title>Little Explorers • Play & Learn</title>
   <link rel="manifest" href="./manifest.webmanifest" />
 
@@ -139,7 +145,7 @@
     }
 
     /* Animations */
-    .wobble { animation: wobble 0.5s ease-in-out; }
+    .wobble { animation: wobble 0.6s ease-in-out; }
     @keyframes wobble {
       0%, 100% { transform: scale(1) rotate(0deg); }
       25% { transform: scale(1.1) rotate(-8deg); }
@@ -163,43 +169,44 @@
       100% { transform: translate(var(--dx), var(--dy)) scale(1.4); opacity: 0; }
     }
 
-    /* Appraisal & Level Complete Modal */
-    .appraisal-modal-overlay {
-      position: absolute;
+    /* UNMISSABLE TODDLER APPRAISAL MODAL */
+    #levelAppraisalModal {
+      position: fixed;
       inset: 0;
-      background: rgba(120, 53, 15, 0.45);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 500;
-      display: flex;
+      background: rgba(120, 53, 15, 0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
       align-items: center;
       justify-content: center;
       padding: 16px;
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.3s ease;
     }
-    .appraisal-modal-overlay.active {
+    #levelAppraisalModal.visible {
+      display: flex;
       opacity: 1;
-      pointer-events: auto;
     }
 
     .appraisal-card {
       width: 100%;
       max-width: 440px;
       background: #ffffff;
-      border: 5px solid #facc15;
-      border-radius: 40px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+      border: 6px solid #facc15;
+      border-radius: 42px;
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.3);
       padding: 28px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      transform: scale(0.8);
+      transform: scale(0.85);
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
     }
-    .appraisal-modal-overlay.active .appraisal-card {
+    #levelAppraisalModal.visible .appraisal-card {
       transform: scale(1);
     }
 
@@ -207,14 +214,14 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .star-item {
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       animation: wobble 1s infinite alternate;
     }
     .big-star {
-      font-size: 3.8rem;
+      font-size: 4.2rem;
       animation: starFloat 1.8s ease-in-out infinite alternate;
     }
     @keyframes starFloat {
@@ -223,27 +230,28 @@
     }
 
     .modal-avatar {
-      font-size: 5rem;
-      margin: 6px 0 12px;
+      font-size: 5.5rem;
+      margin: 4px 0 10px;
       animation: wobble 1.2s infinite alternate;
     }
 
     .modal-title {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 900;
       color: #78350f;
       margin-bottom: 6px;
       line-height: 1.2;
     }
     .modal-subtitle {
-      font-size: 1.05rem;
-      font-weight: 600;
+      font-size: 1.1rem;
+      font-weight: 700;
       color: #92400e;
-      margin-bottom: 26px;
-      max-width: 320px;
+      margin-bottom: 24px;
+      max-width: 330px;
       line-height: 1.4;
     }
 
+    /* THE TWO CHUNKY ACTION BUTTONS */
     .modal-buttons-row {
       width: 100%;
       display: flex;
@@ -253,16 +261,16 @@
     .action-btn {
       flex: 1;
       border: none;
-      border-radius: 26px;
-      padding: 18px 14px;
+      border-radius: 28px;
+      padding: 18px 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       cursor: pointer;
-      font-weight: 800;
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      font-weight: 900;
+      transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.15s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
     .action-btn:active {
       transform: scale(0.92);
@@ -272,7 +280,7 @@
       background: #fef3c7;
       color: #92400e;
       border: 3px solid #fde68a;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
     .replay-btn:hover {
       background: #fde68a;
@@ -282,8 +290,8 @@
       background: #10b981;
       color: #ffffff;
       border: 3px solid #059669;
-      font-size: 1.15rem;
-      box-shadow: 0 8px 26px rgba(16, 185, 129, 0.45);
+      font-size: 1.2rem;
+      box-shadow: 0 10px 28px rgba(16, 185, 129, 0.5);
       animation: pulseNext 1.5s infinite alternate;
     }
     .next-btn:hover {
@@ -291,7 +299,19 @@
     }
     @keyframes pulseNext {
       0% { transform: scale(1); }
-      100% { transform: scale(1.05); }
+      100% { transform: scale(1.06); }
+    }
+
+    /* Confetti Particle */
+    .confetti-particle {
+      position: absolute;
+      top: -20px;
+      pointer-events: none;
+      animation: confettiFall 2.8s linear forwards;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
     }
   </style>
 </head>
@@ -321,24 +341,24 @@
     <!-- Main Game Staging -->
     <main>
 
-      <!-- GAME 1: MILO'S COLOR GARDEN (BIGGER CHARACTERS) -->
+      <!-- GAME 1: MILO'S COLOR GARDEN -->
       <section id="view-milo" class="game-view active">
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:10px;">
             <div style="font-size:2.6rem;">🐻</div>
             <div>
               <h3 style="font-size:1.25rem; color:#78350f; font-weight:800;">Milo’s Garden</h3>
-              <p style="font-size:0.9rem; color:#92400e;">Drag each drop to its matching flower bud!</p>
+              <p style="font-size:0.9rem; color:#92400e;">Match or tap the drops to wake each flower!</p>
             </div>
           </div>
           <button onclick="resetMilo()" style="border:none; background:#fef3c7; color:#92400e; padding:10px 16px; border-radius:9999px; font-weight:800; font-size:0.9rem; cursor:pointer;">↺ Reset</button>
         </div>
 
-        <!-- Garden Targets with Larger Flowers & Blooms -->
+        <!-- Flowers Stage -->
         <div style="flex:1; width:100%; display:flex; justify-content:space-around; align-items:center; background:linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%); border-radius:24px; border:3px dashed #6ee7b7; margin:14px 0; position:relative;">
           
           <!-- Red Flower -->
-          <div id="milo-target-red" data-color="red" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center;">
+          <div id="milo-target-red" data-color="red" onclick="handleFlowerClick('red')" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center; cursor:pointer;">
             <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
               <path d="M40 70 C30 50 25 35 40 18 C55 35 50 50 40 70 Z" fill="#f87171" stroke="#dc2626" stroke-width="2.5"/>
               <path d="M33 42 Q36 46 39 42 M41 42 Q44 46 47 42" stroke="#7f1d1d" stroke-width="2.5" stroke-linecap="round" fill="none"/>
@@ -356,7 +376,7 @@
           </div>
 
           <!-- Yellow Flower -->
-          <div id="milo-target-yellow" data-color="yellow" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center;">
+          <div id="milo-target-yellow" data-color="yellow" onclick="handleFlowerClick('yellow')" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center; cursor:pointer;">
             <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
               <path d="M40 70 C30 50 25 35 40 18 C55 35 50 50 40 70 Z" fill="#fde047" stroke="#ca8a04" stroke-width="2.5"/>
               <path d="M33 42 Q36 46 39 42 M41 42 Q44 46 47 42" stroke="#713f12" stroke-width="2.5" stroke-linecap="round" fill="none"/>
@@ -372,7 +392,7 @@
           </div>
 
           <!-- Blue Flower -->
-          <div id="milo-target-blue" data-color="blue" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center;">
+          <div id="milo-target-blue" data-color="blue" onclick="handleFlowerClick('blue')" class="milo-target" style="display:flex; flex-direction:column; align-items:center; width:110px; height:180px; justify-content:center; cursor:pointer;">
             <svg class="milo-bud" viewBox="0 0 80 80" style="width:90px; height:90px; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.08));">
               <path d="M40 70 C30 50 25 35 40 18 C55 35 50 50 40 70 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="2.5"/>
               <path d="M33 42 Q36 46 39 42 M41 42 Q44 46 47 42" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
@@ -387,7 +407,7 @@
 
         </div>
 
-        <!-- Larger Droplets Tray -->
+        <!-- Droplets Tray -->
         <div style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:12px;">
           <div id="milo-drop-red" data-color="red" class="milo-drop" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
             <svg viewBox="0 0 70 70" style="width:74px; height:74px; filter:drop-shadow(0 4px 6px rgba(239,68,68,0.3));">
@@ -416,7 +436,7 @@
         </div>
       </section>
 
-      <!-- GAME 2: PIP'S TREEHOUSE SHAPES (BIGGER SOCKETS & ANIMALS) -->
+      <!-- GAME 2: PIP'S TREEHOUSE SHAPES -->
       <section id="view-pip" class="game-view">
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:10px;">
@@ -432,13 +452,13 @@
         <div style="flex:1; width:100%; display:flex; justify-content:space-around; align-items:center; background:linear-gradient(180deg, #fef3c7 0%, #fde68a 100%); border-radius:24px; border:3px dashed #f59e0b; margin:14px 0;">
           
           <!-- Circle Socket -->
-          <div id="pip-socket-circle" data-shape="circle" class="pip-socket" style="width:105px; height:105px; border-radius:50%; border:4px dashed #b45309; display:flex; align-items:center; justify-content:center; background:rgba(180,83,9,0.12); box-shadow:inset 0 3px 6px rgba(0,0,0,0.1);">
+          <div id="pip-socket-circle" data-shape="circle" onclick="handleSocketClick('circle')" class="pip-socket" style="width:105px; height:105px; border-radius:50%; border:4px dashed #b45309; display:flex; align-items:center; justify-content:center; background:rgba(180,83,9,0.12); box-shadow:inset 0 3px 6px rgba(0,0,0,0.1); cursor:pointer;">
             <span class="pip-hint" style="font-size:0.9rem; font-weight:800; color:#b45309;">Circle</span>
             <span class="pip-animal" style="font-size:3.6rem; display:none;">🐰</span>
           </div>
 
           <!-- Triangle Socket -->
-          <div id="pip-socket-triangle" data-shape="triangle" class="pip-socket" style="width:105px; height:105px; display:flex; align-items:center; justify-content:center; position:relative;">
+          <div id="pip-socket-triangle" data-shape="triangle" onclick="handleSocketClick('triangle')" class="pip-socket" style="width:105px; height:105px; display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer;">
             <svg viewBox="0 0 100 100" style="width:105px; height:105px;">
               <polygon points="50,15 15,85 85,85" fill="rgba(180,83,9,0.12)" stroke="#b45309" stroke-width="4" stroke-dasharray="8,5"/>
             </svg>
@@ -447,14 +467,14 @@
           </div>
 
           <!-- Square Socket -->
-          <div id="pip-socket-square" data-shape="square" class="pip-socket" style="width:100px; height:100px; border-radius:20px; border:4px dashed #b45309; display:flex; align-items:center; justify-content:center; background:rgba(180,83,9,0.12); box-shadow:inset 0 3px 6px rgba(0,0,0,0.1);">
+          <div id="pip-socket-square" data-shape="square" onclick="handleSocketClick('square')" class="pip-socket" style="width:100px; height:100px; border-radius:20px; border:4px dashed #b45309; display:flex; align-items:center; justify-content:center; background:rgba(180,83,9,0.12); box-shadow:inset 0 3px 6px rgba(0,0,0,0.1); cursor:pointer;">
             <span class="pip-hint" style="font-size:0.9rem; font-weight:800; color:#b45309;">Square</span>
             <span class="pip-animal" style="font-size:3.6rem; display:none;">🦉</span>
           </div>
 
         </div>
 
-        <!-- Larger Chunky Shape Blocks Tray -->
+        <!-- Shape Blocks Tray -->
         <div style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#fefce8; border:2px solid #fef08a; border-radius:24px; padding:12px;">
           <div id="pip-block-circle" data-shape="circle" class="pip-block" style="width:80px; height:80px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;">
             <svg viewBox="0 0 80 80" style="width:76px; height:76px; filter:drop-shadow(0 4px 6px rgba(217,119,6,0.3));">
@@ -480,7 +500,7 @@
         </div>
       </section>
 
-      <!-- GAME 3: PENNY'S MUDDY PUDDLES (MASSIVE LOVABLE PENNY) -->
+      <!-- GAME 3: PENNY'S MUDDY PUDDLES -->
       <section id="view-penny" class="game-view">
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:10px;">
@@ -493,29 +513,23 @@
           <button onclick="resetPenny()" style="border:none; background:#fef3c7; color:#92400e; padding:10px 16px; border-radius:9999px; font-weight:800; font-size:0.9rem; cursor:pointer;">↺ Reset</button>
         </div>
 
-        <!-- Stage with Big Mud Puddle & Big Penny -->
         <div id="penny-stage" onclick="jumpPenny(event)" style="flex:1; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; background:linear-gradient(180deg, #bae6fd 0%, #a7f3d0 100%); border-radius:24px; border:3px dashed #38bdf8; margin:14px 0; position:relative; overflow:hidden; cursor:pointer;">
           
           <div id="penny-splatters" style="position:absolute; inset:0; pointer-events:none;"></div>
 
-          <!-- Penny Character (Larger Scale!) -->
+          <!-- Penny Character -->
           <div id="penny-character" style="position:relative; z-index:2; margin-bottom:8px;">
             <svg viewBox="0 0 100 120" style="width:145px; height:170px; filter:drop-shadow(0 6px 12px rgba(0,0,0,0.12));">
-              <!-- Ears -->
               <ellipse cx="62" cy="18" rx="7" ry="14" fill="#f472b6" stroke="#db2777" stroke-width="2.5"/>
               <ellipse cx="78" cy="20" rx="7" ry="14" fill="#f472b6" stroke="#db2777" stroke-width="2.5"/>
-              <!-- Snout -->
               <rect x="18" y="36" width="38" height="24" rx="12" fill="#f472b6" stroke="#db2777" stroke-width="2.5"/>
               <circle cx="28" cy="48" r="3.2" fill="#be185d"/><circle cx="42" cy="48" r="3.2" fill="#be185d"/>
-              <!-- Head -->
               <circle cx="58" cy="50" r="30" fill="#f472b6" stroke="#db2777" stroke-width="2.5"/>
               <circle cx="54" cy="40" r="5.5" fill="#ffffff"/><circle cx="56" cy="40" r="3" fill="#0f172a"/>
               <circle cx="70" cy="40" r="5.5" fill="#ffffff"/><circle cx="72" cy="40" r="3" fill="#0f172a"/>
               <circle cx="62" cy="58" r="7.5" fill="#fb7185"/>
               <path d="M48 64 Q60 74 72 64" stroke="#be185d" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-              <!-- Red Dress -->
               <path d="M36 74 L70 74 L82 108 L24 108 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="2.5"/>
-              <!-- Bare Legs vs Boots -->
               <g id="penny-bare-legs">
                 <line x1="42" y1="108" x2="42" y2="120" stroke="#f472b6" stroke-width="4.5" stroke-linecap="round"/>
                 <line x1="64" y1="108" x2="64" y2="120" stroke="#f472b6" stroke-width="4.5" stroke-linecap="round"/>
@@ -525,25 +539,25 @@
                 <path d="M58 108 L72 108 L72 118 L78 118 C78 122 60 122 58 120 Z" fill="#facc15" stroke="#ca8a04" stroke-width="2.5"/>
               </g>
             </svg>
-            <div id="penny-drop-zone" style="position:absolute; bottom:-6px; left:8px; right:8px; height:38px; border:3px dashed #facc15; border-radius:16px;"></div>
+            <div id="penny-drop-zone" onclick="applyBootsDirectly()" style="position:absolute; bottom:-6px; left:8px; right:8px; height:38px; border:3px dashed #facc15; border-radius:16px; cursor:pointer;"></div>
           </div>
 
-          <!-- Mud Puddle (Enlarged) -->
+          <!-- Mud Puddle -->
           <div id="penny-puddle" style="width:280px; height:60px; background:#78350f; border-radius:50%; border:4px solid #92400e; margin-bottom:-14px; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 4px 10px rgba(0,0,0,0.3);">
             <span id="penny-tap-label" style="display:none; font-size:0.85rem; font-weight:900; color:#fde68a; letter-spacing:0.06em;">TAP TO JUMP! 💦</span>
           </div>
 
         </div>
 
-        <!-- Larger Boots Tray / Jump Splash Counter -->
+        <!-- Boots Tray / Jump Splash Counter -->
         <div id="penny-tray" style="width:100%; display:flex; justify-content:space-between; align-items:center; background:#fdf2f8; border:2px solid #fbcfe8; border-radius:24px; padding:12px 20px;">
-          <div id="penny-drag-boots" style="cursor:grab; touch-action:none;">
+          <div id="penny-drag-boots" onclick="applyBootsDirectly()" style="cursor:grab; touch-action:none;">
             <svg viewBox="0 0 80 50" style="width:84px; height:52px; filter:drop-shadow(0 4px 6px rgba(202,138,4,0.3));">
               <path d="M10 6 L26 6 L26 24 L36 26 C38 36 14 40 10 34 Z" fill="#facc15" stroke="#ca8a04" stroke-width="3"/>
               <path d="M44 6 L60 6 L60 24 L70 26 C72 36 48 40 44 34 Z" fill="#facc15" stroke="#ca8a04" stroke-width="3"/>
             </svg>
           </div>
-          <span style="font-size:0.95rem; font-weight:800; color:#db2777;">Drag boots to Penny’s feet!</span>
+          <span style="font-size:0.95rem; font-weight:800; color:#db2777;">Drag or tap boots to wear!</span>
         </div>
 
         <!-- Jump Progress Dots -->
@@ -562,10 +576,12 @@
 
     </main>
 
-    <!-- Unified Toddler Appraisal & Level Complete Modal -->
-    <div id="levelAppraisalModal" class="appraisal-modal-overlay">
+    <!-- UNMISSABLE TODDLER APPRAISAL MODAL -->
+    <div id="levelAppraisalModal">
+      <div id="confettiContainer" style="position:absolute; inset:0; pointer-events:none; overflow:hidden;"></div>
+      
       <div class="appraisal-card">
-        <!-- Star Badges -->
+        <!-- Floating Stars -->
         <div class="stars-row">
           <span class="star-item">⭐</span>
           <span class="star-item big-star">🌟</span>
@@ -575,22 +591,22 @@
         <!-- Mascot Avatar -->
         <div id="modalAnimalAvatar" class="modal-avatar">🐻</div>
 
-        <!-- Praise Messages -->
+        <!-- Encouraging Praise -->
         <h2 id="modalTitle" class="modal-title">Wonderful Job!</h2>
-        <p id="modalSubtitle" class="modal-subtitle">You did it all by yourself!</p>
+        <p id="modalSubtitle" class="modal-subtitle">You completed the level!</p>
 
-        <!-- Big Toddler Action Buttons -->
+        <!-- The 2 Big Action Buttons -->
         <div class="modal-buttons-row">
           <!-- Replay Button -->
           <button id="modalReplayBtn" onclick="handleModalReplay()" class="action-btn replay-btn">
-            <span style="font-size:1.4rem;">↺</span>
-            <span>Play Again</span>
+            <span style="font-size:1.5rem;">↺</span>
+            <span>Replay</span>
           </button>
 
-          <!-- Next Level Button -->
+          <!-- Go Next Level Button -->
           <button id="modalNextBtn" onclick="handleModalNext()" class="action-btn next-btn">
-            <span>Next Game</span>
-            <span style="font-size:1.4rem;">➔</span>
+            <span>Go Next Level</span>
+            <span style="font-size:1.5rem;">➔</span>
           </button>
         </div>
       </div>
@@ -645,10 +661,22 @@
     }
 
     function playCelebrationFanfare() {
-      const melody = [523.25, 659.25, 783.99, 1046.50]; // C, E, G, High C
+      const melody = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
       melody.forEach((freq, idx) => {
-        setTimeout(() => playNote(freq, 0.45, 'sine'), idx * 120);
+        setTimeout(() => playNote(freq, 0.45, 'sine'), idx * 110);
       });
+    }
+
+    // Optional Spoken Praise for Toddlers
+    function speakPraise(text) {
+      if ('speechSynthesis' in window) {
+        try {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 1.0;
+          utterance.pitch = 1.2;
+          window.speechSynthesis.speak(utterance);
+        } catch(e) {}
+      }
     }
 
     // --- Tab Switcher ---
@@ -673,11 +701,29 @@
       }
     }
 
-    // --- Appraisal Modal Logic ---
+    // --- APPRAISAL & LEVEL PROGRESSION LOGIC ---
     let activeLevel = 'milo';
     let nextLevel = 'pip';
 
-    function showLevelAppraisal(game, title, subtitle, avatar, next) {
+    function triggerConfetti() {
+      const container = document.getElementById('confettiContainer');
+      container.innerHTML = '';
+      const colors = ['#f43f5e', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+      for (let i = 0; i < 40; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-particle';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.width = Math.random() * 12 + 8 + 'px';
+        piece.style.height = Math.random() * 16 + 10 + 'px';
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '3px';
+        piece.style.animationDelay = Math.random() * 0.8 + 's';
+        piece.style.animationDuration = Math.random() * 1.5 + 2 + 's';
+        container.appendChild(piece);
+      }
+    }
+
+    function showLevelAppraisal(game, title, subtitle, avatar, next, speakText) {
       activeLevel = game;
       nextLevel = next;
 
@@ -686,15 +732,16 @@
       document.getElementById('modalAnimalAvatar').textContent = avatar;
 
       playCelebrationFanfare();
+      triggerConfetti();
+      if (speakText) speakPraise(speakText);
 
-      setTimeout(() => {
-        document.getElementById('levelAppraisalModal').classList.add('active');
-      }, 500);
+      const modal = document.getElementById('levelAppraisalModal');
+      modal.classList.add('visible');
     }
 
     function handleModalReplay() {
       playNote(440, 0.2, 'triangle');
-      document.getElementById('levelAppraisalModal').classList.remove('active');
+      document.getElementById('levelAppraisalModal').classList.remove('visible');
 
       if (activeLevel === 'milo') resetMilo();
       else if (activeLevel === 'pip') resetPip();
@@ -703,7 +750,7 @@
 
     function handleModalNext() {
       playNote(659.25, 0.3, 'sine');
-      document.getElementById('levelAppraisalModal').classList.remove('active');
+      document.getElementById('levelAppraisalModal').classList.remove('visible');
 
       if (activeLevel === 'milo') resetMilo();
       else if (activeLevel === 'pip') resetPip();
@@ -717,57 +764,96 @@
     const miloDrops = document.querySelectorAll('.milo-drop');
     const miloTargets = document.querySelectorAll('.milo-target');
 
+    function bloomFlower(color) {
+      const target = document.getElementById(`milo-target-${color}`);
+      const drop = document.getElementById(`milo-drop-${color}`);
+
+      if (target && !target.classList.contains('bloomed')) {
+        target.classList.add('bloomed');
+        miloBloomed++;
+
+        if (drop) {
+          drop.style.transition = 'all 0.3s ease';
+          drop.style.transform = 'scale(0)';
+          drop.style.pointerEvents = 'none';
+        }
+
+        target.querySelector('.milo-bud').style.display = 'none';
+        const bloom = target.querySelector('.milo-bloom');
+        bloom.style.display = 'block';
+        bloom.classList.add('pop-in');
+
+        playNote(523 + miloBloomed * 120, 0.5);
+
+        // Immediate Level Complete Appraisal Check!
+        if (miloBloomed === 3) {
+          setTimeout(() => {
+            showLevelAppraisal(
+              'milo',
+              'Super Blooming! 🌸',
+              'You helped Milo wake up the whole garden!',
+              '🐻',
+              'pip',
+              'Hooray! Great job!'
+            );
+          }, 300);
+        }
+      }
+    }
+
+    // Tap-to-Place Accessibility Fallback for toddlers
+    let selectedMiloColor = null;
     miloDrops.forEach(drop => {
       let active = false, startX, startY;
+      
       drop.addEventListener('pointerdown', (e) => {
         initAudio(); active = true; drop.setPointerCapture(e.pointerId);
         startX = e.clientX; startY = e.clientY;
         drop.style.transition = 'none'; drop.style.zIndex = '50';
+        selectedMiloColor = drop.dataset.color;
       });
+
       drop.addEventListener('pointermove', (e) => {
         if (!active) return;
         const dx = e.clientX - startX; const dy = e.clientY - startY;
         drop.style.transform = `translate(${dx}px, ${dy}px) scale(1.15)`;
       });
+
       const endDrag = (e) => {
         if (!active) return; active = false; drop.releasePointerCapture(e.pointerId);
         const dRect = drop.getBoundingClientRect();
         let matched = false;
+
         miloTargets.forEach(target => {
           const tRect = target.getBoundingClientRect();
-          const overlap = !(dRect.right < tRect.left || dRect.left > tRect.right || dRect.bottom < tRect.top || dRect.top > tRect.bottom);
-          if (overlap && target.dataset.color === drop.dataset.color && !target.classList.contains('bloomed')) {
-            matched = true; target.classList.add('bloomed'); miloBloomed++;
-            drop.style.transition = 'all 0.3s ease'; drop.style.transform = 'scale(0)'; drop.style.pointerEvents = 'none';
-            target.querySelector('.milo-bud').style.display = 'none';
-            const bloom = target.querySelector('.milo-bloom');
-            bloom.style.display = 'block'; bloom.classList.add('pop-in');
-            playNote(523 + miloBloomed * 120, 0.5);
-
-            if (miloBloomed === 3) {
-              showLevelAppraisal(
-                'milo',
-                'Super Blooming! 🌸',
-                'You helped Milo wake up the flowers in the garden!',
-                '🐻',
-                'pip'
-              );
-            }
+          // Generous overlap check
+          const overlap = !(dRect.right < tRect.left - 20 || dRect.left > tRect.right + 20 || dRect.bottom < tRect.top - 20 || dRect.top > tRect.bottom + 20);
+          if (overlap && target.dataset.color === drop.dataset.color) {
+            matched = true;
+            bloomFlower(drop.dataset.color);
           }
         });
+
         if (!matched) {
           playNote(220, 0.2, 'triangle');
           drop.style.transition = 'transform 0.3s ease';
           drop.style.transform = 'translate(0, 0) scale(1)';
         }
       };
+
       drop.addEventListener('pointerup', endDrag);
       drop.addEventListener('pointercancel', endDrag);
     });
 
+    function handleFlowerClick(color) {
+      // Tap on flower to water if tapped or selected
+      bloomFlower(color);
+    }
+
     function resetMilo() {
       miloBloomed = 0;
       miloDrops.forEach(drop => {
+        drop.style.transition = 'transform 0.3s ease';
         drop.style.transform = 'translate(0, 0) scale(1)';
         drop.style.pointerEvents = 'auto';
       });
@@ -783,6 +869,39 @@
     const pipBlocks = document.querySelectorAll('.pip-block');
     const pipSockets = document.querySelectorAll('.pip-socket');
 
+    function fitShape(shape) {
+      const socket = document.getElementById(`pip-socket-${shape}`);
+      const block = document.getElementById(`pip-block-${shape}`);
+
+      if (socket && !socket.classList.contains('solved')) {
+        socket.classList.add('solved');
+        pipSolved++;
+
+        if (block) {
+          block.style.transition = 'all 0.3s ease';
+          block.style.transform = 'scale(0)';
+          block.style.pointerEvents = 'none';
+        }
+
+        const hint = socket.querySelector('.pip-hint'); if (hint) hint.style.display = 'none';
+        const animal = socket.querySelector('.pip-animal'); if (animal) { animal.style.display = 'block'; animal.classList.add('pop-in'); }
+        playNote(659 + pipSolved * 80, 0.4);
+
+        if (pipSolved === 3) {
+          setTimeout(() => {
+            showLevelAppraisal(
+              'pip',
+              'Cozy Treehouse! 🌲',
+              'All three friends are safe & snug in their tree hollows!',
+              '🐦',
+              'penny',
+              'Wonderful! All friends are happy!'
+            );
+          }, 300);
+        }
+      }
+    }
+
     pipBlocks.forEach(block => {
       let active = false, startX, startY;
       block.addEventListener('pointerdown', (e) => {
@@ -791,49 +910,46 @@
         block.style.transition = 'none'; block.style.zIndex = '50';
         playNote(300, 0.1, 'triangle');
       });
+
       block.addEventListener('pointermove', (e) => {
         if (!active) return;
         const dx = e.clientX - startX; const dy = e.clientY - startY;
         block.style.transform = `translate(${dx}px, ${dy}px) scale(1.15)`;
       });
+
       const endDrag = (e) => {
         if (!active) return; active = false; block.releasePointerCapture(e.pointerId);
         const bRect = block.getBoundingClientRect();
         let matched = false;
+
         pipSockets.forEach(socket => {
           const sRect = socket.getBoundingClientRect();
-          const overlap = !(bRect.right < sRect.left || bRect.left > sRect.right || bRect.bottom < sRect.top || bRect.top > sRect.bottom);
-          if (overlap && socket.dataset.shape === block.dataset.shape && !socket.classList.contains('solved')) {
-            matched = true; socket.classList.add('solved'); pipSolved++;
-            block.style.transition = 'all 0.3s ease'; block.style.transform = 'scale(0)'; block.style.pointerEvents = 'none';
-            const hint = socket.querySelector('.pip-hint'); if (hint) hint.style.display = 'none';
-            const animal = socket.querySelector('.pip-animal'); if (animal) { animal.style.display = 'block'; animal.classList.add('pop-in'); }
-            playNote(659 + pipSolved * 80, 0.4);
-
-            if (pipSolved === 3) {
-              showLevelAppraisal(
-                'pip',
-                'Cozy Treehouse! 🌲',
-                'All three friends are safe & snug in their tree hollows!',
-                '🐦',
-                'penny'
-              );
-            }
+          const overlap = !(bRect.right < sRect.left - 20 || bRect.left > sRect.right + 20 || bRect.bottom < sRect.top - 20 || bRect.top > sRect.bottom + 20);
+          if (overlap && socket.dataset.shape === block.dataset.shape) {
+            matched = true;
+            fitShape(block.dataset.shape);
           }
         });
+
         if (!matched) {
           playNote(180, 0.15, 'triangle');
           block.style.transition = 'transform 0.3s ease';
           block.style.transform = 'translate(0, 0) scale(1)';
         }
       };
+
       block.addEventListener('pointerup', endDrag);
       block.addEventListener('pointercancel', endDrag);
     });
 
+    function handleSocketClick(shape) {
+      fitShape(shape);
+    }
+
     function resetPip() {
       pipSolved = 0;
       pipBlocks.forEach(b => {
+        b.style.transition = 'transform 0.3s ease';
         b.style.transform = 'translate(0, 0) scale(1)';
         b.style.pointerEvents = 'auto';
       });
@@ -851,32 +967,40 @@
     const dragBoots = document.getElementById('penny-drag-boots');
     const dropZone = document.getElementById('penny-drop-zone');
 
+    function applyBootsDirectly() {
+      if (pennyHasBoots) return;
+      pennyHasBoots = true;
+      playSnort();
+      playNote(587, 0.3);
+      document.getElementById('penny-bare-legs').style.display = 'none';
+      document.getElementById('penny-boots').style.display = 'block';
+      dropZone.style.display = 'none';
+      dragBoots.style.display = 'none';
+      document.getElementById('penny-tray').style.display = 'none';
+      document.getElementById('penny-progress').style.display = 'flex';
+      document.getElementById('penny-tap-label').style.display = 'block';
+      document.getElementById('penny-status').textContent = "Step 2: Tap the puddle to jump!";
+    }
+
     let activeB = false, bx, by;
     dragBoots.addEventListener('pointerdown', (e) => {
       initAudio(); activeB = true; dragBoots.setPointerCapture(e.pointerId);
       bx = e.clientX; by = e.clientY;
       dragBoots.style.transition = 'none'; dragBoots.style.zIndex = '50';
     });
+
     dragBoots.addEventListener('pointermove', (e) => {
       if (!activeB) return;
       dragBoots.style.transform = `translate(${e.clientX - bx}px, ${e.clientY - by}px) scale(1.15)`;
     });
+
     const releaseBoots = (e) => {
       if (!activeB) return; activeB = false; dragBoots.releasePointerCapture(e.pointerId);
       const bRect = dragBoots.getBoundingClientRect();
       const zRect = dropZone.getBoundingClientRect();
-      const overlap = !(bRect.right < zRect.left || bRect.left > zRect.right || bRect.bottom < zRect.top || bRect.top > zRect.bottom);
+      const overlap = !(bRect.right < zRect.left - 20 || bRect.left > zRect.right + 20 || bRect.bottom < zRect.top - 20 || bRect.top > zRect.bottom + 20);
       if (overlap) {
-        pennyHasBoots = true;
-        playSnort();
-        playNote(587, 0.3);
-        document.getElementById('penny-bare-legs').style.display = 'none';
-        document.getElementById('penny-boots').style.display = 'block';
-        dropZone.style.display = 'none';
-        document.getElementById('penny-tray').style.display = 'none';
-        document.getElementById('penny-progress').style.display = 'flex';
-        document.getElementById('penny-tap-label').style.display = 'block';
-        document.getElementById('penny-status').textContent = "Step 2: Tap the puddle to jump!";
+        applyBootsDirectly();
       } else {
         dragBoots.style.transition = 'transform 0.3s ease';
         dragBoots.style.transform = 'translate(0, 0) scale(1)';
@@ -895,14 +1019,13 @@
       void char.offsetWidth;
       char.classList.add('jump-anim');
 
-      // Update progress dots
       const dots = document.querySelectorAll('#penny-dots .pdot');
       if (dots[pennyJumps - 1]) {
         dots[pennyJumps - 1].style.background = '#059669';
         dots[pennyJumps - 1].style.transform = 'scale(1.25)';
       }
 
-      // Mud Splatters (Larger drops)
+      // Mud Splatters
       const splatters = document.getElementById('penny-splatters');
       for (let i = 0; i < 8; i++) {
         const drop = document.createElement('div');
@@ -922,7 +1045,6 @@
         setTimeout(() => drop.remove(), 600);
       }
 
-      // Check for level complete!
       if (pennyJumps === maxPennyJumps) {
         setTimeout(() => {
           playSnort();
@@ -931,9 +1053,10 @@
             'Splash Champion! 💦',
             'Penny had so much fun jumping in the muddy puddles!',
             '🐷',
-            'milo'
+            'milo',
+            'Splash champion! You did it!'
           );
-        }, 500);
+        }, 400);
       }
     }
 
@@ -944,9 +1067,9 @@
       document.getElementById('penny-boots').style.display = 'none';
       dropZone.style.display = 'block';
       document.getElementById('penny-tray').style.display = 'flex';
-      document.getElementById('penny-progress').style.display = 'none';
       dragBoots.style.display = 'block';
       dragBoots.style.transform = 'translate(0, 0) scale(1)';
+      document.getElementById('penny-progress').style.display = 'none';
       document.getElementById('penny-tap-label').style.display = 'none';
       document.getElementById('penny-status').textContent = "Step 1: Put on the yellow boots!";
 
