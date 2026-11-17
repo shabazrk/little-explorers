@@ -444,6 +444,101 @@
     }
     .pip-block:hover { transform: scale(1.08); }
     .pip-block:active { cursor: grabbing; transform: scale(1.15); }
+
+    /* MULTI-LEVEL SWITCHER PILLS */
+    .level-pill-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(254, 243, 199, 0.7);
+      padding: 4px 8px;
+      border-radius: 9999px;
+      border: 1.5px solid #fde68a;
+      margin: 4px 0 8px;
+    }
+    .level-pill {
+      border: none;
+      background: transparent;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #92400e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .level-pill.active {
+      background: #f59e0b;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+      transform: scale(1.04);
+    }
+
+    /* COLOR POTS TRAY (LEVEL 2) */
+    .color-pot {
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .color-pot:hover { transform: scale(1.1); }
+    .color-pot:active { cursor: grabbing; transform: scale(1.18); }
+
+    /* FANCY X & YES CELEBRATION FEEDBACK */
+    .fancy-feedback-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 60;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .fancy-feedback-overlay.show-x {
+      opacity: 1;
+      transform: scale(1);
+      animation: fancyShake 0.5s ease-in-out;
+    }
+    .fancy-feedback-overlay.show-yes {
+      opacity: 1;
+      transform: scale(1);
+      animation: fancyPopYes 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes fancyShake {
+      0%, 100% { transform: translateX(0) scale(1); }
+      20% { transform: translateX(-14px) rotate(-6deg) scale(1.08); }
+      40% { transform: translateX(12px) rotate(5deg) scale(1.08); }
+      60% { transform: translateX(-8px) rotate(-3deg) scale(1.04); }
+      80% { transform: translateX(6px) rotate(2deg) scale(1.02); }
+    }
+
+    @keyframes fancyPopYes {
+      0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+      50% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+      75% { transform: scale(0.95) rotate(-2deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    @keyframes fruitCelebrate {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.18) translateY(-14px) rotate(5deg); }
+      60% { transform: scale(1.15) translateY(-8px) rotate(-5deg); }
+      100% { transform: scale(1) translateY(0) rotate(0deg); }
+    }
+
+    .fruit-animating {
+      animation: fruitCelebrate 0.8s ease-in-out;
+    }
   </style>
 </head>
 <body>
@@ -461,7 +556,10 @@
           <span>🏠</span> Home
         </button>
         <button id="tab-milo" class="tab-btn" onclick="switchGame('milo')">
-          <span>🎨</span> Colors
+          <span>🌸</span> Flowers
+        </button>
+        <button id="tab-color-fruits" class="tab-btn" onclick="switchGame('color-fruits')">
+          <span>🍎</span> Fruits
         </button>
         <button id="tab-pip" class="tab-btn" onclick="switchGame('pip')">
           <span>🔷</span> Shapes
@@ -486,24 +584,43 @@
           <h2 style="font-size:1.4rem; font-weight:900; color:#78350f; display:flex; align-items:center; gap:8px;">
             Explore & Play 🌟
           </h2>
-          <p style="font-size:0.85rem; color:#92400e; font-weight:600;">Choose a learning world to begin your adventure!</p>
+          <p style="font-size:0.85rem; color:#92400e; font-weight:600;">Choose a learning world or level to begin your adventure!</p>
         </div>
 
-        <!-- SECTION 1: COLORS & CREATIVITY -->
+        <!-- SECTION 1: COLORS & CREATIVITY (MULTI-LEVEL) -->
         <div class="category-section">
           <div class="category-header">
             <h3 class="category-title">
               <span>🎨</span> Colors & Creativity
             </h3>
-            <span class="category-badge">Sensory & Art</span>
+            <span class="category-badge">2 Levels Available</span>
           </div>
           <div class="cards-grid">
+            <!-- Level 1 -->
             <div class="game-card" onclick="switchGame('milo')">
               <div class="card-left">
-                <div class="card-avatar" style="background:#fee2e2;">🐻</div>
+                <div class="card-avatar" style="background:#fee2e2;">🌸</div>
                 <div class="card-info">
-                  <h4>Milo’s Color Garden</h4>
-                  <p>Match colored drops to wake sleeping flowers</p>
+                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
+                    <span style="background:#fde68a; color:#92400e; font-size:0.65rem; font-weight:800; padding:1px 7px; border-radius:9999px;">LEVEL 1</span>
+                    <h4 style="margin:0;">Milo’s Flower Garden</h4>
+                  </div>
+                  <p>Match colored drops to bloom sleeping flowers</p>
+                </div>
+              </div>
+              <button class="card-play-btn">Play ➔</button>
+            </div>
+
+            <!-- Level 2 -->
+            <div class="game-card" onclick="switchGame('color-fruits')">
+              <div class="card-left">
+                <div class="card-avatar" style="background:#fef3c7;">🍎</div>
+                <div class="card-info">
+                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
+                    <span style="background:#bbf7d0; color:#166534; font-size:0.65rem; font-weight:800; padding:1px 7px; border-radius:9999px;">LEVEL 2</span>
+                    <h4 style="margin:0;">Color Fruits & Veggies</h4>
+                  </div>
+                  <p>Pick the right color: red apple, yellow banana & green broccoli!</p>
                 </div>
               </div>
               <button class="card-play-btn">Play ➔</button>
@@ -579,17 +696,23 @@
 
       </section>
 
-      <!-- GAME 1: MILO'S COLOR GARDEN (COLORS & ART) -->
+      <!-- GAME 1: MILO'S COLOR GARDEN (COLORS & ART - LEVEL 1) -->
       <section id="view-milo" class="game-view">
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:10px;">
             <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
             <div>
               <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Milo’s Colors</h3>
-              <p style="font-size:0.85rem; color:#92400e;">Match drops to wake the flowers!</p>
+              <p style="font-size:0.85rem; color:#92400e;">Level 1 • Match drops to wake the flowers!</p>
             </div>
           </div>
           <button onclick="resetMilo()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+        </div>
+
+        <!-- Level Switcher -->
+        <div class="level-pill-bar">
+          <button class="level-pill active">🌸 Level 1: Flowers</button>
+          <button onclick="switchGame('color-fruits')" class="level-pill">🍎 Level 2: Fruits & Veggies</button>
         </div>
 
         <!-- Flowers Stage -->
@@ -661,6 +784,147 @@
               <circle cx="31" cy="48" r="3" fill="#1e3a8a"/><circle cx="41" cy="48" r="3" fill="#1e3a8a"/>
               <path d="M33 53 Q36 57 39 53" stroke="#1e3a8a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- GAME 1B: COLOR FRUITS & VEGETABLES (COLORS LEVEL 2) -->
+      <section id="view-color-fruits" class="game-view">
+        <!-- Top Game Header -->
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
+            <div>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Fruit & Veggie Colors 🎨</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Level 2 • Pick & drag the right color!</p>
+            </div>
+          </div>
+          <button onclick="resetColorFruits()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+        </div>
+
+        <!-- Level Switcher -->
+        <div class="level-pill-bar">
+          <button onclick="switchGame('milo')" class="level-pill">🌸 Level 1: Flowers</button>
+          <button class="level-pill active">🍎 Level 2: Fruits & Veggies</button>
+        </div>
+
+        <!-- Progress Tracker & Prompt Bar -->
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 8px;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span id="fdot-apple" style="font-size:1.15rem; padding:3px 8px; border-radius:9999px; background:#fef3c7; border:2px solid #f59e0b; transition:all 0.3s;">🍎</span>
+            <span id="fdot-banana" style="font-size:1.15rem; padding:3px 8px; border-radius:9999px; background:#f1f5f9; border:2px solid #cbd5e1; opacity:0.6; transition:all 0.3s;">🍌</span>
+            <span id="fdot-broccoli" style="font-size:1.15rem; padding:3px 8px; border-radius:9999px; background:#f1f5f9; border:2px solid #cbd5e1; opacity:0.6; transition:all 0.3s;">🥦</span>
+          </div>
+          <div style="background:#fef3c7; border:1.5px solid #fde68a; padding:4px 12px; border-radius:9999px; font-size:0.85rem; font-weight:800; color:#92400e;">
+            <span id="fruit-name-label">Apple</span>
+          </div>
+        </div>
+
+        <!-- Drawing Canvas Stage -->
+        <div style="flex:1; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%); border-radius:28px; border:3px dashed #f59e0b; margin:10px 0; position:relative; overflow:hidden;">
+          
+          <!-- Friendly Question Banner -->
+          <div style="position:absolute; top:12px; background:rgba(255,255,255,0.92); padding:5px 16px; border-radius:9999px; border:2px solid #fcd34d; box-shadow:0 2px 8px rgba(180,83,9,0.08); z-index:10;">
+            <span id="fruit-prompt-text" style="font-size:0.9rem; font-weight:800; color:#78350f;">What color is an Apple? 🍎</span>
+          </div>
+
+          <!-- Target Fruit Display (Drag Target & Interactive Area) -->
+          <div id="fruit-coloring-target" style="width:200px; height:200px; display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer;" title="Tap or drop color here">
+            
+            <!-- Apple SVG -->
+            <svg id="fruit-svg-apple" viewBox="0 0 120 120" style="width:190px; height:190px; filter:drop-shadow(0 8px 16px rgba(180,83,9,0.15)); transition:transform 0.3s ease;">
+              <path d="M60 26 C60 14 68 8 72 6" stroke="#78350f" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+              <path d="M62 20 C76 14 80 24 74 26 C66 28 62 23 62 20 Z" fill="#22c55e" stroke="#166534" stroke-width="2"/>
+              <path class="fruit-body" d="M60 28 C38 28 20 44 20 68 C20 94 40 106 58 106 C59.5 106 60.5 106 62 106 C80 106 100 94 100 68 C100 44 82 28 60 28 Z" fill="#ffffff" stroke="#334155" stroke-width="4.5" style="transition:fill 0.4s ease, stroke 0.4s ease;"/>
+              <circle cx="48" cy="64" r="4.5" fill="#1e293b"/><circle cx="46.5" cy="62" r="1.5" fill="#ffffff"/>
+              <circle cx="72" cy="64" r="4.5" fill="#1e293b"/><circle cx="70.5" cy="62" r="1.5" fill="#ffffff"/>
+              <ellipse cx="40" cy="72" rx="4.5" ry="2.5" fill="#fda4af" opacity="0.6"/>
+              <ellipse cx="80" cy="72" rx="4.5" ry="2.5" fill="#fda4af" opacity="0.6"/>
+              <path d="M52 74 Q60 82 68 74" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </svg>
+
+            <!-- Banana SVG -->
+            <svg id="fruit-svg-banana" viewBox="0 0 120 120" style="width:190px; height:190px; display:none; filter:drop-shadow(0 8px 16px rgba(180,83,9,0.15)); transition:transform 0.3s ease;">
+              <path class="fruit-body" d="M34 94 C24 64 42 28 84 18 C88 17 92 21 89 26 C58 40 46 68 50 94 C51 100 42 102 34 94 Z" fill="#ffffff" stroke="#334155" stroke-width="4.5" style="transition:fill 0.4s ease, stroke 0.4s ease;"/>
+              <rect x="83" y="16" width="6" height="8" rx="2" fill="#854d0e" stroke="#334155" stroke-width="2"/>
+              <circle cx="36" cy="94" r="4" fill="#854d0e"/>
+              <circle cx="56" cy="52" r="4" fill="#1e293b"/><circle cx="55" cy="50.5" r="1.3" fill="#ffffff"/>
+              <circle cx="68" cy="46" r="4" fill="#1e293b"/><circle cx="67" cy="44.5" r="1.3" fill="#ffffff"/>
+              <path d="M60 58 Q66 64 72 54" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </svg>
+
+            <!-- Broccoli SVG -->
+            <svg id="fruit-svg-broccoli" viewBox="0 0 120 120" style="width:190px; height:190px; display:none; filter:drop-shadow(0 8px 16px rgba(180,83,9,0.15)); transition:transform 0.3s ease;">
+              <path class="fruit-stalk" d="M48 64 L46 98 C46 102 74 102 74 98 L72 64 Z" fill="#ffffff" stroke="#334155" stroke-width="4" style="transition:fill 0.4s ease, stroke 0.4s ease;"/>
+              <path class="fruit-body" d="M38 66 C26 66 20 54 26 42 C20 32 30 20 42 24 C48 14 72 14 78 24 C90 20 100 32 94 42 C100 54 94 66 82 66 Z" fill="#ffffff" stroke="#334155" stroke-width="4.5" style="transition:fill 0.4s ease, stroke 0.4s ease;"/>
+              <circle cx="52" cy="78" r="4" fill="#1e293b"/><circle cx="51" cy="76.5" r="1.3" fill="#ffffff"/>
+              <circle cx="68" cy="78" r="4" fill="#1e293b"/><circle cx="67" cy="76.5" r="1.3" fill="#ffffff"/>
+              <path d="M56 86 Q60 90 64 86" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </svg>
+
+            <!-- Fancy Feedback Overlay (Red X & Green YES) -->
+            <div id="fruit-feedback-fancy" class="fancy-feedback-overlay">
+              <!-- Fancy Red X -->
+              <div id="fancy-x-badge" style="display:none; flex-direction:column; align-items:center; gap:6px;">
+                <div style="width:78px; height:78px; border-radius:50%; background:#fee2e2; border:4px solid #ef4444; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(239,68,68,0.35);">
+                  <svg viewBox="0 0 50 50" style="width:44px; height:44px;">
+                    <line x1="14" y1="14" x2="36" y2="36" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="36" y1="14" x2="14" y2="36" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <span style="background:#fee2e2; color:#b91c1c; font-size:0.95rem; font-weight:900; padding:4px 12px; border-radius:9999px; border:2px solid #fca5a5; box-shadow:0 4px 12px rgba(239,68,68,0.2);">Try Again! ❌</span>
+              </div>
+
+              <!-- Fancy Green YES -->
+              <div id="fancy-yes-badge" style="display:none; flex-direction:column; align-items:center; gap:6px;">
+                <div style="width:84px; height:84px; border-radius:50%; background:#dcfce7; border:4px solid #10b981; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 28px rgba(16,185,129,0.4);">
+                  <svg viewBox="0 0 50 50" style="width:50px; height:50px;">
+                    <polyline points="14,26 22,34 36,16" fill="none" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span style="background:#dcfce7; color:#15803d; font-size:1.05rem; font-weight:900; padding:4px 14px; border-radius:9999px; border:2px solid #86efac; box-shadow:0 6px 16px rgba(16,185,129,0.25);">✨ YES! ✨</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Color Palette Tray (4 Chunky Color Pots) -->
+        <div id="color-pots-tray" style="width:100%; display:flex; justify-content:space-around; align-items:center; background:#f8fafc; border:2px solid #e2e8f0; border-radius:24px; padding:10px 8px;">
+          <!-- Red Pot -->
+          <div id="cpot-red" data-color="red" onclick="handleColorPotClick('red')" class="color-pot" style="width:72px; height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 70 70" style="width:64px; height:64px;">
+              <circle cx="35" cy="35" r="28" fill="#ef4444" stroke="#dc2626" stroke-width="3.5"/>
+              <ellipse cx="28" cy="24" rx="7" ry="4" fill="rgba(255,255,255,0.55)" transform="rotate(-30 28 24)"/>
+            </svg>
+            <span style="font-size:0.75rem; font-weight:800; color:#b91c1c; margin-top:-2px;">Red</span>
+          </div>
+
+          <!-- Yellow Pot -->
+          <div id="cpot-yellow" data-color="yellow" onclick="handleColorPotClick('yellow')" class="color-pot" style="width:72px; height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 70 70" style="width:64px; height:64px;">
+              <circle cx="35" cy="35" r="28" fill="#facc15" stroke="#ca8a04" stroke-width="3.5"/>
+              <ellipse cx="28" cy="24" rx="7" ry="4" fill="rgba(255,255,255,0.6)" transform="rotate(-30 28 24)"/>
+            </svg>
+            <span style="font-size:0.75rem; font-weight:800; color:#a16207; margin-top:-2px;">Yellow</span>
+          </div>
+
+          <!-- Green Pot -->
+          <div id="cpot-green" data-color="green" onclick="handleColorPotClick('green')" class="color-pot" style="width:72px; height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 70 70" style="width:64px; height:64px;">
+              <circle cx="35" cy="35" r="28" fill="#22c55e" stroke="#16a34a" stroke-width="3.5"/>
+              <ellipse cx="28" cy="24" rx="7" ry="4" fill="rgba(255,255,255,0.55)" transform="rotate(-30 28 24)"/>
+            </svg>
+            <span style="font-size:0.75rem; font-weight:800; color:#15803d; margin-top:-2px;">Green</span>
+          </div>
+
+          <!-- Purple Pot -->
+          <div id="cpot-purple" data-color="purple" onclick="handleColorPotClick('purple')" class="color-pot" style="width:72px; height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 70 70" style="width:64px; height:64px;">
+              <circle cx="35" cy="35" r="28" fill="#a855f7" stroke="#9333ea" stroke-width="3.5"/>
+              <ellipse cx="28" cy="24" rx="7" ry="4" fill="rgba(255,255,255,0.55)" transform="rotate(-30 28 24)"/>
+            </svg>
+            <span style="font-size:0.75rem; font-weight:800; color:#7e22ce; margin-top:-2px;">Purple</span>
           </div>
         </div>
       </section>
@@ -1007,6 +1271,7 @@
       document.getElementById('levelAppraisalModal').classList.remove('visible');
 
       if (activeLevel === 'milo') resetMilo();
+      else if (activeLevel === 'color-fruits') resetColorFruits();
       else if (activeLevel === 'pip') resetPip();
       else if (activeLevel === 'lola') resetLola();
       else if (activeLevel === 'penny') resetPenny();
@@ -1017,6 +1282,7 @@
       document.getElementById('levelAppraisalModal').classList.remove('visible');
 
       if (activeLevel === 'milo') resetMilo();
+      else if (activeLevel === 'color-fruits') resetColorFruits();
       else if (activeLevel === 'pip') resetPip();
       else if (activeLevel === 'lola') resetLola();
       else if (activeLevel === 'penny') resetPenny();
@@ -1024,7 +1290,7 @@
       switchGame(nextLevel);
     }
 
-    // --- GAME 1: MILO (COLORS) ---
+    // --- GAME 1: MILO (COLORS LEVEL 1) ---
     let miloBloomed = 0;
     const miloDrops = document.querySelectorAll('.milo-drop');
     const miloTargets = document.querySelectorAll('.milo-target');
@@ -1052,7 +1318,7 @@
 
         if (miloBloomed === 3) {
           setTimeout(() => {
-            showLevelAppraisal('milo', 'Super Blooming! 🌸', 'You helped Milo wake up the whole garden!', '🐻', 'pip', 'Hooray! Great job!');
+            showLevelAppraisal('milo', 'Super Blooming! 🌸', 'You helped Milo wake up the whole garden!', '🐻', 'color-fruits', 'Hooray! Great job! Ready to color fruits?');
           }, 300);
         }
       }
@@ -1107,6 +1373,270 @@
         target.querySelector('.milo-bloom').style.display = 'none';
       });
     }
+
+    // --- GAME 1B: FRUIT & VEGGIE COLORS (COLORS LEVEL 2) ---
+    const fruitsData = [
+      { id: 'apple', name: 'Apple', targetColor: 'red', emoji: '🍎', prompt: "What color is a juicy Apple? 🍎", praise: "Yes! A delicious red apple!" },
+      { id: 'banana', name: 'Banana', targetColor: 'yellow', emoji: '🍌', prompt: "What color is a ripe Banana? 🍌", praise: "Yes! A bright yellow banana!" },
+      { id: 'broccoli', name: 'Broccoli', targetColor: 'green', emoji: '🥦', prompt: "What color is crunchy Broccoli? 🥦", praise: "Yes! Fresh green broccoli!" }
+    ];
+    let currentFruitIndex = 0;
+    let fruitsSolved = 0;
+    let fruitBusy = false;
+
+    function renderCurrentFruit() {
+      const fruit = fruitsData[currentFruitIndex];
+      const promptElem = document.getElementById('fruit-prompt-text');
+      const nameElem = document.getElementById('fruit-name-label');
+      if (promptElem) promptElem.textContent = fruit.prompt;
+      if (nameElem) nameElem.textContent = fruit.name;
+
+      fruitsData.forEach((f, idx) => {
+        const dot = document.getElementById(`fdot-${f.id}`);
+        if (!dot) return;
+        if (idx < currentFruitIndex) {
+          dot.style.background = '#dcfce7';
+          dot.style.borderColor = '#10b981';
+          dot.style.opacity = '1';
+          dot.style.transform = 'scale(1)';
+        } else if (idx === currentFruitIndex) {
+          dot.style.background = '#fef3c7';
+          dot.style.borderColor = '#f59e0b';
+          dot.style.opacity = '1';
+          dot.style.transform = 'scale(1.15)';
+        } else {
+          dot.style.background = '#f1f5f9';
+          dot.style.borderColor = '#cbd5e1';
+          dot.style.opacity = '0.55';
+          dot.style.transform = 'scale(1)';
+        }
+      });
+
+      ['apple', 'banana', 'broccoli'].forEach(id => {
+        const elem = document.getElementById(`fruit-svg-${id}`);
+        if (elem) elem.style.display = (id === fruit.id) ? 'block' : 'none';
+      });
+
+      resetFruitVisual(fruit.id);
+      hideFancyFeedback();
+    }
+
+    function resetFruitVisual(id) {
+      if (id === 'apple') {
+        const body = document.querySelector('#fruit-svg-apple .fruit-body');
+        if (body) {
+          body.setAttribute('fill', '#ffffff');
+          body.setAttribute('stroke', '#334155');
+        }
+        const svg = document.getElementById('fruit-svg-apple');
+        if (svg) svg.classList.remove('fruit-animating');
+      } else if (id === 'banana') {
+        const body = document.querySelector('#fruit-svg-banana .fruit-body');
+        if (body) {
+          body.setAttribute('fill', '#ffffff');
+          body.setAttribute('stroke', '#334155');
+        }
+        const svg = document.getElementById('fruit-svg-banana');
+        if (svg) svg.classList.remove('fruit-animating');
+      } else if (id === 'broccoli') {
+        const crown = document.querySelector('#fruit-svg-broccoli .fruit-body');
+        const stalk = document.querySelector('#fruit-svg-broccoli .fruit-stalk');
+        if (crown) {
+          crown.setAttribute('fill', '#ffffff');
+          crown.setAttribute('stroke', '#334155');
+        }
+        if (stalk) {
+          stalk.setAttribute('fill', '#ffffff');
+          stalk.setAttribute('stroke', '#334155');
+        }
+        const svg = document.getElementById('fruit-svg-broccoli');
+        if (svg) svg.classList.remove('fruit-animating');
+      }
+    }
+
+    function fillFruitColor(id, color) {
+      if (id === 'apple') {
+        const body = document.querySelector('#fruit-svg-apple .fruit-body');
+        if (body) {
+          body.setAttribute('fill', '#ef4444');
+          body.setAttribute('stroke', '#b91c1c');
+        }
+        const svg = document.getElementById('fruit-svg-apple');
+        if (svg) svg.classList.add('fruit-animating');
+      } else if (id === 'banana') {
+        const body = document.querySelector('#fruit-svg-banana .fruit-body');
+        if (body) {
+          body.setAttribute('fill', '#facc15');
+          body.setAttribute('stroke', '#ca8a04');
+        }
+        const svg = document.getElementById('fruit-svg-banana');
+        if (svg) svg.classList.add('fruit-animating');
+      } else if (id === 'broccoli') {
+        const crown = document.querySelector('#fruit-svg-broccoli .fruit-body');
+        const stalk = document.querySelector('#fruit-svg-broccoli .fruit-stalk');
+        if (crown) {
+          crown.setAttribute('fill', '#22c55e');
+          crown.setAttribute('stroke', '#15803d');
+        }
+        if (stalk) {
+          stalk.setAttribute('fill', '#86efac');
+          stalk.setAttribute('stroke', '#15803d');
+        }
+        const svg = document.getElementById('fruit-svg-broccoli');
+        if (svg) svg.classList.add('fruit-animating');
+      }
+    }
+
+    function showFancyX() {
+      const overlay = document.getElementById('fruit-feedback-fancy');
+      const xBadge = document.getElementById('fancy-x-badge');
+      const yesBadge = document.getElementById('fancy-yes-badge');
+      if (!overlay || !xBadge) return;
+      if (yesBadge) yesBadge.style.display = 'none';
+      xBadge.style.display = 'flex';
+      overlay.className = 'fancy-feedback-overlay show-x';
+    }
+
+    function showFancyYes() {
+      const overlay = document.getElementById('fruit-feedback-fancy');
+      const xBadge = document.getElementById('fancy-x-badge');
+      const yesBadge = document.getElementById('fancy-yes-badge');
+      if (!overlay || !yesBadge) return;
+      if (xBadge) xBadge.style.display = 'none';
+      yesBadge.style.display = 'flex';
+      overlay.className = 'fancy-feedback-overlay show-yes';
+    }
+
+    function hideFancyFeedback() {
+      const overlay = document.getElementById('fruit-feedback-fancy');
+      if (overlay) {
+        overlay.className = 'fancy-feedback-overlay';
+        const xBadge = document.getElementById('fancy-x-badge');
+        const yesBadge = document.getElementById('fancy-yes-badge');
+        if (xBadge) xBadge.style.display = 'none';
+        if (yesBadge) yesBadge.style.display = 'none';
+      }
+    }
+
+    function tryColorOnFruit(chosenColor) {
+      if (fruitBusy) return;
+      initAudio();
+      const fruit = fruitsData[currentFruitIndex];
+
+      if (chosenColor === fruit.targetColor) {
+        fruitBusy = true;
+
+        playNote(523.25, 0.25);
+        setTimeout(() => playNote(659.25, 0.25), 100);
+        setTimeout(() => playNote(783.99, 0.45), 220);
+        triggerConfetti();
+
+        if ('vibrate' in navigator) {
+          try { navigator.vibrate([60, 40, 120]); } catch(e) {}
+        }
+
+        fillFruitColor(fruit.id, fruit.targetColor);
+        showFancyYes();
+        speakPraise(fruit.praise);
+        fruitsSolved++;
+
+        setTimeout(() => {
+          fruitBusy = false;
+          if (currentFruitIndex < fruitsData.length - 1) {
+            currentFruitIndex++;
+            renderCurrentFruit();
+          } else {
+            showLevelAppraisal(
+              'color-fruits',
+              'Master Artist! 🎨',
+              'You colored all the delicious fruits and veggies perfectly!',
+              '🍎',
+              'pip',
+              'Hooray! Master artist! You colored all the fruits!'
+            );
+          }
+        }, 1800);
+
+      } else {
+        fruitBusy = true;
+        playNote(160, 0.25, 'triangle');
+
+        if ('vibrate' in navigator) {
+          try { navigator.vibrate([100, 50, 100]); } catch(e) {}
+        }
+
+        showFancyX();
+        speakPraise(`Oops! An ${fruit.name} is not ${chosenColor}!`);
+
+        const activeSvg = document.getElementById(`fruit-svg-${fruit.id}`);
+        if (activeSvg) {
+          activeSvg.style.transform = 'rotate(-8deg)';
+          setTimeout(() => { activeSvg.style.transform = 'rotate(8deg)'; }, 150);
+          setTimeout(() => { activeSvg.style.transform = 'rotate(0deg)'; }, 350);
+        }
+
+        setTimeout(() => {
+          hideFancyFeedback();
+          fruitBusy = false;
+        }, 1100);
+      }
+    }
+
+    function handleColorPotClick(color) {
+      tryColorOnFruit(color);
+    }
+
+    // Drag & Drop for 4 Color Pots
+    const colorPots = document.querySelectorAll('.color-pot');
+    colorPots.forEach(pot => {
+      let active = false, startX, startY, moved = false;
+      pot.addEventListener('pointerdown', (e) => {
+        initAudio(); active = true; moved = false; pot.setPointerCapture(e.pointerId);
+        startX = e.clientX; startY = e.clientY;
+        pot.style.transition = 'none'; pot.style.zIndex = '50';
+        playNote(350, 0.1, 'triangle');
+      });
+      pot.addEventListener('pointermove', (e) => {
+        if (!active) return;
+        const dx = e.clientX - startX; const dy = e.clientY - startY;
+        if (Math.hypot(dx, dy) > 8) moved = true;
+        pot.style.transform = `translate(${dx}px, ${dy}px) scale(1.22)`;
+      });
+      const endDrag = (e) => {
+        if (!active) return; active = false; pot.releasePointerCapture(e.pointerId);
+        const pRect = pot.getBoundingClientRect();
+        const target = document.getElementById('fruit-coloring-target');
+        const tRect = target.getBoundingClientRect();
+
+        pot.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        pot.style.transform = 'translate(0, 0) scale(1)';
+        pot.style.zIndex = '1';
+
+        if (!moved) {
+          tryColorOnFruit(pot.dataset.color);
+          return;
+        }
+
+        const overlap = !(pRect.right < tRect.left - 20 || pRect.left > tRect.right + 20 || pRect.bottom < tRect.top - 20 || pRect.top > tRect.bottom + 20);
+        if (overlap) {
+          tryColorOnFruit(pot.dataset.color);
+        } else {
+          playNote(200, 0.15, 'triangle');
+        }
+      };
+      pot.addEventListener('pointerup', endDrag);
+      pot.addEventListener('pointercancel', endDrag);
+    });
+
+    function resetColorFruits() {
+      currentFruitIndex = 0;
+      fruitsSolved = 0;
+      fruitBusy = false;
+      renderCurrentFruit();
+    }
+
+    // Initialize initial fruit state
+    renderCurrentFruit();
 
     // --- GAME 2: PIP (SHAPES & PUZZLES) ---
     let pipSolved = 0;
