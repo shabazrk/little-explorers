@@ -1,0 +1,24 @@
+{
+  "name": "Little Explorers • Play & Learn",
+  "short_name": "Explorers",
+  "description": "Montessori-inspired calm educational mini-games for ages 3-5",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fdf6e2",
+  "theme_color": "#fef3c7",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
