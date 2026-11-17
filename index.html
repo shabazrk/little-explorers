@@ -253,6 +253,114 @@
       border-color: #fcd34d;
     }
 
+    /* INSIDE COLOR WIDGET - LEVEL SELECTION VIEW */
+    #view-color-levels {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px 14px 20px;
+      background: linear-gradient(180deg, #fef8ee 0%, #fef3c7 100%);
+    }
+    #view-color-levels::-webkit-scrollbar { display: none; }
+
+    .color-level-widget {
+      background: #ffffff;
+      border: 3px solid #fde68a;
+      border-radius: 26px;
+      padding: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(180, 83, 9, 0.08);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .color-level-widget:hover {
+      border-color: #f59e0b;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 24px rgba(245, 158, 11, 0.18);
+    }
+    .color-level-widget:active {
+      transform: scale(0.97);
+    }
+
+    .level-left-content {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+    }
+    .level-avatar-box {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    .level-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .level-pill-badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      align-self: flex-start;
+      margin-bottom: 2px;
+    }
+    .level-details h4 {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #78350f;
+      line-height: 1.2;
+    }
+    .level-details p {
+      font-size: 0.8rem;
+      color: #92400e;
+      font-weight: 600;
+    }
+
+    /* STAR RATINGS: GREY INITIALLY, GLOWING GOLD ON COMPLETION */
+    .level-stars {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .star-slot {
+      font-size: 1.6rem;
+      line-height: 1;
+      display: inline-block;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .star-slot.star-grey {
+      color: #cbd5e1;
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    .star-slot.star-gold {
+      color: #f59e0b;
+      text-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+      transform: scale(1.15);
+      animation: starPop 0.4s ease-out;
+    }
+    @keyframes starPop {
+      0% { transform: scale(0.6); }
+      70% { transform: scale(1.3); }
+      100% { transform: scale(1.15); }
+    }
+
     /* Animations */
     .wobble { animation: wobble 0.6s ease-in-out; }
     @keyframes wobble {
@@ -707,6 +815,58 @@
 
       </section>
 
+      <!-- LEVEL SELECTION INSIDE PLAY WITH COLOURS WIDGET -->
+      <section id="view-color-levels" class="game-view">
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button onclick="switchGame('home')" style="border:none; background:#fef3c7; border-radius:50%; width:38px; height:38px; font-size:1.2rem; cursor:pointer;" title="Back to Home">🏠</button>
+            <div>
+              <h3 style="font-size:1.2rem; color:#78350f; font-weight:800;">Play with Colours 🎨</h3>
+              <p style="font-size:0.85rem; color:#92400e;">Choose a level to start playing!</p>
+            </div>
+          </div>
+          <button onclick="switchGame('home')" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">🏠 Home</button>
+        </div>
+
+        <div style="width:100%; display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+          <!-- Level 1 Widget Card -->
+          <div class="color-level-widget" onclick="switchGame('milo')">
+            <div class="level-left-content">
+              <div class="level-avatar-box" style="background:#fee2e2; border:2px solid #fca5a5;">🌸</div>
+              <div class="level-details">
+                <span class="level-pill-badge" style="background:#fde68a; color:#92400e;">LEVEL 1</span>
+                <h4>Flower Garden</h4>
+                <p>Match dew drops to bloom flowers</p>
+                <div class="level-stars" id="stars-milo">
+                  <span class="star-slot star-grey">★</span>
+                  <span class="star-slot star-grey">★</span>
+                  <span class="star-slot star-grey">★</span>
+                </div>
+              </div>
+            </div>
+            <button class="widget-play-btn" style="padding:10px 18px; font-size:0.85rem;">Play ➔</button>
+          </div>
+
+          <!-- Level 2 Widget Card -->
+          <div class="color-level-widget" onclick="switchGame('color-fruits')">
+            <div class="level-left-content">
+              <div class="level-avatar-box" style="background:#fef3c7; border:2px solid #fcd34d;">🍎</div>
+              <div class="level-details">
+                <span class="level-pill-badge" style="background:#bbf7d0; color:#166534;">LEVEL 2</span>
+                <h4>Fruit & Veggie Colors</h4>
+                <p>Color the apple, banana & broccoli</p>
+                <div class="level-stars" id="stars-color-fruits">
+                  <span class="star-slot star-grey">★</span>
+                  <span class="star-slot star-grey">★</span>
+                  <span class="star-slot star-grey">★</span>
+                </div>
+              </div>
+            </div>
+            <button class="widget-play-btn" style="padding:10px 18px; font-size:0.85rem;">Play ➔</button>
+          </div>
+        </div>
+      </section>
+
       <!-- GAME 1: MILO'S COLOR GARDEN (COLORS & ART - LEVEL 1) -->
       <section id="view-milo" class="game-view">
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
@@ -717,11 +877,15 @@
               <p style="font-size:0.85rem; color:#92400e;">Level 1 • Match drops to wake the flowers!</p>
             </div>
           </div>
-          <button onclick="resetMilo()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button onclick="switchGame('color-levels')" style="border:none; background:#fef3c7; color:#92400e; padding:8px 12px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;" title="All Levels">☰ Levels</button>
+            <button onclick="resetMilo()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+          </div>
         </div>
 
         <!-- Level Switcher -->
         <div class="level-pill-bar">
+          <button onclick="switchGame('color-levels')" class="level-pill" style="border:1.5px dashed #f59e0b; background:#fffbeb;">☰ All Levels</button>
           <button class="level-pill active">🌸 Level 1: Flowers</button>
           <button onclick="switchGame('color-fruits')" class="level-pill">🍎 Level 2: Fruits & Veggies</button>
         </div>
@@ -810,11 +974,15 @@
               <p style="font-size:0.85rem; color:#92400e;">Level 2 • Pick & drag the right color!</p>
             </div>
           </div>
-          <button onclick="resetColorFruits()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button onclick="switchGame('color-levels')" style="border:none; background:#fef3c7; color:#92400e; padding:8px 12px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;" title="All Levels">☰ Levels</button>
+            <button onclick="resetColorFruits()" style="border:none; background:#fef3c7; color:#92400e; padding:8px 14px; border-radius:9999px; font-weight:800; font-size:0.85rem; cursor:pointer;">↺ Reset</button>
+          </div>
         </div>
 
         <!-- Level Switcher -->
         <div class="level-pill-bar">
+          <button onclick="switchGame('color-levels')" class="level-pill" style="border:1.5px dashed #f59e0b; background:#fffbeb;">☰ All Levels</button>
           <button onclick="switchGame('milo')" class="level-pill">🌸 Level 1: Flowers</button>
           <button class="level-pill active">🍎 Level 2: Fruits & Veggies</button>
         </div>
@@ -1217,15 +1385,18 @@
         <h2 id="modalTitle" class="modal-title">Wonderful Job!</h2>
         <p id="modalSubtitle" class="modal-subtitle">You completed the level!</p>
 
-        <!-- The 2 Big Action Buttons -->
+        <!-- The 3 Action Buttons -->
         <div class="modal-buttons-row">
           <button id="modalReplayBtn" onclick="handleModalReplay()" class="action-btn replay-btn">
-            <span style="font-size:1.5rem;">↺</span>
+            <span style="font-size:1.2rem;">↺</span>
             <span>Replay</span>
           </button>
+          <button onclick="handleModalLevels()" class="action-btn" style="background:#fef3c7; color:#92400e; border:3px solid #fde68a; font-size:0.95rem;">
+            <span>☰ Levels</span>
+          </button>
           <button id="modalNextBtn" onclick="handleModalNext()" class="action-btn next-btn">
-            <span>Go Next Level</span>
-            <span style="font-size:1.5rem;">➔</span>
+            <span>Next</span>
+            <span style="font-size:1.2rem;">➔</span>
           </button>
         </div>
       </div>
@@ -1302,7 +1473,7 @@
 
     function switchGame(gameId) {
       initAudio();
-      if (gameId === 'colors') gameId = 'milo';
+      if (gameId === 'colors') gameId = 'color-levels';
       currentGame = gameId;
       playNote(440, 0.2, 'triangle');
 
@@ -1310,7 +1481,7 @@
       document.querySelectorAll('.game-view').forEach(view => view.classList.remove('active'));
 
       let tabId = gameId;
-      if (gameId === 'milo' || gameId === 'color-fruits') tabId = 'colors';
+      if (gameId === 'milo' || gameId === 'color-fruits' || gameId === 'color-levels') tabId = 'colors';
 
       const activeTab = document.getElementById(`tab-${tabId}`);
       if (activeTab) activeTab.classList.add('active');
@@ -1318,7 +1489,41 @@
       const activeView = document.getElementById(`view-${gameId}`);
       if (activeView) activeView.classList.add('active');
 
+      if (gameId === 'color-levels') updateAllLevelStarsUI();
       if (gameId === 'scribble') setTimeout(initScribble, 100);
+    }
+
+    // --- Star Rating Persistence (Grey initially -> Glowing Gold on completion) ---
+    function getLevelStars(key) {
+      try {
+        return parseInt(localStorage.getItem(`stars_${key}`) || '0', 10);
+      } catch(e) { return 0; }
+    }
+
+    function setLevelStars(key, stars) {
+      try {
+        const current = getLevelStars(key);
+        if (stars > current) {
+          localStorage.setItem(`stars_${key}`, String(stars));
+        }
+      } catch(e) {}
+      updateAllLevelStarsUI();
+    }
+
+    function updateAllLevelStarsUI() {
+      ['milo', 'color-fruits'].forEach(key => {
+        const starCount = getLevelStars(key);
+        const container = document.getElementById(`stars-${key}`);
+        if (!container) return;
+        const slots = container.querySelectorAll('.star-slot');
+        slots.forEach((slot, index) => {
+          if (index < starCount) {
+            slot.className = 'star-slot star-gold';
+          } else {
+            slot.className = 'star-slot star-grey';
+          }
+        });
+      });
     }
 
     // --- Appraisal & Level Progression Logic ---
@@ -1372,6 +1577,16 @@
       else if (activeLevel === 'scribble') clearScribbleCanvas();
     }
 
+    function handleModalLevels() {
+      playNote(440, 0.2, 'triangle');
+      document.getElementById('levelAppraisalModal').classList.remove('visible');
+      if (activeLevel === 'milo' || activeLevel === 'color-fruits') {
+        switchGame('color-levels');
+      } else {
+        switchGame('home');
+      }
+    }
+
     function handleModalNext() {
       playNote(659.25, 0.3, 'sine');
       document.getElementById('levelAppraisalModal').classList.remove('visible');
@@ -1414,8 +1629,9 @@
         playNote(523 + miloBloomed * 120, 0.5);
 
         if (miloBloomed === 3) {
+          setLevelStars('milo', 3);
           setTimeout(() => {
-            showLevelAppraisal('milo', 'Super Blooming! 🌸', 'You helped Milo wake up the whole garden!', '🐻', 'color-fruits', 'Hooray! Great job! Ready to color fruits?');
+            showLevelAppraisal('milo', 'Super Blooming! 🌸', 'You helped Milo wake up the whole garden!', '🐻', 'color-fruits', 'Hooray! Great job! You earned 3 golden stars!');
           }, 300);
         }
       }
@@ -1643,13 +1859,14 @@
             currentFruitIndex++;
             renderCurrentFruit();
           } else {
+            setLevelStars('color-fruits', 3);
             showLevelAppraisal(
               'color-fruits',
               'Master Artist! 🎨',
               'You colored all the delicious fruits and veggies perfectly!',
               '🍎',
               'pip',
-              'Hooray! Master artist! You colored all the fruits!'
+              'Hooray! Master artist! You colored all the fruits! You earned 3 golden stars!'
             );
           }
         }, 1800);
@@ -2109,6 +2326,9 @@
       playNote(659.25, 0.35);
       triggerConfetti();
     }
+
+    // Initialize level stars UI on page load
+    updateAllLevelStarsUI();
 
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
